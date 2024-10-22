@@ -1,0 +1,72 @@
+# Ignore Python bytecode and other Python-generated files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.env
+*.venv
+*.egg-info/
+*.eggs/
+
+# Ignore virtual environments
+venv/
+ENV/
+env/
+*.env
+env.bak/
+env.d/
+env/
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Ignore database files
+db.sqlite3
+*.sqlite3
+
+# Ignore Django static and media files
+/staticfiles/
+/media/
+
+# Ignore collected static files for production
+/static/
+
+# Ignore log files
+*.log
+
+# Ignore local settings
+local_settings.py
+
+# Ignore Node.js and frontend-related directories (if using Angular or React)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+dist/
+build/
+
+# Ignore any secret keys or configuration files
+.env
+
+# Ignore migrations files
+**/migrations/*.pyc
+**/migrations/__pycache__/
+**/migrations/*.py
+**/migrations/*.pyc
+**/migrations/*.pyo
+
+# Ignore coverage reports and testing output
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Ignore Docker-related files (if applicable)
+*.env.docker
+docker-compose.yml
+.dockerignore
