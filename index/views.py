@@ -1,14 +1,8 @@
-# views.py
-from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
-def home(request):
-    return render(request, 'home.html')
-
-
-def about(request):
-    return render(request, 'about.html')
-
-
-def contact(request):
-    return render(request, 'contact.html')
+@api_view(['GET'])
+def example_api(request):
+    data = {"message": "Hello from Django!"}
+    return Response(data)
