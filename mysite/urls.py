@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from index.views import get_instagram_images
 
 urlpatterns = [
     path('', include("index.urls")),
     path('admin/', admin.site.urls),
-    path('appointment/', include('appointment.urls'))
+    path('api/get_instagram_images', get_instagram_images, name='get_instagram_images'),
 ]

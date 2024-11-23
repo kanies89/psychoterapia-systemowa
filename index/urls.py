@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import example_api
+from .views import instagram_embed_api
 
 urlpatterns = [
-    path('api/example/', example_api),
-    # other paths...
+    path('api/instagram-embed/', instagram_embed_api, name='instagram_embed_api'),
 ]
