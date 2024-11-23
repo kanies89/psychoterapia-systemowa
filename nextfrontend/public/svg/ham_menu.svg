@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="20.092251mm"
+   height="17.61068mm"
+   viewBox="0 0 20.092251 17.61068"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="ham_menu.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title1">Menu</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4520903"
+     inkscape:cx="68.521907"
+     inkscape:cy="195.58012"
+     inkscape:window-width="1147"
+     inkscape:window-height="1040"
+     inkscape:window-x="1912"
+     inkscape:window-y="828"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-120.84697,-39.77525)">
+    <g
+       id="g438"
+       inkscape:label="hamburger"
+       transform="translate(-586.2881,-179.76839)"
+       style="display:inline">
+      <path
+         id="rect1433"
+         style="display:inline;fill:#58315a;fill-opacity:1;stroke:#ffffff;stroke-width:2.1;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:stroke markers fill"
+         inkscape:label="rect1424"
+         d="m 727.22732,220.59364 h -15.74219 c -1.8282,0 -3.30006,1.15944 -3.30006,2.59984 v 9.5803 c 0,0.81263 0.46847,1.53569 1.2051,2.01176 0.56561,0.78821 1.63695,1.31878 2.87269,1.31878 h 14.96446"
+         sodipodi:nodetypes="cssscsc" />
+      <path
+         id="rect1424"
+         style="display:inline;fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+         inkscape:label="rect1424"
+         d="m 727.22577,221.32435 h -14.96291 c -1.8282,0 -3.30006,1.15996 -3.30006,2.60036 v 9.57977 c 0,1.4404 1.47186,2.59984 3.30006,2.59984 h 14.96291"
+         sodipodi:nodetypes="cssssc" />
+      <path
+         id="rect1422"
+         style="display:inline;fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+         d="m 727.22732,220.59364 h -15.74219 c -1.8282,0 -3.30006,1.15944 -3.30006,2.59984 v 9.5803 c 0,1.4404 1.47186,2.59984 3.30006,2.59984 h 15.74219"
+         sodipodi:nodetypes="cssssc" />
+      <g
+         id="g1424"
+         style="display:inline;mix-blend-mode:multiply;stroke-width:1.6;stroke-dasharray:none"
+         transform="translate(1.2236979,6.4161458)">
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,218.72319 h 10.57051"
+           id="path1422" />
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,221.89821 h 10.57051"
+           id="path1423" />
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,225.07323 h 10.57051"
+           id="path1424" />
+      </g>
+      <g
+         id="g1427"
+         style="stroke-width:1.6;stroke-dasharray:none"
+         transform="translate(0.92604167,6.0854166)">
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,218.72319 h 10.57051"
+           id="path1425" />
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,221.89821 h 10.57051"
+           id="path1426" />
+        <path
+           style="fill:#95d0b9;fill-opacity:1;stroke:#58315a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:1.30525;stroke-opacity:1;paint-order:markers fill stroke"
+           d="m 711.18277,225.07323 h 10.57051"
+           id="path1427" />
+      </g>
+    </g>
+  </g>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Menu</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
