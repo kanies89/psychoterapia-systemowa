@@ -5,49 +5,42 @@ on:
     branches:
       - main
   workflow_dispatch: #manual
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout Code
+    # Checkout the repository
+    - name: Checkout repository
       uses: actions/checkout@v3
-
-    - name: Set up SSH key for PythonAnywhere
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_KEY_PASSWORD: ${{ secrets.SSH_KEY_PASSWORD }}
+    
+    # Set up SSH key for deployment
+    - name: Set up SSH
       run: |
-        # Create the .ssh directory if it doesn't exist
+        # Ensure the .ssh directory exists
         mkdir -p ~/.ssh
         
-        # Clean the private key (remove any carriage returns)
-        echo "${SSH_PRIVATE_KEY}" | sed 's/\r//' > ~/.ssh/id_rsa
+        # Save the SSH private key
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        
-        # Start the SSH agent
-        eval $(ssh-agent -s)
-        
-        # Add the private key to the SSH agent with the passphrase
-        echo "${SSH_KEY_PASSWORD}" | ssh-add ~/.ssh/id_rsa
         
         # Add PythonAnywhere to known hosts to prevent SSH prompts
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
         
-    - name: SSH into PythonAnywhere with debugging
+    # SSH into PythonAnywhere and deploy the app
+    - name: SSH into PythonAnywhere and deploy
       run: |
-        ssh -v -i ~/.ssh/id_rsa -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com
-    
-    - name: Deploy to PythonAnywhere
-      run: |
-        # SSH into PythonAnywhere and deploy your app
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-        cd /home/username/myapp
-        git pull origin main
-        source venv/bin/activate
-        pip install -r requirements.txt
-        python manage.py migrate
-        touch reload.ini
+          cd /home/username/myapp
+          git pull origin main
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate
+          touch reload.ini
         EOF
+      shell: /usr/bin/bash -e {0}
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
