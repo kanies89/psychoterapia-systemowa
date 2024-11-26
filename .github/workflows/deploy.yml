@@ -29,8 +29,9 @@ jobs:
 
     - name: Deploy to PythonAnywhere
       run: |
-        ssh -i deploy_key your_pythonanywhere_username@ssh.pythonanywhere.com << 'EOF'
-        cd ~/your-repository
+        ssh -i deploy_key psychoterapiasystemowa@ssh.pythonanywhere.com << 'EOF'
+        mkdir ~/webpage
+        cd ~/webpage
         git pull
         source venv/bin/activate
         pip install -r requirements.txt
