@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Manual trigger
-
+  workflow_dispatch: #manual
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,6 +17,7 @@ jobs:
     - name: Set up SSH key for PythonAnywhere
       env:
         SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_SSH_KEY }}
+        SSH_KEY_PASSWORD: ${{ secrets.SSH_KEY_PASSWORD }}
       run: |
         # Create the .ssh directory if it doesn't exist
         mkdir -p ~/.ssh
@@ -25,22 +26,19 @@ jobs:
         echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         
-        # Start the SSH agent and add the private key
+        # Start the SSH agent and add the private key with the passphrase
         eval $(ssh-agent -s)
-        ssh-add ~/.ssh/id_rsa
+        echo "${SSH_KEY_PASSWORD}" | ssh-add ~/.ssh/id_rsa
         
         # Add PythonAnywhere to known hosts to prevent SSH prompts
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
-
     - name: Deploy to PythonAnywhere
-      env:
-        PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
       run: |
         # SSH into PythonAnywhere and deploy your app
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-        cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
+        cd /home/username/myapp
         git pull origin main
         source venv/bin/activate
         pip install -r requirements.txt
