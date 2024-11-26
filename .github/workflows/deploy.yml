@@ -22,8 +22,8 @@ jobs:
         # Create the .ssh directory if it doesn't exist
         mkdir -p ~/.ssh
         
-        # Save the SSH private key to a file
-        echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        # Clean the private key (remove any carriage returns)
+        echo "${SSH_PRIVATE_KEY}" | sed 's/\r//' > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         
         # Start the SSH agent
@@ -35,6 +35,10 @@ jobs:
         # Add PythonAnywhere to known hosts to prevent SSH prompts
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
+        
+    - name: SSH into PythonAnywhere with debugging
+      run: |
+        ssh -v -i ~/.ssh/id_rsa -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com
     
     - name: Deploy to PythonAnywhere
       run: |
