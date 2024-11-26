@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: #manual
+  workflow_dispatch: # Manual trigger
 
 jobs:
   deploy:
@@ -35,11 +35,46 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
             cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
-            git pull origin main
+
+            # Pull the latest changes
+            git pull origin main || exit 1
+
+            # Deploy Django Backend
+            # Create virtual environment if it doesn't exist
+            if [ ! -d venv ]; then
+              python3 -m venv venv
+            fi
+
+            # Activate the virtual environment and install dependencies
             source venv/bin/activate
-            pip install -r requirements.txt
-            python manage.py migrate
+            pip install -r requirements.txt || exit 1
+
+            # Run migrations
+            python manage.py migrate || exit 1
+
+            # Trigger reload
             touch reload.ini
+
+            # Deploy Next.js Frontend
+            # Install Node.js (if not installed)
+            if ! command -v node &> /dev/null; then
+              echo "Node.js not found, installing..."
+              curl -sL https://deb.nodesource.com/setup_18.x | bash -
+              sudo apt-get install -y nodejs
+            fi
+
+            # Navigate to the Next.js frontend directory (adjust path to your project structure)
+            cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app/nextfrontend
+
+            # Install the frontend dependencies
+            npm install || exit 1
+
+            # Build the Next.js app
+            npm run build || exit 1
+
+            # Start the Next.js app (ensure that the backend is listening for frontend requests)
+            nohup npm run start &
+
           EOF
         shell: /usr/bin/bash -e {0}
         env:
