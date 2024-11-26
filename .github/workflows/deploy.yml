@@ -31,10 +31,12 @@ jobs:
         chmod 644 ~/.ssh/known_hosts
 
     - name: Deploy to PythonAnywhere
+      env:
+        PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
       run: |
         # SSH into PythonAnywhere and deploy your app
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no username@ssh.pythonanywhere.com << 'EOF'
-        cd /home/username/myapp
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
+        cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
         git pull origin main
         source venv/bin/activate
         pip install -r requirements.txt
