@@ -34,7 +34,7 @@ jobs:
     - name: SSH into PythonAnywhere and deploy
       run: |
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-          cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/myapp
+          cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
           git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
