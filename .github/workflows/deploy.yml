@@ -36,6 +36,17 @@ jobs:
 
     - name: Deploy to PythonAnywhere
       run: |
+        # Start the SSH agent
+        eval $(ssh-agent -s)
+    
+        # Add the private key to the SSH agent (assuming you also have the passphrase in secrets)
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - <<< "${{ secrets.SSH_KEY_PASSWORD }}"
+    
+        # Add PythonAnywhere to known hosts to prevent SSH prompts
+        mkdir -p ~/.ssh
+        ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
+    
         # SSH into PythonAnywhere and deploy your app
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
         cd /home/username/myapp
