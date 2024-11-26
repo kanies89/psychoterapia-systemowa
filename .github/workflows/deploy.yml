@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
     # Checkout the repository
     - name: Checkout repository
@@ -21,19 +21,20 @@ jobs:
         # Ensure the .ssh directory exists
         mkdir -p ~/.ssh
         
-        # Save the SSH private key
+        # Save the SSH private key to the appropriate file
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         
-        # Add PythonAnywhere to known hosts to prevent SSH prompts
+        # Add the appropriate PythonAnywhere SSH server to known hosts
+        echo "ssh.pythonanywhere.com" >> ~/.ssh/known_hosts
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
         
     # SSH into PythonAnywhere and deploy the app
     - name: SSH into PythonAnywhere and deploy
       run: |
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-          cd /home/username/myapp
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
+          cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/myapp
           git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
