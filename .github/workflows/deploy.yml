@@ -1,9 +1,11 @@
 name: Deploy to PythonAnywhere
 
+# Trigger the workflow on push to the main branch or manually through the GitHub interface
 on:
   push:
     branches:
       - main  # Trigger deployment when code is pushed to the main branch
+  workflow_dispatch:  # Manual trigger
 
 jobs:
   deploy:
