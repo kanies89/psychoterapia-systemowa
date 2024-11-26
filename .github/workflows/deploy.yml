@@ -37,7 +37,7 @@ jobs:
     - name: Deploy to PythonAnywhere
       run: |
         # SSH into PythonAnywhere and deploy your app
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -T ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
         cd /home/username/myapp
         git pull origin main
         source venv/bin/activate
