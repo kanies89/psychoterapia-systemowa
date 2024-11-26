@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   deploy:
@@ -14,32 +13,31 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Set up SSH Key
+    - name: Set up SSH key for PythonAnywhere
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_KEY }}  # Use the GitHub secret containing the private key
+        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_SSH_KEY }}
       run: |
-        # Create the .ssh directory if it doesn't exist
-        mkdir -p ~/.ssh
-        # Add the private key directly into the SSH configuration
+        # Save the SSH private key to a file
         echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa  # Ensure proper permissions for the private key
-        # Start SSH agent
+        chmod 600 ~/.ssh/id_rsa
+        
+        # Start the SSH agent and add the private key
         eval $(ssh-agent -s)
-        # Add the private key to the agent
-        echo "${{ secrets.SSH_KEY_PASSWORD }}" | ssh-add ~/.ssh/id_rsa
-
-    - name: Add PythonAnywhere to known hosts
-      run: |
+        ssh-add ~/.ssh/id_rsa
+        
+        # Add PythonAnywhere to known hosts to prevent SSH prompts
         mkdir -p ~/.ssh
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
     - name: Deploy to PythonAnywhere
       run: |
-        # Copy the repository to PythonAnywhere using SCP
-        scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r . ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com:/home/${{ secrets.PYTHONANYWHERE_USERNAME }}/your-directory
-
-    - name: Connect to PythonAnywhere and stop
-      run: |
-        # Connect to PythonAnywhere but don't run anything further, just stop
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com "echo 'Connected and repository copied'"
+        # SSH into PythonAnywhere and deploy your app
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no username@ssh.pythonanywhere.com << 'EOF'
+        cd /home/username/myapp
+        git pull origin main
+        source venv/bin/activate
+        pip install -r requirements.txt
+        python manage.py migrate
+        touch reload.ini
+        EOF
