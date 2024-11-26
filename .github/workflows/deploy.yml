@@ -11,37 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    
-    # Set up SSH key for deployment
-    - name: Set up SSH
-      run: |
-        # Ensure the .ssh directory exists
-        mkdir -p ~/.ssh
-        
-        # Save the SSH private key to the appropriate file
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        
-        # Add the appropriate PythonAnywhere SSH server to known hosts
-        echo "ssh.pythonanywhere.com" >> ~/.ssh/known_hosts
-        ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-        chmod 644 ~/.ssh/known_hosts
-        
-    # SSH into PythonAnywhere and deploy the app
-    - name: SSH into PythonAnywhere and deploy
-      run: |
-        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-          cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
-          git pull origin main
-          source venv/bin/activate
-          pip install -r requirements.txt
-          python manage.py migrate
-          touch reload.ini
-        EOF
-      shell: /usr/bin/bash -e {0}
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up SSH key for deployment
+      - name: Set up SSH
+        run: |
+          # Ensure the .ssh directory exists
+          mkdir -p ~/.ssh
+          
+          # Save the SSH private key to the appropriate file
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          
+          # Add the appropriate PythonAnywhere SSH server to known hosts
+          echo "ssh.pythonanywhere.com" >> ~/.ssh/known_hosts
+          ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      # SSH into PythonAnywhere and deploy the app
+      - name: SSH into PythonAnywhere and deploy
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
+            cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
+            git pull origin main
+            source venv/bin/activate
+            pip install -r requirements.txt
+            python manage.py migrate
+            touch reload.ini
+          EOF
+        shell: /usr/bin/bash -e {0}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
