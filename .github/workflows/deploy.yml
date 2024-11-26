@@ -3,7 +3,7 @@ name: Deploy to PythonAnywhere
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch: #manual
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
             cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
-            git pull origin main
+            git pull origin master
             source venv/bin/activate
             pip install -r requirements.txt
             python manage.py migrate
