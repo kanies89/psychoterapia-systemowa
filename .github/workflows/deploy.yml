@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   deploy:
@@ -16,14 +16,14 @@ jobs:
 
     - name: Set up SSH Key
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_KEY }}  # Use the GitHub secret containing the private key
       run: |
-        echo "${SSH_PRIVATE_KEY}" > id_rsa  # Use id_rsa as the key name
-        chmod 600 id_rsa
+        echo "${SSH_PRIVATE_KEY}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa  # Ensure proper permissions for the private key
         # Start SSH agent
         eval $(ssh-agent -s)
         # Add the private key to the agent
-        echo "${{ secrets.SSH_KEY_PASSWORD }}" | ssh-add id_rsa  # Use id_rsa here
+        echo "${{ secrets.SSH_KEY_PASSWORD }}" | ssh-add ~/.ssh/id_rsa
 
     - name: Add PythonAnywhere to known hosts
       run: |
@@ -31,15 +31,12 @@ jobs:
         ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
 
-    - name: Deploy to PythonAnywhere
+    - name: Copy the Repository to PythonAnywhere
       run: |
-        # Use id_rsa for the SSH key here
-        ssh -i id_rsa -o StrictHostKeyChecking=no psychoterapiasystemowa@ssh.pythonanywhere.com << 'EOF'
-        mkdir -p ~/webpage
-        cd ~/webpage
-        git pull
-        source venv/bin/activate
-        pip install -r requirements.txt
-        python manage.py migrate
-        touch reload.ini
-        EOF
+        # Copy the repository to PythonAnywhere using SCP
+        scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r . ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com:/home/${{ secrets.PYTHONANYWHERE_USERNAME }}/your-directory
+
+    - name: Connect to PythonAnywhere and stop
+      run: |
+        # Connect to PythonAnywhere but don't run anything further, just stop
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com "echo 'Connected and repository copied to /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/your-directory'"
