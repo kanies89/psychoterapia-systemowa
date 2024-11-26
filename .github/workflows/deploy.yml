@@ -1,0 +1,14 @@
+- name: Deploy to PythonAnywhere
+  env:
+    SSH_PRIVATE_KEY: ${{ secrets.PYTHONANYWHERE_KEY }}
+  run: |
+    echo "${SSH_PRIVATE_KEY}" > deploy_key
+    chmod 600 deploy_key
+    ssh -i deploy_key your_pythonanywhere_username@ssh.pythonanywhere.com << EOF
+    cd ~/your-repository
+    git pull
+    source venv/bin/activate
+    pip install -r requirements.txt
+    python manage.py migrate
+    touch reload.ini
+    EOF
