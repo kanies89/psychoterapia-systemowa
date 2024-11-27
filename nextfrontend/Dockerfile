@@ -5,11 +5,11 @@ FROM node:16
 WORKDIR /app
 
 # Install dependencies
-COPY nextfrontend/package.json nextfrontend/package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm install
 
 # Copy the Next.js app
-COPY nextfrontend .
+COPY . /app/nextfrontend
 
 # Expose the port
 EXPOSE 3000
