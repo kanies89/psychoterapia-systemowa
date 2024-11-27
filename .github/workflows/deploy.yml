@@ -1,82 +1,60 @@
-name: Deploy to PythonAnywhere
+name: Deploy Multi-Container App to Heroku
 
 on:
   push:
     branches:
       - master
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
+      # Checkout repository (updated to v4.2.2)
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.2.2
 
-      # Set up SSH key for deployment
-      - name: Set up SSH
+      # Check if commit message contains DEPLOY
+      - name: Check Commit Message
+        id: check_message
         run: |
-          # Ensure the .ssh directory exists
-          mkdir -p ~/.ssh
-          
-          # Save the SSH private key to the appropriate file
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
-          # Add the appropriate PythonAnywhere SSH server to known hosts
-          echo "ssh.pythonanywhere.com" >> ~/.ssh/known_hosts
-          ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+          if [[ "${{ github.event.head_commit.message }}" != *"DEPLOY"* ]]; then
+            echo "Commit message does not contain 'DEPLOY'. Exiting workflow."
+            exit 0
+          fi
+        shell: bash
 
-      # SSH into PythonAnywhere and deploy the app
-      - name: SSH into PythonAnywhere and deploy
+      # Log in to Docker Hub
+      # Log in to Docker Hub using token
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+      # Log in to Heroku Container Registry
+      - name: Log in to Heroku Container Registry
         run: |
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.PYTHONANYWHERE_USERNAME }}@ssh.pythonanywhere.com << 'EOF'
-            cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
-            # Pull the latest changes
-            git pull origin master || exit 1
+      # Build and tag Docker images using docker-compose
+      - name: Build and Tag Docker Images
+        run: |
+          docker-compose build
+          docker tag django-app registry.heroku.com/${{ secrets.APP_NAME }}/web
+          docker tag nextjs-app registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
-            # Deploy Django Backend
-            # Create virtual environment if it doesn't exist
-            if [ ! -d venv ]; then
-              python3 -m venv venv
-            fi
+      # Push Django and Next.js images to Heroku Container Registry
+      - name: Push Images to Heroku
+        run: |
+          docker push registry.heroku.com/${{ secrets.APP_NAME }}/web
+          docker push registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
-            # Activate the virtual environment and install dependencies
-            source venv/bin/activate
-            pip install -r requirements.txt || exit 1
+      # Release the images on Heroku
+      - name: Release Django Web Process
+        run: heroku container:release web -a ${{ secrets.APP_NAME }}
 
-            # Run migrations
-            python manage.py migrate || exit 1
+      - name: Release Next.js Worker Process
+        run: heroku container:release nextjs -a ${{ secrets.APP_NAME }}
 
-            # Trigger reload
-            touch reload.ini
-
-            # Deploy Next.js Frontend
-            # Install Node.js (if not installed)
-            if ! command -v node &> /dev/null; then
-              echo "Node.js not found, installing..."
-              curl -sL https://deb.nodesource.com/setup_18.x | bash -
-              sudo apt-get install -y nodejs
-            fi
-
-            # Navigate to the Next.js frontend directory (adjust path to your project structure)
-            cd /home/${{ secrets.PYTHONANYWHERE_USERNAME }}/ps_app/nextfrontend
-
-            # Install the frontend dependencies
-            npm install || exit 1
-
-            # Build the Next.js app
-            npm run build || exit 1
-
-            # Start the Next.js app (ensure that the backend is listening for frontend requests)
-            nohup npm run start &
-
-          EOF
-        shell: /usr/bin/bash -e {0}
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          PYTHONANYWHERE_USERNAME: ${{ secrets.PYTHONANYWHERE_USERNAME }}
+      # Optional: Check logs after release
+      - name: Check Logs
+        run: heroku logs --tail -a ${{ secrets.APP_NAME }}
