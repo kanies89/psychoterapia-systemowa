@@ -40,7 +40,10 @@ const InstagramCarousel = () => {
                             src={imageUrl}
                             alt={`Instagram Image ${index + 1}`}
                             className="rounded-box object-cover w-full h-120"
-                            onError={(e) => (e.target.src = "/fallback_image.png")} // Fallback for broken images
+                            onError={(e) => {
+                            const target = e.target as HTMLImageElement; // Type assertion
+                            target.src = "/fallback_image.png"; // Fallback for broken images
+                        }}
                         />
                     </div>
                 ))
