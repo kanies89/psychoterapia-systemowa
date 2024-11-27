@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository (updated to v4.2.2)
+      # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
       # Check if commit message contains DEPLOY
       - name: Check Commit Message
@@ -25,10 +25,16 @@ jobs:
           fi
         shell: bash
 
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
       # Log in to Docker Hub
-      # Log in to Docker Hub using token
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
       # Log in to Heroku Container Registry
       - name: Log in to Heroku Container Registry
@@ -48,10 +54,11 @@ jobs:
           docker push registry.heroku.com/${{ secrets.APP_NAME }}/web
           docker push registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
-      # Release the images on Heroku
+      # Release the Django app on Heroku
       - name: Release Django Web Process
         run: heroku container:release web -a ${{ secrets.APP_NAME }}
 
+      # Release the Next.js app on Heroku
       - name: Release Next.js Worker Process
         run: heroku container:release nextjs -a ${{ secrets.APP_NAME }}
 
