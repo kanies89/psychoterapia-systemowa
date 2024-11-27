@@ -25,6 +25,12 @@ jobs:
           fi
         shell: bash
 
+      # Print the root directory to debug the file path
+      - name: Print Root Directory
+        run: |
+          echo "Current working directory:"
+          pwd
+
       # Install Docker Compose
       - name: Install Docker Compose
         run: |
