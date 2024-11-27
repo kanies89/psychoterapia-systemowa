@@ -32,6 +32,7 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
+      # Set up Heroku CLI and authenticate
       - name: Set up Heroku CLI and authenticate
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
@@ -46,14 +47,18 @@ jobs:
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
-
       # Log in to Heroku Container Registry
       - name: Log in to Heroku Container Registry
         run: |
           echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
+      # List files for debugging
       - name: List files for debugging
         run: ls -R
+
+      # Switch Heroku to container stack (if not already set)
+      - name: Switch Heroku to container stack
+        run: heroku stack:set container -a ${{ secrets.APP_NAME }}
 
       # Build and tag Docker images using docker-compose
       - name: Build and Tag Docker Images
