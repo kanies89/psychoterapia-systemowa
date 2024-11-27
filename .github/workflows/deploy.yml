@@ -38,6 +38,14 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
+      - name: Set up Heroku CLI and authenticate
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          echo "HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}" > ~/.netrc
+          heroku --version
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
       # Log in to Docker Hub
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
