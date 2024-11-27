@@ -1,8 +1,8 @@
 services:
   django:
     build:
-      context: ./nextfrontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./djangobackend/Dockerfile
     container_name: django-app
     ports:
       - "8000:8000"
@@ -16,8 +16,8 @@ services:
 
   nextjs:
     build:
-      context: ./djangobackend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./nextfrontend/Dockerfile
     container_name: nextjs-app
     ports:
       - "3000:3000"
