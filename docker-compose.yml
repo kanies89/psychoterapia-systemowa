@@ -41,8 +41,8 @@ services:
     networks:
       - app-network
     depends_on:
-      - django
-      - nextjs
+      - kanies/django_website-django
+      - kanies/django_website-nextjs
 
 networks:
   app-network:
