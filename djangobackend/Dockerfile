@@ -1,18 +1,9 @@
-# Django app Dockerfile
-FROM python:3.10-slim
+# Example Dockerfile for Django backend
+FROM python:3.9-slim
 
-# Set the working directory
 WORKDIR /app
-
-# Install dependencies
-COPY requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
-# Copy the Django app
 COPY . .
 
-# Expose the port
-EXPOSE 8000
+RUN pip install -r requirements.txt
 
-# Start the Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "django_website.wsgi:application", "--bind", "0.0.0.0:8000"]
