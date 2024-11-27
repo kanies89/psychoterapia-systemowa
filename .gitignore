@@ -68,5 +68,5 @@ coverage.xml
 
 # Ignore Docker-related files (if applicable)
 *.env.docker
-docker-compose.yml
+docker/docker-compose.yml
 .dockerignore
