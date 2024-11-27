@@ -45,7 +45,7 @@ jobs:
       # Build and tag Docker images using docker-compose
       - name: Build and Tag Docker Images
         run: |
-          docker compose build
+          docker -f docker/docker-compose.yml build
           docker tag django-app registry.heroku.com/${{ secrets.APP_NAME }}/web
           docker tag nextjs-app registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
