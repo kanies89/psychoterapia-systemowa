@@ -56,8 +56,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE  # Optional, if you need to change the directory
           docker-compose build --no-cache
-          docker tag django-app registry.heroku.com/${{ secrets.APP_NAME }}/web
-          docker tag nextjs-app registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
+          docker tag kanies/django_website-django registry.heroku.com/${{ secrets.APP_NAME }}/web
+          docker tag kanies/django_website-nextjs registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
       # Push Django and Next.js images to Heroku Container Registry
       - name: Push Images to Heroku
