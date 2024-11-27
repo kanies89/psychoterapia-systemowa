@@ -42,6 +42,9 @@ jobs:
         run: |
           echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
+      - name: List files for debugging
+        run: ls -R
+
       # Build and tag Docker images using docker-compose
       - name: Build and Tag Docker Images
         run: |
