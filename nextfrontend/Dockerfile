@@ -1,10 +1,12 @@
-# Example Dockerfile for Next.js frontend
-FROM node:16
+# Use a Node.js version >= 18.18.0
+FROM node:18
 
+# Install dependencies and build your app
 WORKDIR /app
 COPY . .
-
 RUN npm install
 RUN npm run build
 
+# Expose the port and start the server
+EXPOSE 3000
 CMD ["npm", "start"]
