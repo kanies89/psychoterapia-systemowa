@@ -25,12 +25,6 @@ jobs:
           fi
         shell: bash
 
-      # Print the root directory to debug the file path
-      - name: Print Root Directory
-        run: |
-          echo "Current working directory:"
-          pwd
-
       # Install Docker Compose
       - name: Install Docker Compose
         run: |
@@ -41,7 +35,9 @@ jobs:
       - name: Set up Heroku CLI and authenticate
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
-          echo "HEROKU_API_KEY=${{ secrets.HEROKU_API_KEY }}" > ~/.netrc
+          echo "machine api.heroku.com" >> ~/.netrc
+          echo "  login heroku" >> ~/.netrc
+          echo "  password ${HEROKU_API_KEY}" >> ~/.netrc
           heroku --version
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
