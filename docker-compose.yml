@@ -1,5 +1,5 @@
 services:
-  django-appdjango:
+  django:
     build:
       context: ./djangobackend
       dockerfile: Dockerfile
@@ -41,8 +41,8 @@ services:
     networks:
       - app-network
     depends_on:
-      - kanies/django_website-django
-      - kanies/django_website-nextjs
+      - django
+      - nextjs
 
 networks:
   app-network:
