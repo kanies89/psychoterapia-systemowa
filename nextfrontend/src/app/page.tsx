@@ -10,7 +10,7 @@ import SectionTitle from "../../public/svg/section_title.svg";
 import Box1 from "../../public/svg/box1.svg";
 import InstagramCarousel from "@/app/components/insta";
 
-const DropdownMenu = ({ isMenuOpen, toggleDropdown }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
+const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
         <ul
             tabIndex={0}
