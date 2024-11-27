@@ -5,7 +5,7 @@ FROM node:16
 WORKDIR /app
 
 # List files in the build context (nextfrontend directory)
-RUN ls -la /app/nextfrontend
+RUN ls -la ./nextfrontend
 
 # Install dependencies
 COPY ./nextfrontend/package.json /app/nextfrontend/package.json
