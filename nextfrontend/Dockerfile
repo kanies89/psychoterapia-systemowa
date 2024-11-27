@@ -4,12 +4,9 @@ FROM node:16
 # Set the working directory
 WORKDIR /app
 
-# List files in the build context (nextfrontend directory)
-RUN ls -la ./nextfrontend
-
 # Install dependencies
-COPY ./nextfrontend/package.json /app/nextfrontend/package.json
-COPY ./nextfrontend/package-lock.json /app/nextfrontend/package-lock.json
+COPY ./package.json /app/nextfrontend/package.json
+COPY ./package-lock.json /app/nextfrontend/package-lock.json
 RUN npm install
 
 # Copy the Next.js app
