@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the Django app
-COPY . .
+COPY .. .
 
 # Expose the port
 EXPOSE 8000
