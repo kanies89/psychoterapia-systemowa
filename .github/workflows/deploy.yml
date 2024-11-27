@@ -54,7 +54,8 @@ jobs:
       # Build and tag Docker images using docker-compose
       - name: Build and Tag Docker Images
         run: |
-          docker-compose -f ./docker/docker-compose.yml build
+          cd $GITHUB_WORKSPACE  # Optional, if you need to change the directory
+          docker-compose -f docker-compose.yml build
           docker tag django-app registry.heroku.com/${{ secrets.APP_NAME }}/web
           docker tag nextjs-app registry.heroku.com/${{ secrets.APP_NAME }}/nextjs
 
