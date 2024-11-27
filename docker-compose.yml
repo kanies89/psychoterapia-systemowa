@@ -3,6 +3,7 @@ services:
     build:
       context: ./djangobackend
       dockerfile: Dockerfile
+    image: kanies/django_website-django:latest
     container_name: django-app
     ports:
       - "8000:8000"
@@ -18,6 +19,7 @@ services:
     build:
       context: ./nextfrontend
       dockerfile: Dockerfile
+    image: kanies/django_website-nextjs:latest
     container_name: nextjs-app
     ports:
       - "3000:3000"
