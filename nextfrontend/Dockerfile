@@ -5,8 +5,8 @@ FROM node:16
 WORKDIR /app
 
 # Install dependencies
-COPY ./package.json /app/nextfrontend/package.json
-COPY ./package-lock.json /app/nextfrontend/package-lock.json
+COPY package.json /app/nextfrontend/package.json
+COPY package-lock.json /app/nextfrontend/package-lock.json
 RUN npm install
 
 # Copy the Next.js app
