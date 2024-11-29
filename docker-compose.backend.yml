@@ -1,7 +1,7 @@
 services:
   django:
     build:
-      context: ./djangobackend
+      context: psychsys-backend
       dockerfile: Dockerfile
     image: kanies/django_website-django:latest
     container_name: django-app
