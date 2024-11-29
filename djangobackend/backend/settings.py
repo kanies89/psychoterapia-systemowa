@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-z6(s*@zbgk8%esa-h(i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
 
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
 ALLOWED_HOST = ['psychoterapiasystemowa.herokuapp.com', '127.0.0.1']
 
 # Application definition
