@@ -1,8 +1,8 @@
 services:
   django:
     build:
-      context: djangobackend
-      dockerfile: djangobackend/Dockerfile
+      context: ./djangobackend
+      dockerfile: Dockerfile
     image: kanies/django_website-django:latest
     container_name: django-app
     ports:

@@ -1,8 +1,8 @@
 services:
   nextjs:
     build:
-      context: nextfrontend
-      dockerfile: nextfrontend/Dockerfile
+      context: ./nextfrontend
+      dockerfile: Dockerfile
     image: kanies/django_website-nextjs:latest
     container_name: nextjs-app
     ports:
