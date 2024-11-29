@@ -1,0 +1,18 @@
+services:
+  django:
+    build:
+      context: djangobackend
+      dockerfile: djangobackend/Dockerfile
+    image: kanies/django_website-django:latest
+    container_name: django-app
+    ports:
+      - "8000:8000"  # Expose locally, but Heroku maps ports automatically
+    networks:
+      - app-network
+    environment:
+      - DEBUG=False
+      - ALLOWED_HOSTS=*
+
+networks:
+  app-network:
+    driver: bridge

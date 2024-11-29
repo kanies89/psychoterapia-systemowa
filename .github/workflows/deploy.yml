@@ -55,6 +55,7 @@ jobs:
       # Build and tag the Django image
       - name: Build and Tag Django Image
         run: |
+          cd $GITHUB_WORKSPACE 
           docker-compose -f docker-compose.backend.yml build --no-cache
           docker tag my-django-image registry.heroku.com/${{ secrets.BACKEND_APP_NAME }}/web
 
@@ -121,6 +122,7 @@ jobs:
       # Build and tag the Next.js image
       - name: Build and Tag Next.js Image
         run: |
+          cd $GITHUB_WORKSPACE 
           docker-compose -f docker-compose.frontend.yml build --no-cache
           docker tag my-nextjs-image registry.heroku.com/${{ secrets.FRONTEND_APP_NAME }}/web
 
