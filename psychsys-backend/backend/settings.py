@@ -40,6 +40,7 @@ SECURE_BROWSER_XSS_FILTER = not DEBUG
 SECURE_CONTENT_TYPE_NOSNIFF = not DEBUG
 SECURE_SSL_REDIRECT = not DEBUG  # Ensure your site uses HTTPS
 
+
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
 ALLOWED_HOSTS = ['psychsys-backend.herokuapp.com', 'localhost']
 
