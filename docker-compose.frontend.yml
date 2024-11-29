@@ -1,0 +1,15 @@
+services:
+  nextjs:
+    build:
+      context: nextfrontend
+      dockerfile: nextfrontend/Dockerfile
+    image: kanies/django_website-nextjs:latest
+    container_name: nextjs-app
+    ports:
+      - "3000:3000"  # Expose locally, but Heroku maps ports automatically
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
