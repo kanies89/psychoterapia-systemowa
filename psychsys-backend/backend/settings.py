@@ -31,7 +31,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use this in production
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-z6(s*@zbgk8%esa-h(i*7$ql0z4_$n5ayqccsfw&ur#o5u5#ng')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'false'
 
 # PRODUCTION
 CSRF_COOKIE_SECURE = not DEBUG
