@@ -76,11 +76,15 @@ jobs:
 
       # Release the Django app on Heroku
       - name: Release Django Web Process
-        run: heroku container:release web -a ${{ secrets.APP_NAME }}
+        run: |
+          heroku stack:set container -a ${{ secrets.APP_NAME }}
+          heroku container:release web -a ${{ secrets.APP_NAME }}
 
       # Release the Next.js app on Heroku
       - name: Release Next.js Worker Process
-        run: heroku container:release nextjs -a ${{ secrets.APP_NAME }}
+        run: |
+          heroku stack:set container -a ${{ secrets.APP_NAME }} 
+          heroku container:release nextjs -a ${{ secrets.APP_NAME }}
 
       # Optional: Check logs after release
       - name: Check Logs
