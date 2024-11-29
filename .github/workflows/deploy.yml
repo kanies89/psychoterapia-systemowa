@@ -55,7 +55,14 @@ jobs:
       # Add Buildpacks if necessary
       - name: Add Heroku Buildpacks
         run: |
+          # Check if the Heroku Python buildpack is already set
+          current_buildpacks=$(heroku buildpacks -a ${{ secrets.BACKEND_APP_NAME }})
+          if [[ "$current_buildpacks" != *"heroku/python"* ]]; then
+          echo "Adding Heroku Python buildpack..."
           heroku buildpacks:add heroku/python -a ${{ secrets.BACKEND_APP_NAME }}
+          else
+          echo "Heroku Python buildpack is already set."
+          fi
           # Add additional buildpacks here if needed, e.g., Postgres, Redis, etc.
           # heroku buildpacks:add https://github.com/heroku/heroku-buildpack-redis.git -a ${{ secrets.BACKEND_APP_NAME }}
 
