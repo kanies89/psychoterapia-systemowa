@@ -23,6 +23,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static']  # This should point to your 'static' d
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use this in production
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -32,8 +33,15 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-z6(s*@zbgk8%esa-h(i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() == 'true'
 
+# PRODUCTION
+CSRF_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+SECURE_BROWSER_XSS_FILTER = not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG  # Ensure your site uses HTTPS
+
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
-ALLOWED_HOST = ['psychsys-backend.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['psychsys-backend.herokuapp.com', 'localhost']
 
 # Application definition
 
