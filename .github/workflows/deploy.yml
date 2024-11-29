@@ -83,9 +83,10 @@ jobs:
         run: |
           heroku container:release web -a ${{ secrets.BACKEND_APP_NAME }}
 
-      # Optional: Check logs after release
-      - name: Check Backend Logs
-        run: heroku logs --tail -a ${{ secrets.BACKEND_APP_NAME }}
+      - name: Check Backend Logs (brief)
+        run: |
+          echo "Fetching recent logs..."
+          heroku logs --tail --num 100 -a ${{ secrets.BACKEND_APP_NAME }}  # Fetch only the last 100 lines
 
   deploy_frontend:
     runs-on: ubuntu-latest
@@ -151,6 +152,7 @@ jobs:
         run: |
           heroku container:release web -a ${{ secrets.FRONTEND_APP_NAME }}
 
-      # Optional: Check logs after release
-      - name: Check Frontend Logs
-        run: heroku logs --tail -a ${{ secrets.FRONTEND_APP_NAME }}
+      - name: Check Backend Logs (brief)
+        run: |
+          echo "Fetching recent logs..."
+          heroku logs --tail --num 100 -a ${{ secrets.FRONTEND_APP_NAME }}  # Fetch only the last 100 lines
