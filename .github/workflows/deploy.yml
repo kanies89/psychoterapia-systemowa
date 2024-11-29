@@ -52,6 +52,13 @@ jobs:
       - name: Switch Heroku to container stack
         run: heroku stack:set container -a ${{ secrets.BACKEND_APP_NAME }}
 
+      # Add Buildpacks if necessary
+      - name: Add Heroku Buildpacks
+        run: |
+          heroku buildpacks:add heroku/python -a ${{ secrets.BACKEND_APP_NAME }}
+          # Add additional buildpacks here if needed, e.g., Postgres, Redis, etc.
+          # heroku buildpacks:add https://github.com/heroku/heroku-buildpack-redis.git -a ${{ secrets.BACKEND_APP_NAME }}
+
       # Build and tag the Django image
       - name: Build and Tag Django Image
         run: |
@@ -118,6 +125,7 @@ jobs:
       # Switch Heroku to container stack (if not already set)
       - name: Switch Heroku to container stack
         run: heroku stack:set container -a ${{ secrets.FRONTEND_APP_NAME }}
+
 
       # Build and tag the Next.js image
       - name: Build and Tag Next.js Image

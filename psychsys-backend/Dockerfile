@@ -6,4 +6,7 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-CMD ["gunicorn", "backend.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Expose the port Heroku expects
+EXPOSE 8000
+
+CMD ["gunicorn","--bind", "0.0.0.0:$PORT", "backend.wsgi:application"]
