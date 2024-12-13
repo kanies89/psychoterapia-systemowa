@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="83.649757mm"
+   height="13.160767mm"
+   viewBox="0 0 83.649757 13.160767"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="number_input.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.5180909"
+     inkscape:cx="100.45512"
+     inkscape:cy="181.80729"
+     inkscape:window-width="1147"
+     inkscape:window-height="1040"
+     inkscape:window-x="3341"
+     inkscape:window-y="852"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="102.53048"
+       height="40.305088"
+       id="rect3264" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14-4" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14-4-5" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-51.858333,-77.258267)">
+    <g
+       id="g3263"
+       transform="translate(49.926178,25.9347)"
+       inkscape:label="nr_tel">
+      <rect
+         style="fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:0.751698;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         id="rect3262"
+         width="82.898056"
+         height="11.660711"
+         x="2.3080041"
+         y="52.447773"
+         rx="4.5873361"
+         ry="2.3846927" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-8.0448111,-971.36437)"
+         id="text3263"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3264);display:none;fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         inkscape:label="nr_telefonu"><tspan
+           x="50.912109"
+           y="3886.8208"
+           id="tspan12"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+             id="tspan11">nr </tspan></tspan><tspan
+           x="50.912109"
+           y="3905.4876"
+           id="tspan14"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+             id="tspan13">telefonu:</tspan></tspan></text>
+      <g
+         id="g14"
+         inkscape:label="3digit"
+         transform="translate(2.6127604)">
+        <rect
+           style="fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           id="rect3263"
+           width="14.023135"
+           height="11.665447"
+           x="30.748619"
+           y="51.697048"
+           rx="4.527885"
+           ry="2.3856609"
+           inkscape:label="3digit" />
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,18.413521,-969.37999)"
+           id="text13"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect14);shape-padding:1.625;display:inline;fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           inkscape:label="number"
+           x="16.529373"
+           y="0"><tspan
+             x="55.77571"
+             y="3888.4458"
+             id="tspan16"><tspan
+               style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+               id="tspan15">___</tspan></tspan></text>
+      </g>
+      <path
+         style="fill:#95d0b9;fill-opacity:1;stroke:#95d0b9;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:11.3499;stroke-opacity:1"
+         d="m 48.780631,57.474714 h 1.590252"
+         id="path179"
+         sodipodi:nodetypes="cc" />
+      <g
+         id="g199"
+         inkscape:label="3digit"
+         transform="translate(21.090115)">
+        <rect
+           style="fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           id="rect179"
+           width="14.023135"
+           height="11.665447"
+           x="30.748619"
+           y="51.697048"
+           rx="4.527885"
+           ry="2.3856609"
+           inkscape:label="3digit" />
+      </g>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,39.605644,-969.38097)"
+         id="text13-8"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect14-4);shape-padding:1.625;display:inline;fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         inkscape:label="number"
+         x="16.529373"
+         y="0"><tspan
+           x="55.77571"
+           y="3888.4458"
+           id="tspan18"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+             id="tspan17">___</tspan></tspan></text>
+      <path
+         style="fill:#95d0b9;fill-opacity:1;stroke:#95d0b9;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:11.3499;stroke-opacity:1"
+         d="m 67.257986,57.474714 h 1.590252"
+         id="path777"
+         sodipodi:nodetypes="cc" />
+      <g
+         id="g778"
+         inkscape:label="3digit"
+         transform="translate(39.541735)">
+        <rect
+           style="fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           id="rect778"
+           width="14.023135"
+           height="11.665447"
+           x="30.748619"
+           y="51.697048"
+           rx="4.527885"
+           ry="2.3856609"
+           inkscape:label="3digit" />
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,18.45245,-969.38095)"
+           id="text13-8-1"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect14-4-5);shape-padding:1.625;display:inline;fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           inkscape:label="number"
+           x="16.529373"
+           y="0"><tspan
+             x="55.77571"
+             y="3888.4458"
+             id="tspan20"><tspan
+               style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+               id="tspan19">___</tspan></tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
