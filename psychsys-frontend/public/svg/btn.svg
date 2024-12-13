@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="83.506104mm"
+   height="13.160765mm"
+   viewBox="0 0 83.506104 13.160765"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="btn.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.5180909"
+     inkscape:cx="112.31211"
+     inkscape:cy="-106.71298"
+     inkscape:window-width="1147"
+     inkscape:window-height="1040"
+     inkscape:window-x="3309"
+     inkscape:window-y="870"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="40.305088"
+       y="3906.7649"
+       width="274.35742"
+       height="21.920309"
+       id="rect3261" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-75.935416,-115.62287)">
+    <g
+       id="g3261"
+       transform="translate(74.377439,64.2993)"
+       inkscape:label="umow_wizyte">
+      <rect
+         style="fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         id="rect3259"
+         width="81.8237"
+         height="11.665446"
+         x="2.8669024"
+         y="52.445404"
+         rx="4.527885"
+         ry="2.3856609" />
+      <rect
+         style="display:inline;fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         id="rect3260"
+         width="81.8237"
+         height="11.665446"
+         x="1.931459"
+         y="51.697048"
+         rx="4.527885"
+         ry="2.3856609" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,16.484531,-978.50583)"
+         id="text3260"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3261);display:none;fill:#58315a;fill-opacity:1;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"><tspan
+           x="40.304688"
+           y="3921.4692"
+           id="tspan4"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold'"
+             id="tspan3">umów wizytę</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

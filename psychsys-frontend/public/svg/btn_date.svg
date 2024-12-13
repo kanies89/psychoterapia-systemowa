@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="10.727048mm"
+   height="18.555065mm"
+   viewBox="0 0 10.727048 18.555065"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="btn_date.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="9.0311111"
+     inkscape:cx="21.592028"
+     inkscape:cy="14.450049"
+     inkscape:window-width="1080"
+     inkscape:window-height="1857"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer17" />
+  <defs
+     id="defs1">
+    <rect
+       x="26.499998"
+       y="4165"
+       width="44.332737"
+       height="45.960152"
+       id="rect12" />
+    <rect
+       x="27.249998"
+       y="4200"
+       width="31.999998"
+       height="23.5"
+       id="rect33" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-104.775,-116.94583)">
+    <g
+       inkscape:groupmode="layer"
+       id="layer17"
+       inkscape:label="APP_BUTTON_DATE_"
+       transform="translate(-14.09282,76.340958)">
+      <path
+         id="rect600"
+         style="fill:#cfdaed;fill-opacity:1;stroke:#58315a;stroke-width:1.01919;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3.77955;stroke-opacity:1;paint-order:normal"
+         d="m 127.97116,41.731007 c 0.21873,0.391097 0.73836,1.145688 0.73836,1.661548 v 12.347721 c 0,1.334604 -0.85773,2.409076 -1.923,2.409076 h -5.6171 c -0.45469,0 -1.17049,-0.931735 -1.49897,-1.259895 0.34714,0.620723 1.2212,1.760887 1.87472,1.760887 h 5.6171 c 1.06526,0 1.923,-1.074473 1.923,-2.409072 V 43.893547 c 0,-1.041719 -0.673,-1.721857 -1.11411,-2.16254 z"
+         sodipodi:nodetypes="csssscssssc" />
+      <rect
+         style="display:inline;fill:#cfdaed;fill-opacity:1;stroke:#58315a;stroke-width:0.757408;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3.77955;stroke-opacity:1;paint-order:normal"
+         id="rect602"
+         width="9.4628849"
+         height="17.165663"
+         x="119.24652"
+         y="40.983578"
+         rx="2.1122205"
+         ry="2.4090297" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0,-0.26458333,0.26458333,0,-979.89367,58.56033)"
+         id="text1"
+         style="font-weight:600;font-size:16px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect12);display:none;fill:#58315a;fill-opacity:1;stroke:#ffffff;stroke-width:1.51181;stroke-linejoin:round;stroke-dasharray:0, 5.76378;stroke-dashoffset:0;paint-order:stroke markers fill"
+         x="12.450695"
+         y="0"><tspan
+           x="37.01001"
+           y="4177.6031"
+           id="tspan2"><tspan
+             style="text-align:center;text-anchor:middle"
+             id="tspan1">PN</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,112.47238,-1057.9539)"
+         id="text33"
+         style="font-weight:600;font-size:10.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect33);display:none;fill:#58315a;fill-opacity:1;stroke:#ffffff;stroke-width:1.51181;stroke-linejoin:round;stroke-dasharray:0, 5.76378;stroke-dashoffset:0;paint-order:stroke markers fill"><tspan
+           x="31.121961"
+           y="4208.4021"
+           id="tspan3">01.12</tspan></text>
+    </g>
+  </g>
+</svg>

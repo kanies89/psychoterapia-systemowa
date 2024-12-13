@@ -42,12 +42,15 @@ SECURE_SSL_REDIRECT = not DEBUG  # Ensure your site uses HTTPS
 
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
-ALLOWED_HOSTS = ['psychsys-backend.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['psychsys-backend.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'appointment',
+    'django_celery_beat',
     'corsheaders',
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +71,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'backend.urls'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}
+
 
 TEMPLATES = [
     {
@@ -142,3 +153,12 @@ CORS_ALLOWED_ORIGINS = [
 
 # Or to allow all origins (not recommended for production)
 # CORS_ALLOW_ALL_ORIGINS = True
+
+# CELERY TASKS
+# backend/settings.py
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Update this as per your Redis configuration
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'  # Adjust if needed
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

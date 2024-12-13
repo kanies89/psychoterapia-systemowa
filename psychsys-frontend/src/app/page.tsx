@@ -8,7 +8,13 @@ import UniHat from  "../../public/svg/uni_hat.svg";
 import SectionDivider from "@/app/components/section_divider";
 import SectionTitle from "../../public/svg/section_title.svg";
 import Box1 from "../../public/svg/box1.svg";
+import Box2 from "../../public/svg/box2.svg";
+import Box3 from "../../public/svg/box3.svg";
 import InstagramCarousel from "@/app/components/insta";
+import AppointmentRequestForm from "@/app/components/apointment_request_form";
+import LokGab from "../../public/svg/lok_gab.svg"
+
+import App from "next/app";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -146,7 +152,7 @@ const Page: React.FC = () => {
                 <figure className="pt-[15vh]">
                     <div className="indicator w-full">
                         {/* Section Title */}
-                        <SectionTitle className="indicator-item indicator-center size-[60%] z-45" />
+                        <SectionTitle className="indicator-item indicator-center size-[60%] z-45"/>
                         <text className="
                         indicator-item
                         indicator-top
@@ -165,29 +171,90 @@ const Page: React.FC = () => {
                         <Box1 className="indicator-content size-[70%] mx-auto relative"/>
                     </div>
                 </figure>
-                <InstagramCarousel />
+                <InstagramCarousel/>
             </div>
 
             <SectionDivider/>
 
-            {/* Services Section */}
-            <section className="py-16 px-8 bg-white">
-                <h2 className="text-3xl font-bold mb-4 text-center">Our Services</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="p-6 bg-gray-100 rounded shadow">
-                        <h3 className="text-xl font-semibold mb-2">Service 1</h3>
-                        <p className="text-gray-600">Details about service 1.</p>
+            <div className="card bg-gray-50 w-full shadow-xl">
+                <div className="pt-[15vh] indicator auto-flex content-center items-center">
+                    <div className="
+                            indicator-item
+                            indicator-middle
+                            indicator-center
+                            font-kodchasan
+                            font-bold
+                            text-white
+                            text-center
+                            text-3xl
+                            w-full
+                        ">
+                        Jak wyglądają sesje <br/>
+                        terapii systemowej?
                     </div>
-                    <div className="p-6 bg-gray-100 rounded shadow">
-                        <h3 className="text-xl font-semibold mb-2">Service 2</h3>
-                        <p className="text-gray-600">Details about service 2.</p>
-                    </div>
-                    <div className="p-6 bg-gray-100 rounded shadow">
-                        <h3 className="text-xl font-semibold mb-2">Service 3</h3>
-                        <p className="text-gray-600">Details about service 3.</p>
-                    </div>
+                    <SectionTitle className="size-[70%] mx-auto relative"/>
                 </div>
-            </section>
+
+
+                <div className="card-body items-center text-center">
+                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus arcu eu
+                        lacinia hendrerit. Aliquam sed nisi non eros dignissim auctor quis ac lorem. Curabitur
+                        euismod,
+                        enim ut sollicitudin aliquam, augue nunc lacinia velit, dictum ullamcorper elit ex eget
+                        purus.
+                        Ut lacinia urna eget cursus molestie.
+                        Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                    </p>
+                </div>
+
+                <Box2 className="size-[70%] mx-auto relative"/>
+
+                <div className="card-body items-center text-center">
+                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                        Suspendisse eget lorem vitae turpis facilisis aliquam vitae ut lacus. Curabitur nunc
+                        felis,
+                        aliquam a turpis vel, laoreet porta nulla.
+
+                        Sed egestas dapibus lorem, quis sollicitudin ligula elementum ac.
+                        Maecenas sit amet est nunc. Vivamus sit amet enim gravida, hendrerit sapien in, molestie
+                        augue.
+                        Nam dolor ipsum, imperdiet id ipsum ac, ornare pulvinar ex.
+                        Maecenas porta quam non odio lacinia, non dapibus tellus aliquam.
+                        Fusce rhoncus faucibus leo ac porta. Aliquam molestie pellentesque tempor.
+                        Aliquam erat volutpat. Cras id ornare enim. Suspendisse nec porta purus.
+                        Nunc elementum elit faucibus lacinia luctus.
+                    </p>
+                </div>
+            </div>
+
+            <SectionDivider/>
+
+            <div className="card bg-gray-50 w-full shadow-xl">
+
+                <div className="justify-center content-center flex mt-[10%]">
+                    <LokGab className="size-[40%] flex"/>
+                </div>
+
+                <div className="card-body items-center text-center">
+                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                        Sed egestas dapibus lorem, quis sollicitudin ligula elementum ac.
+                        Maecenas sit amet est nunc. Vivamus sit amet enim gravida, hendrerit sapien in, molestie augue.
+
+                        Nam dolor ipsum, imperdiet id ipsum ac, ornare pulvinar ex. Maecenas porta quam non odio lacinia, non dapibus tellus aliquam.
+                    </p>
+                </div>
+
+                <Box3 className="size-[70%] mx-auto relative"/>
+
+                <div className="card-body items-center text-center">
+                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                        <AppointmentRequestForm></AppointmentRequestForm>
+                    </p>
+                </div>
+            </div>
+
+            <SectionDivider/>
 
             {/* Footer Section */}
             <footer className="py-8 bg-blue-500 text-white text-center">
