@@ -9,7 +9,7 @@ from appointment.services import get_available_slots_for_staff
 from datetime import date, timezone
 from django.utils.translation import gettext as _
 from datetime import datetime, timedelta
-
+from collections import defaultdict
 
 
 def get_services(request):
@@ -96,7 +96,7 @@ def get_available_slots(request):
     if not selected_date or not staff_member_id:
         return JsonResponse({
             "message": "This field is required.",
-            "custom_data": {"error": True, "available_slots": [], "date_chosen": ""},
+            "custom_data": {"error": True, "available_slots": {}, "date_chosen": ""},
             "success": False
         })
 
@@ -106,7 +106,7 @@ def get_available_slots(request):
     if not staff_member:
         return JsonResponse({
             "message": "Invalid staff member.",
-            "custom_data": {"error": True, "available_slots": [], "date_chosen": ""},
+            "custom_data": {"error": True, "available_slots": {}, "date_chosen": ""},
             "success": False
         })
 
@@ -115,7 +115,7 @@ def get_available_slots(request):
     if days_off_exist:
         return JsonResponse({
             "message": "Day off. Please select another date!",
-            "custom_data": {"error": True, "available_slots": [], "date_chosen": str(selected_date)},
+            "custom_data": {"error": True, "available_slots": {}, "date_chosen": str(selected_date)},
             "success": False
         })
 
@@ -123,27 +123,32 @@ def get_available_slots(request):
     today = datetime.now().date()
     end_date = today + timedelta(days=14)
 
-    available_slots = []
+    # Dictionary to store slots grouped by date
+    available_slots_dict = defaultdict(list)
+
     for current_date in (today + timedelta(days=i) for i in range((end_date - today).days + 1)):
         if current_date.weekday() < 5:  # Only weekdays (Monday to Friday)
             weekday_num = current_date.weekday() + 1  # Monday = 1, Sunday = 7
             is_working_day_ = is_working_day(staff_member=staff_member, day=weekday_num)
             if is_working_day_:
                 slots = get_available_slots_for_staff(current_date, staff_member)
-                available_slots.extend(slots)
+                for slot in slots:
+                    available_slots_dict[str(current_date)].append(slot.strftime('%I:%M %p'))
 
-    available_slots_formatted = [slot.strftime('%I:%M %p') for slot in available_slots]
-
-    if not available_slots:
+    if not available_slots_dict:
         return JsonResponse({
             "message": "No availability",
-            "custom_data": {"error": True, "available_slots": [], "date_chosen": str(selected_date)},
+            "custom_data": {"error": True, "available_slots": {}, "date_chosen": str(selected_date)},
             "success": False
         })
 
     return JsonResponse({
         "message": "Successfully retrieved available slots",
-        "custom_data": {"error": False, "available_slots": available_slots_formatted, "date_chosen": str(selected_date)},
+        "custom_data": {
+            "error": False,
+            "available_slots": available_slots_dict,
+            "date_chosen": str(selected_date)
+        },
         "success": True
     })
 
