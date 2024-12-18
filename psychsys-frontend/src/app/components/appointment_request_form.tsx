@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SVGLoader from "@/app/components/btn_date";  // Import the SVGLoader component
+import SVGLoaderDate from "@/app/components/btn_date";
+import SVGLoaderHour from "@/app/components/btn_hour";
 
 interface Slot {
     date: string;
@@ -85,6 +86,7 @@ const AppointmentRequestForm: React.FC = () => {
     const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
     const handleStaffChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStaff(e.target.value);
     const handleDateClick = (date: string) => setAppointmentDateHours(date);  // Show hours below the selected date
+    //const handleHourClick = (date: string) => setAppointmentHours(date);  // Show hours below the selected date
 
     const renderDates = (groupedSlots: Record<string, string[]>) => {
         return (
@@ -93,11 +95,11 @@ const AppointmentRequestForm: React.FC = () => {
             <div className="grid grid-cols-7 gap-4">
                 {Object.keys(groupedSlots).map(date => (
                     <div key={date}>
-                        <SVGLoader
+                        <SVGLoaderDate
                             svgPath="svg/btn_date.svg"
                             replaceTextIds={{
-                                tspan4: date,
-                                tspan6: date
+                                tspan1: date,
+                                tspan2: date
                             }}
                             onClick={() => handleDateClick(date)}
                             className="mb-2"
@@ -111,15 +113,15 @@ const AppointmentRequestForm: React.FC = () => {
 
     const renderHours = (hours: string[]) => {
         return (
-            <div className="flex flex-wrap space-x-2 mt-2">
+            <div className="grid grid-cols-7 gap-4">
                 {hours.map((hour, index) => (
-                    <SVGLoader
+                    <SVGLoaderHour
                         key={index}
                         svgPath="svg/btn_hour.svg"
                         replaceTextIds={{
-                            tspan2: hour,
+                            tspan1: hour,
                         }}
-                        className="m-2 flex-none"
+                        className="m-2"
                     />
                 ))}
             </div>
@@ -134,10 +136,11 @@ const AppointmentRequestForm: React.FC = () => {
     }, {});
 
     return (
-        <div>
-            <h2>Appointment Request Form</h2>
+        <div className="w-full">
+            <h2 className="align-middle mx-10 font-extrabold">Appointment Request Form</h2>
             <form className="grid grid-cols-1 gap-4">
-                <label>
+                <div  className="grid grid-cols-2 gap-4">
+                <label className="my-5 mx-10">
                     Service:
                     <select value={selectedService} onChange={handleServiceChange} required className="select text-white select-success w-full bg-bg_2">
                         {services.map(service => (
@@ -148,7 +151,7 @@ const AppointmentRequestForm: React.FC = () => {
                     </select>
                 </label>
 
-                <label>
+                <label className="my-5 mx-10">
                     Staff Member:
                     <select value={selectedStaff} onChange={handleStaffChange} required className="select  text-white select-success w-full bg-bg_2">
                         {staffMembers.map(staff => (
@@ -158,14 +161,15 @@ const AppointmentRequestForm: React.FC = () => {
                         ))}
                     </select>
                 </label>
+                </div>
+                <div className="bg-bg_2 px-10 py-5 text-bg_1 font-extrabold">
+                    {Object.keys(groupedSlots).length > 0 ? renderDates(groupedSlots) : <p>No available slots for the next 14 days.</p>}
 
-                {Object.keys(groupedSlots).length > 0 ? renderDates(groupedSlots) : <p>No available slots for the next 14 days.</p>}
+                    {/* Debugging: Show the selected date */}
+                    <p>Selected Date: {showAppointmentsDateHours}</p>
 
-                {/* Debugging: Show the selected date */}
-                <p>Selected Date: {showAppointmentsDateHours}</p>
-
-                {showAppointmentsDateHours && renderHours(groupedSlots[showAppointmentsDateHours])}
-
+                    {showAppointmentsDateHours && renderHours(groupedSlots[showAppointmentsDateHours])}
+                </div>
 
             </form>
         </div>

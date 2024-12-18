@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { ReactSVG } from 'react-svg';
+import React, {useEffect, useState} from 'react';
+import {ReactSVG} from 'react-svg';
 
 interface SVGLoaderProps {
-    svgPath: string; // Path to the SVG file
+    svgPath: string,
     replaceTextIds?: {
         [key: string]: string; // Mapping of element IDs to replacement texts
-    };
-    onClick?: React.MouseEventHandler<HTMLButtonElement>; // Corrected type
+    },
+    onClick?: React.MouseEventHandler<HTMLButtonElement>,
+    className?: string
 }
 
-const SVGLoader: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextIds, onClick }) => {
+const SVGLoaderDate: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onClick, className}) => {
     const [svgContent, setSvgContent] = useState<string | null>(null);
 
     useEffect(() => {
@@ -27,16 +28,14 @@ const SVGLoader: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextIds, onClick 
                             const tspanElement = svgDoc.querySelector(`#${id}`);
 
                             if (tspanElement) {
-                                if (id === 'tspan4') { // Weekday abbreviation
+                                if (id === 'tspan1') { // Weekday abbreviation
                                     const date = new Date(text);
-                                    const weekdayAbbr = date.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+                                    const weekdayAbbr = date.toLocaleDateString('en-US', {weekday: 'short'}).toUpperCase();
                                     tspanElement.textContent = weekdayAbbr;
-                                } else if (id === 'tspan6') { // Formatted date
+                                } else if (id === 'tspan2') { // Formatted date
                                     const date = new Date(text);
                                     const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
                                     tspanElement.textContent = formattedDate;
-                                } else if (id === 'tspan2') { // Hour
-                                    tspanElement.textContent = text;
                                 }
                             } else {
                                 console.error(`Element with id ${id} not found.`);
@@ -63,15 +62,16 @@ const SVGLoader: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextIds, onClick 
     }
 
     return (
-        <button onClick={(e) => {
+        <button className="my-5" onClick={(e) => {
             e.preventDefault();
             if (onClick) onClick(e);
         }}>
             <ReactSVG
+                className={className}
                 src={`data:image/svg+xml;utf8,${encodeURIComponent(svgContent)}`}
             />
         </button>
     );
 };
 
-export default SVGLoader;
+export default SVGLoaderDate;

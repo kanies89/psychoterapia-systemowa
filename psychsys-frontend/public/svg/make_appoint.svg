@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="92.403061mm"
+   height="13.160763mm"
+   viewBox="0 0 92.403061 13.160763"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="make_appoint.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4912879"
+     inkscape:cx="106.28397"
+     inkscape:cy="37.216154"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="843"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer33" />
+  <defs
+     id="defs1">
+    <rect
+       x="82.479042"
+       y="8.0467358"
+       width="222.62637"
+       height="30.845821"
+       id="rect1" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="102.53048"
+       height="40.305088"
+       id="rect11" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="270.84137"
+       height="28.905544"
+       id="rect11-2" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="124.99429"
+       height="35.275879"
+       id="rect3264" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14-4" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14-4-5" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="44.280479"
+       height="36.930088"
+       id="rect14-4-5-5" />
+    <rect
+       x="40.305088"
+       y="3906.7649"
+       width="265.51859"
+       height="43.487064"
+       id="rect3261-1" />
+    <rect
+       x="40.305088"
+       y="3906.7649"
+       width="219.8292"
+       height="26.187735"
+       id="rect3261" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-64.295026,-155.57922)">
+    <g
+       inkscape:groupmode="layer"
+       id="layer33"
+       inkscape:label="regulamin"
+       transform="translate(57.456484,-969.36645)">
+      <g
+         id="g3261"
+         transform="translate(5.2805645,1073.6221)"
+         inkscape:label="umow_wizyte">
+        <rect
+           style="fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           id="rect3259"
+           width="90.720657"
+           height="11.665443"
+           x="2.8669024"
+           y="52.445404"
+           rx="4.527885"
+           ry="2.3856609" />
+        <rect
+           style="fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+           id="rect3260"
+           width="91.013229"
+           height="11.665447"
+           x="1.931459"
+           y="51.697048"
+           rx="4.527885"
+           ry="2.3856609" />
+        <text
+           xml:space="preserve"
+           transform="matrix(0.26458333,0,0,0.26458333,21.377254,-979.00765)"
+           id="text3260"
+           style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect3261);display:inline;fill:#58315a;fill-opacity:1;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"><tspan
+             x="40.304688"
+             y="3921.4692"
+             id="tspan2"><tspan
+               style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold'"
+               id="tspan1">umów wizytę</tspan></tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

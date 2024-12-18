@@ -6,15 +6,16 @@ import HeroBackground from "../../public/svg/hero_background.svg";
 import HandB from  "../../public/svg/h&b_4.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
 import SectionDivider from "@/app/components/section_divider";
-import SectionTitle from "../../public/svg/section_title.svg";
 import Box1 from "../../public/svg/box1.svg";
 import Box2 from "../../public/svg/box2.svg";
 import Box3 from "../../public/svg/box3.svg";
 import InstagramCarousel from "@/app/components/insta";
-import AppointmentRequestForm from "@/app/components/apointment_request_form";
+import AppointmentRequestForm from "@/app/components/appointment_request_form";
 import LokGab from "../../public/svg/lok_gab.svg"
+import Section_title from "@/app/components/section_title";
 
 import App from "next/app";
+import SVGLoaderDate from "@/app/components/btn_date";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -62,7 +63,15 @@ const Page: React.FC = () => {
                 onKeyDown={(e) => e.key === 'Enter' && toggleDropdown()} // Add keyboard accessibility
             >
                 {/* Render HamburgerMenu component here */}
-                <HamburgerMenu/>
+                <HamburgerMenu
+                    svgPath="svg/ham_menu.svg"
+                    pathStyles={{
+                        path1425: { fill: '#ff0000', stroke: '#000000' }, // Red fill, black stroke
+                        path1426: { fill: '#00ff00', stroke: '#0000ff' }, // Green fill, blue stroke
+                        path1427: { fill: '#0000ff', stroke: '#ff0000' }, // Blue fill, red stroke
+                    }}
+                    className="w-15% h-12"
+                />
             </div>
 
             {/* Dropdown Menu */}
@@ -91,7 +100,7 @@ const Page: React.FC = () => {
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
-                <figure className="pt-[15vh]">
+                <figure className="pt-[5vh]">
                     <section className="relative w-[70vh] flex justify-center items-center">
                         <svg className="h-full" viewBox="-20 0 400 200" preserveAspectRatio="xMidYMid meet">
                             <defs>
@@ -149,26 +158,21 @@ const Page: React.FC = () => {
             <SectionDivider/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
-                <figure className="pt-[15vh]">
-                    <div className="indicator w-full">
+                <figure className="pt-[5vh] w-full">
+                    <div className="indicator w-[70%]">
                         {/* Section Title */}
-                        <SectionTitle className="indicator-item indicator-center size-[60%] z-45"/>
-                        <text className="
-                        indicator-item
-                        indicator-top
-                        indicator-center
-                        font-kodchasan
-                        font-bold
-                        text-white
-                        text-center
-                        text-3xl
-                        w-full
-                        pb-12
-                        ">
-                            Jak dbać o siebie?
-                        </text>
+                            <span className="indicator-item indicator-center indicator-top w-full">
+                                <Section_title
+                                    svgPath="svg/section_title.svg"
+                                    replaceTextIds={{
+                                        tspan1: "Jak dbać o siebie?",
+                                    }}
+                                    className="justify-center scale-125 flex"
+
+                                />
+                            </span>
                         {/* Box1 - Resized to 70% of the section width */}
-                        <Box1 className="indicator-content size-[70%] mx-auto relative"/>
+                        <Box1 className="mx-auto h-full w-full"/>
                     </div>
                 </figure>
                 <InstagramCarousel/>
@@ -177,22 +181,14 @@ const Page: React.FC = () => {
             <SectionDivider/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
-                <div className="pt-[15vh] indicator auto-flex content-center items-center">
-                    <div className="
-                            indicator-item
-                            indicator-middle
-                            indicator-center
-                            font-kodchasan
-                            font-bold
-                            text-white
-                            text-center
-                            text-3xl
-                            w-full
-                        ">
-                        Jak wyglądają sesje <br/>
-                        terapii systemowej?
-                    </div>
-                    <SectionTitle className="size-[70%] mx-auto relative"/>
+                <div className="pt-[5vh] auto-flex content-center items-center">
+                    <Section_title
+                        svgPath="svg/section_title.svg"
+                        replaceTextIds={{
+                            tspan1: "Jak wyglądają sesje terapii systemowej?",
+                        }}
+                        className="justify-center scale-125 flex"
+                    />
                 </div>
 
 
@@ -232,7 +228,7 @@ const Page: React.FC = () => {
 
             <div className="card bg-gray-50 w-full shadow-xl">
 
-                <div className="justify-center content-center flex mt-[10%]">
+                <div className="justify-center content-center flex mt-[5%]">
                     <LokGab className="size-[40%] flex"/>
                 </div>
 
@@ -247,8 +243,8 @@ const Page: React.FC = () => {
 
                 <Box3 className="size-[70%] mx-auto relative"/>
 
-                <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                <div className="card-bodytext-center my-10">
+                    <p className="font-kodchasan font-normal">
                         <AppointmentRequestForm></AppointmentRequestForm>
                     </p>
                 </div>
@@ -257,9 +253,9 @@ const Page: React.FC = () => {
             <SectionDivider/>
 
             {/* Footer Section */}
-            <footer className="py-8 bg-blue-500 text-white text-center">
-                <p>&copy; 2024 My Website. All Rights Reserved.</p>
-            </footer>
+            <div className="card py-8 bg-bg_2 shadow-xl text-white text-center mb-[5vh] ">
+                <p>&copy; 2024 Psychologia-Systemowa. All Rights Reserved.</p>
+            </div>
         </main>
     );
 };

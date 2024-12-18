@@ -133,7 +133,8 @@ def get_available_slots(request):
             if is_working_day_:
                 slots = get_available_slots_for_staff(current_date, staff_member)
                 for slot in slots:
-                    available_slots_dict[str(current_date)].append(slot.strftime('%I:%M %p'))
+                    available_slots_dict[str(current_date)].append(slot.strftime('%H:%M'))
+
 
     if not available_slots_dict:
         return JsonResponse({
