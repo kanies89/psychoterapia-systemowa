@@ -1,61 +1,65 @@
-import React, { useState, useEffect, useRef } from 'react';
-import HamburgerIcon from '../../../public/svg/ham_menu.svg'; // Import SVG as React component
+import React, { useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
-// Define a type for the possible path IDs, their corresponding fill colors, and rotation values
-interface FillColors {
-    path1425: { fill: string; rotation: string };
-    path1426: { fill: string; rotation: string };
-    path1427: { fill: string; rotation: string };
+interface HamburgerMenuProps {
+    svgPath: string; // Path to the SVG file
+    pathStyles: { [pathId: string]: { fill?: string; stroke?: string } }; // Map of path IDs to style changes
+    className?: string; // Optional CSS class for styling
 }
 
-function HamburgerMenu() {
-    // Initialize state to hold the color and rotation values for each path by id
-    const [fillColors, setFillColors] = useState<FillColors>({
-        path1425: { fill: '#ffffff', rotation: '0deg' }, // Default color and rotation for path1425
-        path1426: { fill: '#ffffff', rotation: '0deg' }, // Default color and rotation for path1426
-        path1427: { fill: '#ffffff', rotation: '0deg' }, // Default color and rotation for path1427
-    });
+const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ svgPath, pathStyles, className }) => {
+    const [svgContent, setSvgContent] = useState<string | null>(null);
 
-    // Change color and rotation of a specific path
-    const changeColorAndRotation = (pathId: keyof FillColors) => {
-        setFillColors((prevColors) => {
-            const currentColor = prevColors[pathId].fill;
-            const newColor = currentColor === '#3498db' ? '#e74c3c' : '#3498db';
-            const newRotation = prevColors[pathId].rotation === '0deg' ? '45deg' : '0deg'; // Toggle rotation between 0 and 45 degrees
-            return {
-                ...prevColors,
-                [pathId]: { fill: newColor, rotation: newRotation },
-            };
-        });
-    };
-
-    // Use ref to access the SVG DOM elements directly
-    const svgRef = useRef<SVGSVGElement | null>(null);
-
-    // Apply dynamic styles based on path ids once the component is mounted
     useEffect(() => {
-        if (svgRef.current) {
-            const paths = svgRef.current.querySelectorAll('path');
-            paths.forEach((path) => {
-                const pathId = path.getAttribute('id');
-                if (pathId && fillColors[pathId as keyof FillColors]) {
-                    // Set fill color based on id
-                    path.setAttribute('fill', fillColors[pathId as keyof FillColors].fill);
-                    // Set rotation based on id
-                    path.setAttribute('transform', `rotate(${fillColors[pathId as keyof FillColors].rotation} 25 25)`); // Rotate around the center (25, 25)
+        const loadSVG = async () => {
+            try {
+                const response = await fetch(svgPath);
+                if (response.ok) {
+                    const svgText = await response.text();
+
+                    if (pathStyles) {
+                        const parser = new DOMParser();
+                        const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+
+                        // Update style for paths specified in `pathStyles`
+                        for (const [pathId, styles] of Object.entries(pathStyles)) {
+                            const pathElement = svgDoc.querySelector(`#${pathId}`);
+                            if (pathElement) {
+                                const existingStyle = pathElement.getAttribute('style') || '';
+                                const newStyle = Object.entries(styles)
+                                    .map(([key, value]) => `${key}:${value}`)
+                                    .join(';');
+                                pathElement.setAttribute('style', `${existingStyle};${newStyle}`);
+                            } else {
+                                console.warn(`Path with ID "${pathId}" not found.`);
+                            }
+                        }
+
+                        setSvgContent(new XMLSerializer().serializeToString(svgDoc.documentElement));
+                    } else {
+                        setSvgContent(svgText);
+                    }
+                } else {
+                    console.error(`Failed to load SVG from ${svgPath}`);
                 }
-            });
-        }
-    }, [fillColors]); // Re-run whenever fillColors changes
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        loadSVG();
+    }, [svgPath, pathStyles]);
+
+    if (!svgContent) {
+        return <p>Loading SVG...</p>;
+    }
 
     return (
-        <div>
-            <HamburgerIcon
-                ref={svgRef} // Attach the ref to access the SVG
-                onClick={() => changeColorAndRotation('path1425')} // Change color and rotation of path1425 on click
-            />
-        </div>
+        <ReactSVG
+            className={className}
+            src={`data:image/svg+xml;utf8,${encodeURIComponent(svgContent)}`}
+        />
     );
-}
+};
 
 export default HamburgerMenu;

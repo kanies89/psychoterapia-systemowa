@@ -24,12 +24,12 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="6.0723637"
-     inkscape:cx="47.922031"
+     inkscape:cx="48.004371"
      inkscape:cy="19.679322"
-     inkscape:window-width="1080"
-     inkscape:window-height="1857"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="843"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer18" />
   <defs
@@ -84,10 +84,10 @@
          xml:space="preserve"
          transform="matrix(0.26458333,0,0,0.26458333,88.62556,-1028.8457)"
          id="text36"
-         style="font-weight:600;font-size:13.3333px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect36);display:none;fill:#58315a;fill-opacity:1;stroke:#ffffff;stroke-width:1.51181;stroke-linejoin:round;stroke-dasharray:0, 5.76378;stroke-dashoffset:0;paint-order:stroke markers fill"><tspan
+         style="font-weight:600;font-size:13.3333px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect36);display:inline;fill:#58315a;fill-opacity:1;stroke:#ffffff;stroke-width:1.51181;stroke-linejoin:round;stroke-dasharray:0, 5.76378;stroke-dashoffset:0;paint-order:stroke markers fill"><tspan
            x="32.396709"
            y="4210.5025"
-           id="tspan2">08:00</tspan></text>
+           id="tspan1">08:00</tspan></text>
     </g>
   </g>
 </svg>

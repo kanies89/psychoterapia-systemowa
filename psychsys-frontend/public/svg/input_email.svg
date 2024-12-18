@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="93.407822mm"
+   height="13.338184mm"
+   viewBox="0 0 93.407821 13.338185"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="input_email.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.4912879"
+     inkscape:cx="39.8984"
+     inkscape:cy="25.816612"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="843"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="82.479042"
+       y="8.0467358"
+       width="222.62637"
+       height="30.845821"
+       id="rect1" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="102.53048"
+       height="40.305088"
+       id="rect11" />
+    <rect
+       x="50.91169"
+       y="3872.1167"
+       width="270.84138"
+       height="28.905544"
+       id="rect11-2" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-63.235416,-141.81664)">
+    <g
+       id="g10"
+       transform="translate(61.303261,90.49307)"
+       inkscape:label="email">
+      <rect
+         style="fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:0.751698;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         id="rect9"
+         width="92.65612"
+         height="11.838129"
+         x="2.3080041"
+         y="52.447773"
+         rx="4.5873361"
+         ry="2.3846927" />
+      <rect
+         style="fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:0.746963;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"
+         id="rect10"
+         width="72.35334"
+         height="11.665447"
+         x="22.149664"
+         y="51.697048"
+         rx="4.527885"
+         ry="2.3856609" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,-8.0448111,-966.46958)"
+         id="text10"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:18.6667px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect11);display:inline;fill:#96d1ba;fill-opacity:0.988235;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"><tspan
+           x="50.912109"
+           y="3886.8208"
+           id="tspan5"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+             id="tspan3">email:</tspan></tspan></text>
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,8.6320443,-970.6879)"
+         id="text10-5"
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:16px;line-height:1;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Semi-Bold';text-align:start;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect11-2);shape-padding:6.03505;display:inline;fill:#58315a;fill-opacity:1;stroke:#58315a;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:11.3499;stroke-opacity:1"><tspan
+           x="56.947266"
+           y="3890.7554"
+           id="tspan7"><tspan
+             style="font-weight:bold;-inkscape-font-specification:'Kodchasan Bold';stroke:none"
+             id="tspan6">renata.siemanowska@interia.pl</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

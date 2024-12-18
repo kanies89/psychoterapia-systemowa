@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="256.23099"
-   height="110.395"
-   viewBox="0 0 67.794449 29.208675"
+   width="256.23108"
+   height="77.39505"
+   viewBox="0 0 67.794473 20.477439"
    version="1.1"
    id="svg1"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
@@ -23,39 +23,45 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="2.0535659"
-     inkscape:cx="58.921898"
-     inkscape:cy="-34.817485"
+     inkscape:zoom="2.9041807"
+     inkscape:cx="157.35935"
+     inkscape:cy="20.143374"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
      inkscape:window-x="-8"
-     inkscape:window-y="825"
+     inkscape:window-y="843"
      inkscape:window-maximized="1"
      inkscape:current-layer="g1957"
      showguides="true">
     <sodipodi:guide
-       position="0,31.854509"
+       position="4.9679144e-06,31.854514"
        orientation="0,256.23107"
        id="guide1"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="67.79447,31.854509"
+       position="67.794475,31.854514"
        orientation="77.395048,0"
        id="guide2"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="67.79447,11.377069"
+       position="67.794475,11.377074"
        orientation="0,-256.23107"
        id="guide3"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="0,11.377069"
+       position="4.9679144e-06,11.377074"
        orientation="-77.395048,0"
        id="guide4"
        inkscape:locked="false" />
   </sodipodi:namedview>
   <defs
      id="defs1">
+    <rect
+       x="38.956627"
+       y="26.782681"
+       width="194.29618"
+       height="48.695783"
+       id="rect1" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath1238">
@@ -80,6 +86,12 @@
        width="278.99362"
        height="96.728966"
        id="rect1958" />
+    <rect
+       x="38.956627"
+       y="26.782681"
+       width="194.29617"
+       height="48.695782"
+       id="rect1-3" />
   </defs>
   <g
      inkscape:label="Layer 1"
@@ -3427,7 +3439,7 @@
       <path
          id="path1956"
          style="display:inline;fill:#eb7443;fill-opacity:1;stroke:#58315a;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3.77955;stroke-opacity:1;paint-order:normal"
-         d="m 640.59564,454.08721 c -1.91317,-0.004 -2.49152,1.33734 -1.80239,2.02486 1.57136,1.56764 3.27569,2.6041 3.34186,4.57145 0.0661,1.96734 -1.77064,3.288 -3.34186,4.8555 -0.68913,0.68751 -0.11078,2.02916 1.80239,2.02485 h 28.98384 0.028 28.98385 c 1.91317,0.004 2.49151,-1.33734 1.80238,-2.02485 -1.57122,-1.5675 -3.41267,-3.08954 -3.41297,-4.92661 -3e-4,-1.83708 1.84161,-2.9327 3.41297,-4.50034 0.68913,-0.68752 0.11079,-2.02923 -1.80238,-2.02486 h -28.98385 -0.028 z"
+         d="m 639.6285,454.08721 c -1.91317,-0.004 -2.49152,1.33734 -1.80239,2.02486 1.57136,1.56764 3.27569,2.6041 3.34186,4.57145 0.0661,1.96734 -1.77064,3.288 -3.34186,4.8555 -0.68913,0.68751 -0.11078,2.02916 1.80239,2.02485 h 28.98384 0.028 28.98385 c 1.91317,0.004 2.49151,-1.33734 1.80238,-2.02485 -1.57122,-1.5675 -3.41267,-3.08954 -3.41297,-4.92661 -3e-4,-1.83708 1.84161,-2.9327 3.41297,-4.50034 0.68913,-0.68752 0.11079,-2.02923 -1.80238,-2.02486 h -28.98385 -0.028 z"
          sodipodi:nodetypes="cszsccccszscccc" />
       <rect
          style="display:none;opacity:0.543333;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:0.67337;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:3.77955;stroke-opacity:1;paint-order:normal"
@@ -3438,6 +3450,14 @@
          y="132.19728"
          rx="4.3150425"
          ry="3.6458812" />
+      <text
+         xml:space="preserve"
+         transform="matrix(0.26458333,0,0,0.26458333,632.94377,450.74369)"
+         id="text1-4"
+         style="font-style:italic;font-weight:300;font-size:16px;line-height:0.9;font-family:Kodchasan;-inkscape-font-specification:'Kodchasan Light Italic';text-align:center;writing-mode:lr-tb;direction:ltr;white-space:pre;shape-inside:url(#rect1-3);shape-padding:0.486958;display:inline;fill:#ffffff;stroke:#ffffff;stroke-width:0.755906;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"><tspan
+           x="130.99251"
+           y="39.072608"
+           id="tspan1">...</tspan></text>
     </g>
   </g>
 </svg>
