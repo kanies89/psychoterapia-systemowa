@@ -28,7 +28,10 @@ const InstagramCarousel = () => {
     }, []);
 
     if (loading) {
-        return <p className="text-center">Loading...</p>;
+        return(
+            <button className="btn btn-square">
+                <span className="loading loading-spinner"></span>
+            </button>);
     }
 
     return (

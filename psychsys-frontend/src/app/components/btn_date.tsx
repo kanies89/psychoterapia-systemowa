@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {ReactSVG} from 'react-svg';
+import React, { useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 interface SVGLoaderProps {
     svgPath: string,
@@ -10,7 +10,7 @@ interface SVGLoaderProps {
     className?: string
 }
 
-const SVGLoaderDate: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onClick, className}) => {
+const SVGLoaderDate: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextIds, onClick, className }) => {
     const [svgContent, setSvgContent] = useState<string | null>(null);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const SVGLoaderDate: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onCli
                             if (tspanElement) {
                                 if (id === 'tspan1') { // Weekday abbreviation
                                     const date = new Date(text);
-                                    const weekdayAbbr = date.toLocaleDateString('en-US', {weekday: 'short'}).toUpperCase();
+                                    const weekdayAbbr = date.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
                                     tspanElement.textContent = weekdayAbbr;
                                 } else if (id === 'tspan2') { // Formatted date
                                     const date = new Date(text);
@@ -58,7 +58,10 @@ const SVGLoaderDate: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onCli
     }, [svgPath, replaceTextIds]);
 
     if (!svgContent) {
-        return <p>Loading SVG...</p>;
+        return(
+            <button className="btn btn-square">
+                <span className="loading loading-spinner"></span>
+            </button>);
     }
 
     return (

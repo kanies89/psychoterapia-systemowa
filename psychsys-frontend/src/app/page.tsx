@@ -1,21 +1,23 @@
 'use client';
 import React, { useState } from 'react';
-import HamburgerMenu from "@/app/components/ham_menu";
+
 import Logo from "../../public/svg/logo.svg";
 import HeroBackground from "../../public/svg/hero_background.svg";
 import HandB from  "../../public/svg/h&b_4.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
-import SectionDivider from "@/app/components/section_divider";
 import Box1 from "../../public/svg/box1.svg";
 import Box2 from "../../public/svg/box2.svg";
 import Box3 from "../../public/svg/box3.svg";
+import LokGab from "../../public/svg/lok_gab.svg"
+
+import Input from "@/app/components/normal_input";
+import AcceptReg from "@/app/components/accept_reg";
+import ButtonN from "@/app/components/normal_button";
 import InstagramCarousel from "@/app/components/insta";
 import AppointmentRequestForm from "@/app/components/appointment_request_form";
-import LokGab from "../../public/svg/lok_gab.svg"
 import Section_title from "@/app/components/section_title";
-
-import App from "next/app";
-import SVGLoaderDate from "@/app/components/btn_date";
+import SectionDivider from "@/app/components/section_divider";
+import HamburgerMenu from "@/app/components/ham_menu";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -65,11 +67,6 @@ const Page: React.FC = () => {
                 {/* Render HamburgerMenu component here */}
                 <HamburgerMenu
                     svgPath="svg/ham_menu.svg"
-                    pathStyles={{
-                        path1425: { fill: '#ff0000', stroke: '#000000' }, // Red fill, black stroke
-                        path1426: { fill: '#00ff00', stroke: '#0000ff' }, // Green fill, blue stroke
-                        path1427: { fill: '#0000ff', stroke: '#ff0000' }, // Blue fill, red stroke
-                    }}
                     className="w-15% h-12"
                 />
             </div>
@@ -158,7 +155,7 @@ const Page: React.FC = () => {
             <SectionDivider/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
-                <figure className="pt-[5vh] w-full">
+                <figure className="pt-[10vh] w-full">
                     <div className="indicator w-[70%]">
                         {/* Section Title */}
                             <span className="indicator-item indicator-center indicator-top w-full">
@@ -241,12 +238,58 @@ const Page: React.FC = () => {
                     </p>
                 </div>
 
-                <Box3 className="size-[70%] mx-auto relative"/>
+                <Box3 className="size-[70%] mx-auto relative mb-[5vh]"/>
 
+            </div>
+
+            <SectionDivider/>
+
+            <div className="card bg-gray-50 w-full shadow-xl">
+                <div className="pt-[5vh] auto-flex content-center items-center">
+                    <Section_title
+                        svgPath="svg/section_title.svg"
+                        replaceTextIds={{
+                            tspan1: "Wolne terminy",
+                        }}
+                        className="justify-center scale-125 flex"
+                    />
+                </div>
                 <div className="card-bodytext-center my-10">
-                    <p className="font-kodchasan font-normal">
+                    <p className="font-kodchasan font-normal text-xl">
                         <AppointmentRequestForm></AppointmentRequestForm>
                     </p>
+                </div>
+                <div className="auto-flex grid grid-rows-1">
+                    <Input type="name" text="Imię:" placeholder="Podaj swoje imię"/>
+                    <Input type="surname" text="Nazwisko:" placeholder="Nazwisko"/>
+                    <Input type="email" text="Email:" placeholder="adres email"/>
+                    <Input type="phone" text="Telefon:" placeholder="Telefon w celu potwierdzenia wizyty"/>
+                    <div className="flex items-center justify-center w-full m-5">
+                        <AcceptReg svgPath="svg/accept_rules.svg"/>
+                    </div>
+
+                    <p className="py-4 w-full text-center">
+                        Na podany numer telefonu wysłaliśmy kod w celu potwierdzenia wizyty.<br/>Wpisz poniżej i potwierdź.</p>
+
+                    <Input type="smscode" text="Kod SMS:" placeholder="Powierdź 5-cyfrowym kodem sms"/>
+                    <dialog id="my_modal_3" className="modal">
+                        <div className="modal-box">
+                            <form method="dialog">
+                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            </form>
+                            <div className="grid grid-rows-1">
+                                <h3 className="font-bold text-lg">Regulamin i RODO</h3>
+                                <p className="py-4">Zaakceptuj regulamin</p>
+                                <div className="form-control">
+                                    <label className="cursor-pointer label">
+                                        <span className="label-text">Akceptuję regulamin i warunki RODO</span>
+                                        <input type="checkbox" className="checkbox checkbox-success"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </dialog>
+                    <ButtonN type="submit" value="Umów wizytę"></ButtonN>
                 </div>
             </div>
 
