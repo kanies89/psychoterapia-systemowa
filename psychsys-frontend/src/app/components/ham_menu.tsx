@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
-interface HamburgerMenuProps {
-    svgPath: string; // Path to the SVG file
-    pathStyles: { [pathId: string]: { fill?: string; stroke?: string } }; // Map of path IDs to style changes
-    className?: string; // Optional CSS class for styling
+interface SVGLoaderProps {
+    svgPath: string;
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    className?: string;
 }
 
-const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ svgPath, pathStyles, className }) => {
+const HamburgerMenu: React.FC<SVGLoaderProps> = ({ svgPath, onClick, className }) => {
     const [svgContent, setSvgContent] = useState<string | null>(null);
 
     useEffect(() => {
@@ -16,29 +16,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ svgPath, pathStyles, clas
                 const response = await fetch(svgPath);
                 if (response.ok) {
                     const svgText = await response.text();
-
-                    if (pathStyles) {
-                        const parser = new DOMParser();
-                        const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
-
-                        // Update style for paths specified in `pathStyles`
-                        for (const [pathId, styles] of Object.entries(pathStyles)) {
-                            const pathElement = svgDoc.querySelector(`#${pathId}`);
-                            if (pathElement) {
-                                const existingStyle = pathElement.getAttribute('style') || '';
-                                const newStyle = Object.entries(styles)
-                                    .map(([key, value]) => `${key}:${value}`)
-                                    .join(';');
-                                pathElement.setAttribute('style', `${existingStyle};${newStyle}`);
-                            } else {
-                                console.warn(`Path with ID "${pathId}" not found.`);
-                            }
-                        }
-
-                        setSvgContent(new XMLSerializer().serializeToString(svgDoc.documentElement));
-                    } else {
-                        setSvgContent(svgText);
-                    }
+                    setSvgContent(svgText);
                 } else {
                     console.error(`Failed to load SVG from ${svgPath}`);
                 }
@@ -48,17 +26,29 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({ svgPath, pathStyles, clas
         };
 
         loadSVG();
-    }, [svgPath, pathStyles]);
+    }, [svgPath]);
 
     if (!svgContent) {
-        return <p>Loading SVG...</p>;
+        return (
+            <button className="btn btn-square">
+                <span className="loading loading-spinner"></span>
+            </button>
+        );
     }
 
     return (
-        <ReactSVG
-            className={className}
-            src={`data:image/svg+xml;utf8,${encodeURIComponent(svgContent)}`}
-        />
+        <button
+            className="my-5"
+            onClick={(e) => {
+                e.preventDefault();
+                if (onClick) onClick(e);
+            }}
+        >
+            <ReactSVG
+                className={className}
+                src={`data:image/svg+xml;utf8,${encodeURIComponent(svgContent)}`}
+            />
+        </button>
     );
 };
 

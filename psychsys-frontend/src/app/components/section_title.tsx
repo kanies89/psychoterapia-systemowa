@@ -102,7 +102,10 @@ const SVGLoaderSectionTitle: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextI
     }, [svgPath, replaceTextIds]);
 
     if (!svgContent) {
-        return <p>Loading SVG...</p>;
+        return(
+            <button className="btn btn-square">
+                <span className="loading loading-spinner"></span>
+            </button>);
     }
 
     return (

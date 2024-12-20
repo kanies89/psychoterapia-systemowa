@@ -1,16 +1,16 @@
-import React, {MouseEvent, useEffect, useState} from 'react';
-import {ReactSVG} from 'react-svg';
+import React, { useEffect, useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 interface SVGLoaderProps {
-    svgPath: string,
+    svgPath: string;
     replaceTextIds?: {
         [key: string]: string; // Mapping of element IDs to replacement texts
-    },
-    onClick?: React.MouseEventHandler<HTMLButtonElement>,
-    className?: string
+    };
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    className?: string;
 }
 
-const SVGLoaderHour: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onClick, className}) => {
+const AcceptReg: React.FC<SVGLoaderProps> = ({ svgPath, replaceTextIds, className }) => {
     const [svgContent, setSvgContent] = useState<string | null>(null);
 
     useEffect(() => {
@@ -28,9 +28,7 @@ const SVGLoaderHour: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onCli
                             const tspanElement = svgDoc.querySelector(`#${id}`);
 
                             if (tspanElement) {
-                                if (id === 'tspan1') { // Hour
-                                    tspanElement.textContent = text;
-                                }
+                                tspanElement.textContent = text;
                             } else {
                                 console.error(`Element with id ${id} not found.`);
                             }
@@ -53,15 +51,17 @@ const SVGLoaderHour: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onCli
 
     if (!svgContent) {
         return(
-            <button className="btn btn-square">
-                <span className="loading loading-spinner"></span>
-            </button>);
+        <button className="btn btn-square">
+            <span className="loading loading-spinner"></span>
+        </button>);
     }
 
     return (
-        <button className="my-5" onClick={(e) => {
-            e.preventDefault();
-            if (onClick) onClick(e);
+        <button className="my-5" onClick={() => {
+            const dialogElement = document.getElementById('my_modal_3');
+            if (dialogElement instanceof HTMLDialogElement) {
+                dialogElement.showModal();
+            }
         }}>
             <ReactSVG
                 className={className}
@@ -71,4 +71,4 @@ const SVGLoaderHour: React.FC<SVGLoaderProps> = ({svgPath, replaceTextIds, onCli
     );
 };
 
-export default SVGLoaderHour;
+export default AcceptReg;
