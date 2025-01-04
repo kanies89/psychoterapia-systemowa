@@ -4,7 +4,7 @@ FROM node:18
 # Install dependencies and build your app
 WORKDIR /app
 COPY . .
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN npm run build
 
 # Expose the port and start the server
