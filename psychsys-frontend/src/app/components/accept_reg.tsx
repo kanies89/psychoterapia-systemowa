@@ -8,7 +8,6 @@ type InputProps = {
 };
 
 const REGCheckbox: React.FC<InputProps> = ({ value }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
     const modalRef = useRef<HTMLDialogElement | null>(null);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -26,13 +25,11 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
 
     const handleButtonClick = () => {
         if (modalRef.current) {
-            setIsModalOpen(true);
             modalRef.current.showModal();
         }
     };
 
     const handleModalClose = () => {
-        setIsModalOpen(false);
         if (modalRef.current) modalRef.current.close();
     };
 
