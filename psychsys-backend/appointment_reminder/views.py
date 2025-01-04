@@ -1,16 +1,36 @@
+
+import os
+import json
+import requests
+import logging
+from datetime import date, timezone
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
-from .utils import fetch_instagram_embed
 from django.conf import settings
-from django.http import JsonResponse
+from django.utils.translation import gettext as _
+from django.urls import reverse
+from django.shortcuts import render
+
+from .utils import fetch_instagram_embed, sms_send
 from appointment.models import Service, StaffMember
 from appointment.forms import SlotForm
 from appointment.utils.db_helpers import check_day_off_for_staff, get_weekday_num_from_date, is_working_day
 from appointment.services import get_available_slots_for_staff
-from datetime import date, timezone
-from django.utils.translation import gettext as _
-from datetime import datetime, timedelta
-from collections import defaultdict
+from backend.settings import (
+    RECAPTCHA_CREDENTIALS, NEXT_RECAPTCHA_PUBLIC_KEY,
+    RECAPTCHA_SECRET_KEY, RECAPTCHA_VERIFY_URL,
+    RECAPTCHA_PROJECT, RECAPTCHA_CREDENTIALS, SMSSERVER_TOKEN
+    )
 
+from google.cloud import recaptchaenterprise_v1
+from google.auth.exceptions import DefaultCredentialsError
+
+
+logger = logging.getLogger(__name__)
 
 def get_services(request):
     try:
@@ -154,7 +174,6 @@ def get_available_slots(request):
     })
 
 
-
 ACCESS_TOKEN = "IGQWRNdGJaTE1BY2d0aUZAXUV9oVk9FdE5PbVhuc0F4SEtXUDZAOTjV3UDEyWldZAZAHVhV3JNMllkNHZAyd2xjeFhSSlpiR3N3YjVLUHI2VEh5RzFLME1DT1NLYUFJemZA6N3VOMjhETmRTQzJUVmJMNjJEVWx0WmplWGMZD"  # Replace with your valid access token
 
 
@@ -183,9 +202,39 @@ def get_instagram_images(request):
 
     return JsonResponse({"images": absolute_urls})
 
+@csrf_exempt
+def create_assessment(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            recaptcha_response = data.get('g-recaptcha-response')
 
+            if not recaptcha_response:
+                return JsonResponse({'success': False, 'message': 'Missing reCAPTCHA token'}, status=400)
 
+            verification_url = "https://www.google.com/recaptcha/api/siteverify"
+            payload = {
+                "secret": '6LePVqwqAAAAAFKrn3aoF_LfGEazhAv34owD54Mc',
+                "response": recaptcha_response,
+            }
+            print(payload)
+            verification_response = requests.post(verification_url, data=payload)
+            print(verification_response)
 
+            if verification_response.status_code != 200:
+                return JsonResponse({'success': False, 'message': 'Failed to reach reCAPTCHA verification API'})
 
+            verification_result = verification_response.json()
 
+            if verification_result.get('success'):
+                return JsonResponse({'success': True, 'message': 'reCAPTCHA verified successfully'})
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'reCAPTCHA verification failed',
+                    'error-codes': verification_result.get('error-codes', [])
+                }, status=400)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'message': 'Invalid JSON request'}, status=400)
 

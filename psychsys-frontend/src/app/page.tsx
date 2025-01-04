@@ -18,6 +18,7 @@ import AppointmentRequestForm from "@/app/components/appointment_request_form";
 import Section_title from "@/app/components/section_title";
 import SectionDivider from "@/app/components/section_divider";
 import HamburgerMenu from "@/app/components/ham_menu";
+import REGCheckbox from "@/app/components/accept_reg";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -56,6 +57,7 @@ const Page: React.FC = () => {
 
     return (
         <main className="bg-white max-w-screen-lg min-h-screen flex flex-col">
+
             {/* Hamburger Menu Button */}
             <div
                 tabIndex={0}
@@ -260,36 +262,9 @@ const Page: React.FC = () => {
                     </p>
                 </div>
                 <div className="auto-flex grid grid-rows-1">
-                    <Input type="name" text="Imię:" placeholder="Podaj swoje imię"/>
-                    <Input type="surname" text="Nazwisko:" placeholder="Nazwisko"/>
-                    <Input type="email" text="Email:" placeholder="adres email"/>
-                    <Input type="phone" text="Telefon:" placeholder="Telefon w celu potwierdzenia wizyty"/>
-                    <div className="flex items-center justify-center w-full m-5">
-                        <AcceptReg svgPath="svg/accept_rules.svg"/>
+                    <div className="flex items-center justify-center w-full">
+                        <REGCheckbox value={"smscode_modal"}></REGCheckbox>
                     </div>
-
-                    <p className="py-4 w-full text-center">
-                        Na podany numer telefonu wysłaliśmy kod w celu potwierdzenia wizyty.<br/>Wpisz poniżej i potwierdź.</p>
-
-                    <Input type="smscode" text="Kod SMS:" placeholder="Powierdź 5-cyfrowym kodem sms"/>
-                    <dialog id="my_modal_3" className="modal">
-                        <div className="modal-box">
-                            <form method="dialog">
-                                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                            </form>
-                            <div className="grid grid-rows-1">
-                                <h3 className="font-bold text-lg">Regulamin i RODO</h3>
-                                <p className="py-4">Zaakceptuj regulamin</p>
-                                <div className="form-control">
-                                    <label className="cursor-pointer label">
-                                        <span className="label-text">Akceptuję regulamin i warunki RODO</span>
-                                        <input type="checkbox" className="checkbox checkbox-success"/>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </dialog>
-                    <ButtonN type="submit" value="Umów wizytę"></ButtonN>
                 </div>
             </div>
 
