@@ -10,8 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-
+import django
 from pathlib import Path
+
+
+RECAPTCHA_CREDENTIALS = os.getenv("RECAPTCHA_CREDENTIALS")
+NEXT_RECAPTCHA_PUBLIC_KEY = os.getenv("NEXT_RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_VERIFY_URL = os.getenv("RECAPTCHA_VERIFY_URL")
+RECAPTCHA_PROJECT = os.getenv("RECAPTCHA_PROJECT")
+SMSSERVER_TOKEN = os.getenv("SMSSERVER_TOKEN")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,8 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']  # This should point to your 'static' directory
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use this in production
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
-
+print(django.__path__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -39,7 +48,6 @@ SESSION_COOKIE_SECURE = not DEBUG
 SECURE_BROWSER_XSS_FILTER = not DEBUG
 SECURE_CONTENT_TYPE_NOSNIFF = not DEBUG
 SECURE_SSL_REDIRECT = not DEBUG  # Ensure your site uses HTTPS
-
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
 ALLOWED_HOSTS = ['psychsys-backend.herokuapp.com', 'localhost', '127.0.0.1']
@@ -60,7 +68,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Add this line
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,6 +76,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
+
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins for testing (use a specific origin in production)
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -97,6 +109,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
+print("BASE_DIR:", BASE_DIR)
 
 
 # Database
@@ -145,11 +159,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CORS settings
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Adjust if your Next.js app runs on a different port
-]
 
 # Or to allow all origins (not recommended for production)
 # CORS_ALLOW_ALL_ORIGINS = True

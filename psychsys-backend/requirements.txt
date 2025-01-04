@@ -14,3 +14,6 @@ django-celery-beat
 djangorestframework
 django-extensions
 python-dateutil
+google-cloud-recaptcha-enterprise
+django-recaptcha
+django-environ
