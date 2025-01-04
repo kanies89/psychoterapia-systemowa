@@ -10,9 +10,6 @@ import Box2 from "../../public/svg/box2.svg";
 import Box3 from "../../public/svg/box3.svg";
 import LokGab from "../../public/svg/lok_gab.svg"
 
-import Input from "@/app/components/normal_input";
-import AcceptReg from "@/app/components/accept_reg";
-import ButtonN from "@/app/components/normal_button";
 import InstagramCarousel from "@/app/components/insta";
 import AppointmentRequestForm from "@/app/components/appointment_request_form";
 import Section_title from "@/app/components/section_title";
