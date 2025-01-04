@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 
 const InstagramCarousel = () => {
     const [images, setImages] = useState([]);
@@ -39,7 +40,7 @@ const InstagramCarousel = () => {
             {images.length > 0 ? (
                 images.map((imageUrl, index) => (
                     <div key={index} className="carousel-item">
-                        <img
+                        <Image
                             src={imageUrl}
                             alt={`Instagram Image ${index + 1}`}
                             className="rounded-box object-cover w-full h-120"
