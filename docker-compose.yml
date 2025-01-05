@@ -13,8 +13,13 @@ services:
       - app-network
     environment:
       - DEBUG=False
-      - ALLOWED_HOSTS=*
-
+      - ALLOWED_HOSTS=psychoterapia-systemowa.pl,psychsys-frontend-fde1b2b544e7.herokuapp.com
+      - SMSSERVER_TOKEN=6Lco56kqAAAAAD6oOK6PeHTASxM2P-FCdPhl9jwW
+      - NEXT_RECAPTCHA_PUBLIC_KEY=6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb
+      - RECAPTCHA_SECRET_KEY=6LePVqwqAAAAAFKrn3aoF_LfGEazhAv34owD54Mc
+      - RECAPTCHA_VERIFY_URL=https://www.google.com/recaptcha/api/siteverify
+      - RECAPTCHA_PROJECT=psychoterapiasys-1735567823038
+      - RECAPTCHA_CREDENTIALS=AIzaSyC4OQ8C0Rp4O3AE1Aku1zB6X-Ry9p7OtK8
 
   nextjs:
     build:
@@ -28,6 +33,9 @@ services:
       - ./psychsys-frontend:/app
     networks:
       - app-network
+    environment:
+      - NEXT_PUBLIC_API_URL=http://django-app:8000  # Production Django backend API URL
+      - NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb
 
   nginx:
     image: nginx:latest

@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 import django
+from dotenv import load_dotenv
 from pathlib import Path
 
+print({key: os.environ[key] for key in os.environ if "NEXT" in key})
 
 RECAPTCHA_CREDENTIALS = os.getenv("RECAPTCHA_CREDENTIALS")
 NEXT_RECAPTCHA_PUBLIC_KEY = os.getenv("NEXT_RECAPTCHA_PUBLIC_KEY")
@@ -23,6 +25,8 @@ SMSSERVER_TOKEN = os.getenv("SMSSERVER_TOKEN")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, '.env.backend'))
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
