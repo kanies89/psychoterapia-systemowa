@@ -48,7 +48,7 @@ const AppointmentRequestForm: React.FC = () => {
             }
         };
         fetchServices();
-    }, []);
+    }, [url_backend]);
 
     // Fetch Staff Members
     useEffect(() => {
@@ -66,7 +66,7 @@ const AppointmentRequestForm: React.FC = () => {
             }
         };
         fetchStaffMembers();
-    }, [selectedService]);
+    }, [selectedService, url_backend]);
 
     // Fetch Available Slots
     useEffect(() => {
@@ -87,7 +87,7 @@ const AppointmentRequestForm: React.FC = () => {
             }
         };
         fetchAvailableSlots();
-    }, [selectedStaff, selectedSlotDate]);
+    }, [selectedStaff, selectedSlotDate, url_backend]);
 
     // Handlers
     const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
