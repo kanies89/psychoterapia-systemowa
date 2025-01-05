@@ -32,12 +32,13 @@ const AppointmentRequestForm: React.FC = () => {
     const today = new Date();
     const [selectedSlotDate] = useState<string | null>(today.toISOString().split('T')[0]);  // Default to current date
     const [showAppointmentsDateHours, setAppointmentDateHours] = useState<string | null>(null);
+    const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
     // Fetch Services
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const response = await fetch('http://localhost:8000/appointment_api/get_available_services/');
+                const response = await fetch(`${url_backend}/appointment_api/get_available_services/`);
                 if (!response.ok) throw new Error(`Error fetching services: ${response.statusText}`);
                 const data: Service[] = await response.json();
                 setServices(data);
@@ -54,7 +55,7 @@ const AppointmentRequestForm: React.FC = () => {
         const fetchStaffMembers = async () => {
             try {
                 if (selectedService) {
-                    const response = await fetch(`http://localhost:8000/appointment_api/get_staff_members/${selectedService}`);
+                    const response = await fetch(`${url_backend}/appointment_api/get_staff_members/${selectedService}`);
                     if (!response.ok) throw new Error(`Error fetching staff members: ${response.statusText}`);
                     const data = await response.json();
                     setStaffMembers(data.staff_members);
@@ -72,7 +73,7 @@ const AppointmentRequestForm: React.FC = () => {
         const fetchAvailableSlots = async () => {
             if (selectedStaff) {
                 try {
-                    const response = await fetch(`http://localhost:8000/appointment_api/get_available_slots?selected_date=${selectedSlotDate}&staff_member=${selectedStaff}`);
+                    const response = await fetch(`${url_backend}/appointment_api/get_available_slots?selected_date=${selectedSlotDate}&staff_member=${selectedStaff}`);
                     if (!response.ok) throw new Error(`Error fetching available slots: ${response.statusText}`);
                     const data = await response.json();
                     setAvailableSlots(

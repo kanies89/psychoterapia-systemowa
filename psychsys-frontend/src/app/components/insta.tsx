@@ -4,35 +4,35 @@ import Image from 'next/image';
 const InstagramCarousel = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
-    // Fetch Instagram images when the component mounts
     useEffect(() => {
         const fetchInstagramImages = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/get_instagram_images");
+                const response = await fetch(`${url_backend}/api/get_instagram_images`);
                 const data = await response.json();
 
                 if (data.images && data.images.length > 0) {
                     setImages(data.images);
-                    console.log(data.images);
                 } else {
                     console.log("No images found.");
                 }
             } catch (error) {
                 console.error("Error fetching Instagram images:", error);
             } finally {
-                setLoading(false); // Stop loading regardless of the result
+                setLoading(false);
             }
         };
 
         fetchInstagramImages();
-    }, []);
+    }, [url_backend]);
 
     if (loading) {
-        return(
+        return (
             <button className="btn btn-square">
                 <span className="loading loading-spinner"></span>
-            </button>);
+            </button>
+        );
     }
 
     return (
@@ -43,11 +43,10 @@ const InstagramCarousel = () => {
                         <Image
                             src={imageUrl}
                             alt={`Instagram Image ${index + 1}`}
+                            width={100}
+                            height={100}
                             className="rounded-box object-cover w-full h-120"
-                            onError={(e) => {
-                            const target = e.target as HTMLImageElement; // Type assertion
-                            target.src = "/fallback_image.png"; // Fallback for broken images
-                        }}
+                            unoptimized // Optional for local development
                         />
                     </div>
                 ))

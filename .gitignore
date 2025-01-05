@@ -49,7 +49,7 @@ dist/
 build/
 
 # Ignore any secret keys or configuration files
-psychsys-backend/.env
+psychsys-backend/.env.backend
 
 # Ignore migrations files
 **/migrations/*.pyc

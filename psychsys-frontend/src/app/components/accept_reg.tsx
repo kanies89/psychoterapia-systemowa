@@ -139,7 +139,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
             <div className="flex items-center justify-center w-full mb-5">
                 <button
                     onClick={handleButtonClick}
-                    className="text-m font-kodchasan text-[#96d1ba] text-2xl mt-2 mb-0 ml-2 mx-5 w-[30vh]"
+                    className="text-m font-kodchasan text-[#96d1ba] ring-[#58315a] ring-2 hover:ring-bg_1 rounded-lg text-2xl mt-2 mb-0 ml-2 mx-5 p-5 w-[30vh]"
                 >
                     Akceptuję warunki regulaminu i RODO
                 </button>
