@@ -28,6 +28,8 @@ RUN chmod +x /app/entrypoint.sh
 # Set the entrypoint script
 ENTRYPOINT ["/app/entrypoint.sh"]
 
+RUN echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL" && echo "NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=$NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY"
+
 # Expose the port and set the default command
 EXPOSE 3000
 CMD ["npm", "start"]
