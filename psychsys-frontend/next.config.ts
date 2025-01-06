@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         return config;
     },
     images: {
-        domains: ['localhost', 'psychoterapia-systemowa.pl', 'psychsys-frontend-fde1b2b544e7.herokuapp.com/'], // Add other domains if necessary
+        domains: ['localhost', 'psychoterapia-systemowa.pl', 'psychsys-frontend-fde1b2b544e7.herokuapp.com'], // Add other domains if necessary
     },
 };
 
