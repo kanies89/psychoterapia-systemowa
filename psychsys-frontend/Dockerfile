@@ -1,20 +1,28 @@
 # Use a Node.js version >= 18.18.0
 FROM node:18
 
-# Set environment variable from Docker Compose during the build
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ARG NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY
-ENV NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=${NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY}
-
-# Install dependencies and build your app
+# Set working directory inside the container
 WORKDIR /app
-COPY . .
+
+# Copy package.json and package-lock.json separately for caching
+COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install --legacy-peer-deps
 
-# Next.js build will pick up the ENV variables and include them in the static output
+# Copy the rest of the application code
+COPY . .
+
+# Build the Next.js application (will use ENV variables if provided at build time)
 RUN npm run build
 
-# Expose the port and start the server
+# Copy the entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Set the entrypoint script
+ENTRYPOINT ["/app/entrypoint.sh"]
+
+# Expose the port and set the default command
 EXPOSE 3000
 CMD ["npm", "start"]
