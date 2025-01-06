@@ -33,7 +33,7 @@ services:
       - ./psychsys-frontend:/app
     networks:
       - app-network
-    entrypoint:
+    environment:
       - NEXT_PUBLIC_API_URL=http://django-app:8000
       - NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb
 
