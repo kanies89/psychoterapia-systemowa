@@ -26,8 +26,8 @@ services:
       context: psychsys-frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_API_URL=http://django-app:8000
-        - NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb
+        NEXT_PUBLIC_API_URL: http://django-app:8000
+        NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY: 6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb
     image: kanies/django_website-nextjs:latest
     container_name: nextjs-app
     ports:
