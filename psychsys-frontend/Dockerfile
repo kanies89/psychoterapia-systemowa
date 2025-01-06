@@ -9,10 +9,11 @@ COPY . .
 
 # Copy package.json and package-lock.json separately for caching
 # COPY package.json package-lock.json ./
-
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY
 # Add placeholders for environment variables
-ENV NEXT_PUBLIC_API_URL=NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=$NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
