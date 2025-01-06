@@ -5,7 +5,7 @@ FROM node:18
 WORKDIR /app
 
 # Copy package.json and package-lock.json separately for caching
-COPY package.json package-lock.json ./
+# COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
