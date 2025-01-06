@@ -32,6 +32,8 @@ services:
     container_name: nextjs-app
     ports:
       - "3000:3000"
+    depends_on:
+      - django-app
     volumes:
       - ./psychsys-frontend:/app
     networks:
