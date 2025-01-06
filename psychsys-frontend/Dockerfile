@@ -4,14 +4,14 @@ FROM node:18
 # Set working directory inside the container
 WORKDIR /app
 
+# Copy the rest of the application code
+COPY . .
+
 # Copy package.json and package-lock.json separately for caching
 # COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
-
-# Copy the rest of the application code
-COPY . .
 
 # Build the Next.js application (will use ENV variables if provided at build time)
 RUN npm run build
