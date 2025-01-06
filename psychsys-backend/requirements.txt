@@ -18,3 +18,4 @@ google-cloud-recaptcha-enterprise
 django-recaptcha
 django-environ
 python-dotenv
+django-appointment
