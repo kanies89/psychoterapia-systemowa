@@ -12,7 +12,7 @@ RUN ls -l /etc/nginx
 RUN ls -l /
 
 # Make the script executable
-RUN chmod +x /start_nginx.sh
+RUN chmod +x start_nginx.sh
 
 # Set environment variables (Heroku will pass these at runtime)
 ENV FRONTEND_URL=${FRONTEND_URL}
@@ -21,4 +21,4 @@ ENV BACKEND_URL=${BACKEND_URL}
 CMD ["sh", "-c", "ls -l / && ls -l /etc/nginx"]
 
 # Run the startup script to replace placeholders and start nginx
-CMD ["/start_nginx.sh"]
+CMD ["start_nginx.sh"]
