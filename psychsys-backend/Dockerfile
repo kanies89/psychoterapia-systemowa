@@ -1,13 +1,27 @@
-# Example Dockerfile for Django backend
+# Base image
 FROM python:3.10-slim
 
+# Set the working directory
 WORKDIR /app
+
+# Copy application files into the container
 COPY . .
 
-RUN pip install -r requirements.txt
+# Install system dependencies (if needed)
+# RUN apt-get update && apt-get install -y gcc libpq-dev && apt-get clean
 
-# Expose the port Heroku expects
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install the local package
+WORKDIR /app/serwersms-python-api-master
+RUN python setup.py install
+
+# Return to the main working directory
+WORKDIR /app
+
+# Expose the port (optional, depending on your setup)
 EXPOSE 8000
 
-CMD gunicorn backend.wsgi:application
-
+# Command to start the application
+CMD ["gunicorn", "backend.wsgi:application"]
