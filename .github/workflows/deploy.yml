@@ -153,4 +153,23 @@ jobs:
       - name: Check Backend Logs (brief)
         run: |
           echo "Fetching recent logs..."
-          heroku logs --tail --num 100 -a ${{ secrets.FRONTEND_APP_NAME }}  # Fetch only the last 100 lines
+          heroku logs --tail --num 5 -a ${{ secrets.FRONTEND_APP_NAME }}  # Fetch only the last 5 lines
+
+  deploy_nginx:
+    runs-on: ubuntu-latest
+    needs: deploy_backend
+    steps:
+          # Tag and push Nginx image to Heroku
+      - name: Build and Tag Nginx Image
+        run: |
+          docker build -t kanies/nginx ./nginx
+          docker tag kanies/nginx:latest registry.heroku.com/${{ secrets.PROXY_APP_NAME }}/web
+
+      - name: Push Nginx Image to Heroku
+        run: |
+          docker push registry.heroku.com/${{ secrets.PROXY_APP_NAME }}/web
+
+      - name: Release Nginx Web Process
+        run: |
+          heroku container:release web -a ${{ secrets.PROXY_APP_NAME }}
+
