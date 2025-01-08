@@ -196,6 +196,11 @@ jobs:
         run: |
           echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
 
+      - name: Set Heroku Config Vars
+        run: |
+          heroku config:set FRONTEND_URL=https://psychsys-frontend-fde1b2b544e7.herokuapp.com/ --app psychsys-nginx
+          heroku config:set BACKEND_URL=https://psychsys-backend-aeb8bb98bb68.herokuapp.com/ --app psychsys-nginx
+
       # Switch Heroku to container stack (if not already set)
       - name: Switch Heroku to container stack
         run: heroku stack:set container -a ${{ secrets.PROXY_APP_NAME }}
