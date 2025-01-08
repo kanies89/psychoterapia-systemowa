@@ -1,5 +1,8 @@
 FROM nginx:alpine
 
+# Set the working directory
+WORKDIR /app
+
 # Copy the custom nginx.conf and the startup script into the container
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY start_nginx.sh /start_nginx.sh
