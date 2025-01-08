@@ -150,10 +150,10 @@ jobs:
         run: |
           heroku container:release web -a ${{ secrets.FRONTEND_APP_NAME }}
 
-      - name: Check Backend Logs (brief)
-        run: |
-          echo "Fetching recent logs..."
-          heroku logs --tail --num 5 -a ${{ secrets.FRONTEND_APP_NAME }}  # Fetch only the last 5 lines
+#      - name: Check Backend Logs (brief)
+#        run: |
+#          echo "Fetching recent logs..."
+#          heroku logs --tail --num 5 -a ${{ secrets.FRONTEND_APP_NAME }}  # Fetch only the last 5 lines
 
   deploy_nginx:
     runs-on: ubuntu-latest
