@@ -157,9 +157,50 @@ jobs:
 
   deploy_nginx:
     runs-on: ubuntu-latest
-    needs: deploy_backend
+    needs: deploy_frontend
     steps:
-          # Tag and push Nginx image to Heroku
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Check if commit message contains DEPLOY
+      - name: Check Commit Message
+        id: check_message
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" != *"DEPLOY"* ]]; then
+            echo "Commit message does not contain 'DEPLOY'. Exiting workflow."
+            exit 0
+          fi
+        shell: bash
+
+      # Install Docker Compose
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
+      # Set up Heroku CLI and authenticate
+      - name: Set up Heroku CLI and authenticate
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          echo "machine api.heroku.com" >> ~/.netrc
+          echo "  login heroku" >> ~/.netrc
+          echo "  password ${HEROKU_API_KEY}" >> ~/.netrc
+          heroku --version
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      # Log in to Heroku Container Registry
+      - name: Log in to Heroku Container Registry
+        run: |
+          echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
+
+      # Switch Heroku to container stack (if not already set)
+      - name: Switch Heroku to container stack
+        run: heroku stack:set container -a ${{ secrets.PROXY_APP_NAME }}
+
+      # Tag and push Nginx image to Heroku
       - name: Build and Tag Nginx Image
         run: |
           docker build -t kanies/nginx ./nginx
