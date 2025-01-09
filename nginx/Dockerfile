@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Copy the custom nginx.conf and the startup script into the container
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY start_nginx.sh /start_nginx.sh
 
 # Convert script to Unix line endings (if required) and make it executable
