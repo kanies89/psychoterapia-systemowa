@@ -1,5 +1,12 @@
-#!/bin/sh
-# Substitute environment variables into the static files
-echo "NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL"
-echo "NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=$NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY"
-exec "$@"
+#!/bin/bash
+
+# Debugging: Print environment variables
+echo "PORT: $PORT"
+echo "HEROKU_APP_CLIENT_URL: $HEROKU_APP_CLIENT_URL"
+echo "HEROKU_APP_BACKEND_URL: $HEROKU_APP_BACKEND_URL"
+
+# Substitute variables in nginx.conf
+envsubst '${PORT} ${HEROKU_APP_CLIENT_URL} ${HEROKU_APP_BACKEND_URL}' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
+
+# Start Nginx
+nginx -g "daemon off;"
