@@ -18,10 +18,6 @@ RUN apk add --no-cache dos2unix
 # Optional: Add a health check (ensure Nginx is running)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s CMD curl -f http://localhost:$PORT/ || exit 1
 
-# Set environment variables (Heroku will pass these at runtime)
-ENV HEROKU_APP_CLIENT_URL=${FRONTEND_URL}
-ENV HEROKU_APP_BACKEND_URL=${BACKEND_URL}
-
 # Set the entrypoint to the script
 ENTRYPOINT ["/app/entrypoint.sh"]
 
