@@ -16,11 +16,11 @@ http {
 
     # Upstream definitions
     upstream frontend {
-        server ${FRONTEND_URL}:443;
+        server ${HEROKU_APP_CLIENT_URL};
     }
 
     upstream backend {
-        server ${BACKEND_URL}:443;
+        server ${HEROKU_APP_BACKEND_URL};
     }
 
     server {
