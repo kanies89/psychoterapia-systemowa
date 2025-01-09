@@ -21,7 +21,7 @@ RUN python setup.py install
 WORKDIR /app
 
 # Expose the port (optional, depending on your setup)
-EXPOSE 8000
+EXPOSE ${PORT}
 
 # Command to start the application
 CMD ["gunicorn", "backend.wsgi:application"]
