@@ -8,6 +8,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 
+# Copy the entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+
 # Install dos2unix for line-ending conversion (optional, remove if not needed)
 RUN apk add --no-cache dos2unix
 
