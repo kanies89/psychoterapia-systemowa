@@ -1,13 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-# Ensure required environment variables are set
-if [ -z "$PORT" ] || [ -z "$FRONTEND_URL" ] || [ -z "$BACKEND_URL" ]; then
-  echo "Error: One or more required environment variables (PORT, FRONTEND_URL, BACKEND_URL) are not set."
-  exit 1
-fi
+# Debugging: Print environment variables
+echo "PORT: $PORT"
+echo "HEROKU_APP_CLIENT_URL: $HEROKU_APP_CLIENT_URL"
+echo "HEROKU_APP_BACKEND_URL: $HEROKU_APP_BACKEND_URL"
 
-# Substitute environment variables in the Nginx configuration template
-envsubst '${PORT} ${FRONTEND_URL} ${BACKEND_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
+# Substitute variables in nginx.conf
+envsubst '${PORT} ${HEROKU_APP_CLIENT_URL} ${HEROKU_APP_BACKEND_URL}' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
 
 # Start Nginx
-nginx -g 'daemon off;'
+nginx -g "daemon off;"
