@@ -62,6 +62,11 @@ ALLOWED_HOSTS = [
     'psychoterapia-systemowa.pl'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'https://psychoterapia-systemowa.pl'
+    'https://psychsys-nginx-a1f751d771b5.herokuapp.com'
+]
+
 
 # Application definition
 
