@@ -135,7 +135,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE 
           docker-compose -f docker-compose.frontend.yml build \
-            --build-arg NEXT_PUBLIC_API_URL=https://django-app:8000 \
+            --build-arg NEXT_PUBLIC_API_URL=./api/ \
             --build-arg NEXT_PUBLIC_RECAPTCHA_PUBLIC_KEY=6LePVqwqAAAAABj50TNS5cVYvfpInY5Cc5sET_Nb \
             --no-cache
           docker tag kanies/django_website-nextjs:latest registry.heroku.com/${{ secrets.FRONTEND_APP_NAME }}/web
