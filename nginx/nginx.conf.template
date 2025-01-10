@@ -16,16 +16,16 @@ http {
 
     # Upstream definitions
     upstream frontend {
-        server ${HEROKU_APP_CLIENT_URL};
+        server $FRONTEND_URL;
     }
 
     upstream backend {
-        server ${HEROKU_APP_BACKEND_URL};
+        server $BACKEND_URL;
     }
 
     server {
         # Use the dynamic PORT environment variable provided by Heroku
-        listen ${PORT};
+        listen $PORT;
 
         # Frontend proxy
         location / {
