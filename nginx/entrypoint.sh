@@ -1,12 +1,9 @@
-#!/bin/bash
-
-# Debugging: Print environment variables
+#!/bin/sh
+echo "Starting entrypoint script"
+echo "HEROKU_APP_CLIENT_URL: $HEROKU_APP_CLIENT_URL"
+echo "HEROKU_APP_BACKEND_URL: $HEROKU_APP_BACKEND_URL"
 echo "PORT: $PORT"
-echo "FRONTEND_URL: $HEROKU_APP_CLIENT_URL"
-echo "BACKEND_URL: $HEROKU_APP_BACKEND_URL"
 
-# Substitute variables in nginx.conf
-envsubst '${PORT} ${FRONTEND_URL} ${BACKEND_URL}' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
-
-# Start Nginx
+# Replace variables and start Nginx
+envsubst '${PORT} ${HEROKU_APP_CLIENT_URL} ${HEROKU_APP_BACKEND_URL}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 exec nginx -g "daemon off;"
