@@ -9,6 +9,7 @@ COPY nginx.conf.template /etc/nginx/nginx.conf.template
 
 # Copy the entrypoint script and application files
 COPY entrypoint.sh /entrypoint.sh
+COPY favicon.ico /usr/share/nginx/html/favicon.ico
 COPY . .
 
 # Fix potential Windows line-ending issues and make entrypoint executable
