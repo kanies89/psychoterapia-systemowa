@@ -9,4 +9,4 @@ echo "BACKEND_URL: $HEROKU_APP_BACKEND_URL"
 envsubst '${PORT} ${FRONTEND_URL} ${BACKEND_URL}' < /etc/nginx/nginx.template > /etc/nginx/nginx.conf
 
 # Start Nginx
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"
