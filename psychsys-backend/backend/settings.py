@@ -28,6 +28,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, '.env.backend'))
 
+# Superuser configuration
+SUPERUSER_USERNAME = os.getenv("DJANGO_SUPERUSER_USERNAME")
+SUPERUSER_EMAIL = os.getenv("DJANGO_SUPERUSER_EMAIL")
+SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD")
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
