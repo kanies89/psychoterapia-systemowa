@@ -26,6 +26,7 @@ http {
     server {
         # Use the dynamic PORT environment variable provided by Heroku
         listen $PORT;
+        server_name psychsys-nginx-a1f751d771b5.herokuapp.com;
 
         # Root directory for your static files
         root /usr/share/nginx/html/;
