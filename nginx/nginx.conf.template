@@ -19,6 +19,10 @@ http {
     sendfile       on;
     keepalive_timeout 65;
 
+    proxy_buffer_size          16k;
+    proxy_buffers              8 16k;
+    proxy_busy_buffers_size    16k;
+
     server {
         # Use the dynamic PORT environment variable provided by Heroku
         listen $PORT;
@@ -43,6 +47,10 @@ http {
             proxy_read_timeout 60s;
             proxy_connect_timeout 60s;
             proxy_send_timeout 60s;
+
+            proxy_buffer_size          16k;
+            proxy_buffers              8 16k;
+            proxy_busy_buffers_size    16k;
         }
 
         # Backend API proxy
@@ -56,6 +64,10 @@ http {
             proxy_read_timeout 60s;
             proxy_connect_timeout 60s;
             proxy_send_timeout 60s;
+
+            proxy_buffer_size          16k;
+            proxy_buffers              8 16k;
+            proxy_busy_buffers_size    16k;
         }
 
         # Additional settings for caching, headers, etc., can go here
