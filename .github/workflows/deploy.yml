@@ -198,8 +198,8 @@ jobs:
 
       - name: Set Heroku Config Vars
         run: |
-          heroku config:set FRONTEND_URL=http://psychsys-frontend-fde1b2b544e7.herokuapp.com --app psychsys-nginx
-          heroku config:set BACKEND_URL=http://psychsys-backend-aeb8bb98bb68.herokuapp.com --app psychsys-nginx
+          heroku config:set FRONTEND_URL=psychsys-frontend-fde1b2b544e7.herokuapp.com --app psychsys-nginx
+          heroku config:set BACKEND_URL=psychsys-backend-aeb8bb98bb68.herokuapp.com --app psychsys-nginx
 
 
       # Switch Heroku to container stack (if not already set)
