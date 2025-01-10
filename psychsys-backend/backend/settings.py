@@ -54,7 +54,14 @@ SECURE_CONTENT_TYPE_NOSNIFF = not DEBUG
 SECURE_SSL_REDIRECT = not DEBUG  # Ensure your site uses HTTPS
 
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] or ['*'] for development
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'psychsys-nginx-a1f751d771b5.herokuapp.com', 'psychoterapia-systemowa.pl']
+ALLOWED_HOSTS = [
+    'psychsys-backend-aeb8bb98bb68.herokuapp.com',
+    'psychsys-nginx-a1f751d771b5.herokuapp.com',  # Add all relevant hostnames
+    '127.0.0.1',  # Local development
+    'localhost',  # Local development
+    'psychoterapia-systemowa.pl'
+]
+
 
 # Application definition
 
