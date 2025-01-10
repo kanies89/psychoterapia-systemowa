@@ -10,7 +10,9 @@ events {
 
 http {
     # Increase the buffer size for large headers
-    large_client_header_buffers 4 32k;
+    large_client_header_buffers 4 32k; # Allows larger headers
+    client_header_buffer_size 16k;    # Individual header buffer size
+    client_max_body_size 64k;         # Max size for the request body
 
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
@@ -20,6 +22,15 @@ http {
     server {
         # Use the dynamic PORT environment variable provided by Heroku
         listen $PORT;
+
+        # Root directory for your static files
+        root /usr/share/nginx/html/;
+
+        # Serve favicon.ico directly
+        location = /favicon.ico {
+            log_not_found off;
+            access_log off;
+        }
 
         # Frontend proxy
         location / {
