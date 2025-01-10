@@ -9,6 +9,9 @@ events {
 }
 
 http {
+    # Increase the buffer size for large headers
+    large_client_header_buffers 4 32k;
+
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
     sendfile       on;
