@@ -68,13 +68,22 @@ ALLOWED_HOSTS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'https://psychoterapia-systemowa.pl'
+    'https://psychoterapia-systemowa.pl',
     'https://psychsys-nginx-a1f751d771b5.herokuapp.com'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-   'https://psychoterapia-systemowa.pl'
+   'https://psychoterapia-systemowa.pl',
    'https://psychsys-nginx-a1f751d771b5.herokuapp.com'
+]
+
+CSRF_ALLOWED_ORIGINS = [
+    'https://psychoterapia-systemowa.pl',
+    'https://psychsys-nginx-a1f751d771b5.herokuapp.com'
+]
+CORS_ORIGINS_WHITELIST = [
+    'https://psychoterapia-systemowa.pl',
+    'https://psychsys-nginx-a1f751d771b5.herokuapp.com'
 ]
 
 # Application definition
