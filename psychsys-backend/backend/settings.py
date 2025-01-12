@@ -90,8 +90,6 @@ CORS_ORIGINS_WHITELIST = [
 
 INSTALLED_APPS = [
     'appointment',
-    'appointment_reminder',
-    'backend',
     'django_celery_beat',
     'corsheaders',
     'django_extensions',
