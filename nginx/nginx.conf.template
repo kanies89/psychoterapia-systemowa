@@ -47,7 +47,7 @@ http {
         }
 
         location /static/ {
-                alias /psychsys-backend/static/;  # Must match STATIC_ROOT in settings.py
+                alias /psychsys-backend/staticfiles/;  # Must match STATIC_ROOT in settings.py
             }
 
         # Frontend proxy
