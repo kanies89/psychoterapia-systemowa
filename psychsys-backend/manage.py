@@ -2,11 +2,14 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from backend.create_super_user_if_not_exist import Command
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
+
+    Command.handle()
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
