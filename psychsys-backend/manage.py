@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from backend.create_super_user_if_not_exist import Command
+from backend.create_superuser_if_not_exist import Command
 
 def main():
     """Run administrative tasks."""
