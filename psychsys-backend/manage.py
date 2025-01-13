@@ -2,12 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from backend.create_superuser_if_not_exist import Command
+
 
 def main():
     """Run administrative tasks."""
+    import django
+    from backend.create_superuser_if_not_exist import Command
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
+    django.setup()
     Command.handle()
 
     try:
