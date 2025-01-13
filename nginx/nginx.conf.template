@@ -46,6 +46,10 @@ http {
             access_log off;
         }
 
+        location /static/ {
+                alias /psychsys-backend/static/;  # Must match STATIC_ROOT in settings.py
+            }
+
         # Frontend proxy
         location / {
             proxy_pass http://frontend;
