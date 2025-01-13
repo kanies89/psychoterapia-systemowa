@@ -3,16 +3,9 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
-    import django
-    from backend.create_superuser_if_not_exist import Command
-
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
-
-    django.setup()
-    Command.handle()
 
     try:
         from django.core.management import execute_from_command_line
