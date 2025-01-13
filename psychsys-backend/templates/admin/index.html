@@ -40,6 +40,111 @@
         color: #aaa;
     }
 
+    /* Cozy Autumn Theme CSS */
+    body {
+        background-color: #FAF3E0; /* Light cream background */
+        color: #4B3F30; /* Warm dark brown text */
+        font-family: 'Georgia', serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        color: #C57B57; /* Soft burnt orange for links */
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #D9732D; /* Deep orange hover effect */
+    }
+
+    header, nav {
+        background-color: #A45C40; /* Warm reddish brown */
+        padding: 15px 25px;
+        border-bottom: 3px solid #9E6536; /* Autumn brown border */
+    }
+
+    header h1, nav a {
+        color: #F0EAD2; /* Soft cream text */
+    }
+
+    footer {
+        background-color: #A45C40;
+        color: #F0EAD2;
+        text-align: center;
+        padding: 20px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        font-size: 0.9em;
+    }
+
+    button {
+        background-color: #D9732D; /* Deep orange button */
+        color: #FDF6E3; /* Cream text */
+        border: none;
+        padding: 10px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #C57B57;
+    }
+
+    input, textarea {
+        background-color: #F0EAD2; /* Soft cream for form inputs */
+        color: #4B3F30;
+        border: 1px solid #9E6536; /* Autumn brown border */
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #D9732D;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #F0EAD2; /* Light cream table background */
+    }
+
+    table th, table td {
+        padding: 15px;
+        border: 1px solid #9E6536; /* Warm brown borders */
+    }
+
+    table th {
+        background-color: #C57B57; /* Burnt orange header */
+        color: #FAF3E0; /* Cream text */
+    }
+
+    table tr:nth-child(even) {
+        background-color: #F9E6D1; /* Soft light cream for even rows */
+    }
+
+    table tr:hover {
+        background-color: #E2BA84; /* Light pumpkin orange hover */
+    }
+
+    .card {
+        background-color: #F9E6D1; /* Soft beige for card */
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h2 {
+        color: #A45C40; /* Deep autumn red-brown */
+    }
+
+    .card p {
+        color: #4B3F30; /* Cozy brown text */
+    }
+
 </style>
 
 {% extends "admin/base_site.html" %}
