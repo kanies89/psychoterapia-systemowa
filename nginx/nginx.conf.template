@@ -48,7 +48,7 @@ http {
 
        # Serve static files
         location /static/ {
-            alias /app/psychsys-backend/staticfiles/;  # Matches STATIC_ROOT in settings.py
+            alias /app/staticfiles/;  # Matches STATIC_ROOT in settings.py
             access_log off;
             expires max;
         }

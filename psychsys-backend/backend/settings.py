@@ -36,8 +36,9 @@ SUPERUSER_PASSWORD = os.getenv("DJANGO_SUPERUSER_PASSWORD")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # This should point to your 'static' directory
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Use this in production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This is where collected files go
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # This is where static files are sourced from
+
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 print(django.__path__)
