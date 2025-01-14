@@ -113,5 +113,5 @@ urlpatterns = [
     path('thank-you/<int:appointment_id>/', default_thank_you, name='default_thank_you'),
     path('verify/<uidb64>/<str:token>/', set_passwd, name='set_passwd'),
     path('ajax/', include(ajax_urlpatterns)),
-    path('app-admin/', include(admin_urlpatterns)),
+    path('api/app-admin/', include(admin_urlpatterns)),
 ]
