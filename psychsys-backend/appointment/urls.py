@@ -21,8 +21,8 @@ from appointment.views_admin import (
     remove_staff_member, remove_superuser_staff_member, update_appt_date_time, update_appt_min_info, update_day_off,
     update_personal_info, update_working_hours, user_profile, validate_appointment_date
 )
-prefix = 'api/'
-prefix_admin = 'api/app-admin/api/'
+prefix = ''
+prefix_admin = ''
 app_name = 'appointment'
 
 admin_urlpatterns = [
