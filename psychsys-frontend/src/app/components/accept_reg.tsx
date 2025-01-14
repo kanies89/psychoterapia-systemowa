@@ -56,9 +56,9 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
             const gRecaptchaToken = await executeRecaptcha("inquirySubmit");
 
             console.log("gRecaptchaToken", `${gRecaptchaToken}`);
-            console.log("Submitting to URL:", `${process.env.NEXT_PUBLIC_API_URL}/api/create_assessment/`);
+            console.log("Submitting to URL:", `${process.env.NEXT_PUBLIC_API_URL}/create_assessment/`);
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/create_assessment/`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create_assessment/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
