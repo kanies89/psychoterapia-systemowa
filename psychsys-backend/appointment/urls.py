@@ -22,64 +22,65 @@ from appointment.views_admin import (
     update_personal_info, update_working_hours, user_profile, validate_appointment_date
 )
 prefix = 'api/'
+prefix_admin = 'api/app-admin/api/'
 app_name = 'appointment'
 
 admin_urlpatterns = [
     # display the calendar with the events
-    path(f'{prefix}appointments/<str:response_type>/', get_user_appointments, name='get_user_event_type'),
-    path(f'{prefix}appointments/', get_user_appointments, name='get_user_appointments'),
+    path(f'{prefix_admin}appointments/<str:response_type>/', get_user_appointments, name='get_user_event_type'),
+    path(f'{prefix_admin}appointments/', get_user_appointments, name='get_user_appointments'),
 
     # create a new staff member and make/remove superuser staff member
-    path(f'{prefix}add-staff-member-info/', add_staff_member_info, name='add_staff_member_info'),
-    path(f'{prefix}create-new-staff-member/', create_new_staff_member, name='add_staff_member_personal_info'),
-    path(f'{prefix}update-staff-member/<int:user_id>/', add_or_update_staff_info, name='update_staff_other_info'),
-    path(f'{prefix}add-staff-member/', add_or_update_staff_info, name='add_staff_other_info'),
-    path(f'{prefix}make-superuser-staff-member/', make_superuser_staff_member, name='make_superuser_staff_member'),
-    path(f'{prefix}remove-superuser-staff-member/', remove_superuser_staff_member, name='remove_superuser_staff_member'),
+    path(f'{prefix_admin}add-staff-member-info/', add_staff_member_info, name='add_staff_member_info'),
+    path(f'{prefix_admin}create-new-staff-member/', create_new_staff_member, name='add_staff_member_personal_info'),
+    path(f'{prefix_admin}update-staff-member/<int:user_id>/', add_or_update_staff_info, name='update_staff_other_info'),
+    path(f'{prefix_admin}add-staff-member/', add_or_update_staff_info, name='add_staff_other_info'),
+    path(f'{prefix_admin}make-superuser-staff-member/', make_superuser_staff_member, name='make_superuser_staff_member'),
+    path(f'{prefix_admin}remove-superuser-staff-member/', remove_superuser_staff_member, name='remove_superuser_staff_member'),
 
     # remove staff member
-    path(f'{prefix}remove-staff-member/<int:staff_user_id>/', remove_staff_member, name='remove_staff_member'),
+    path(f'{prefix_admin}remove-staff-member/<int:staff_user_id>/', remove_staff_member, name='remove_staff_member'),
 
     # add, update, remove services
-    path(f'{prefix}add-service/', add_or_update_service, name='add_service'),
-    path(f'{prefix}update-service/<int:service_id>/', add_or_update_service, name='update_service'),
-    path(f'{prefix}delete-service/<int:service_id>/', delete_service, name='delete_service'),
-    path(f'{prefix}service-list/', get_service_list, name='get_service_list'),
-    path(f'{prefix}service-list/<str:response_type>/', get_service_list, name='get_service_list_type'),
-    path(f'{prefix}view-service/<int:service_id>/<int:view>/', add_or_update_service, name='view_service'),
+    path(f'{prefix_admin}add-service/', add_or_update_service, name='add_service'),
+    path(f'{prefix_admin}update-service/<int:service_id>/', add_or_update_service, name='update_service'),
+    path(f'{prefix_admin}delete-service/<int:service_id>/', delete_service, name='delete_service'),
+    path(f'{prefix_admin}service-list/', get_service_list, name='get_service_list'),
+    path(f'{prefix_admin}service-list/<str:response_type>/', get_service_list, name='get_service_list_type'),
+    path(f'{prefix_admin}view-service/<int:service_id>/<int:view>/', add_or_update_service, name='view_service'),
 
     # display details for one event
-    path(f'{prefix}display-appointment/<int:appointment_id>/', display_appointment, name='display_appointment'),
+    path(f'{prefix_admin}display-appointment/<int:appointment_id>/', display_appointment, name='display_appointment'),
 
     # complete profile
-    path(f'{prefix}user-profile/<int:staff_user_id>/', user_profile, name='user_profile'),
-    path(f'{prefix}user-profile/', user_profile, name='user_profile'),
-    path(f'{prefix}update-user-info/<int:staff_user_id>/', update_personal_info, name='update_user_info'),
-    path(f'{prefix}update-user-info/', update_personal_info, name='update_user_info'),
+    path(f'{prefix_admin}user-profile/<int:staff_user_id>/', user_profile, name='user_profile'),
+    path(f'{prefix_admin}user-profile/', user_profile, name='user_profile'),
+    path(f'{prefix_admin}update-user-info/<int:staff_user_id>/', update_personal_info, name='update_user_info'),
+    path(f'{prefix_admin}update-user-info/', update_personal_info, name='update_user_info'),
 
     # add, update, delete day off with staff_user_id
-    path(f'{prefix}add-day-off/<int:staff_user_id>/', add_day_off, name='add_day_off'),
-    path(f'{prefix}update-day-off/<int:day_off_id>/<int:staff_user_id>/', update_day_off, name='update_day_off_id'),
-    path(f'{prefix}delete-day-off/<int:day_off_id>/<int:staff_user_id>/', delete_day_off, name='delete_day_off_id'),
+    path(f'{prefix_admin}add-day-off/<int:staff_user_id>/', add_day_off, name='add_day_off'),
+    path(f'{prefix_admin}update-day-off/<int:day_off_id>/<int:staff_user_id>/', update_day_off, name='update_day_off_id'),
+    path(f'{prefix_admin}delete-day-off/<int:day_off_id>/<int:staff_user_id>/', delete_day_off, name='delete_day_off_id'),
 
     # add, update, delete day off without staff_user_id
-    path(f'{prefix}update-day-off/<int:day_off_id>/', update_day_off, name='update_day_off'),
-    path(f'{prefix}delete-day-off/<int:day_off_id>/', delete_day_off, name='delete_day_off'),
+    path(f'{prefix_admin}update-day-off/<int:day_off_id>/', update_day_off, name='update_day_off'),
+    path(f'{prefix_admin}delete-day-off/<int:day_off_id>/', delete_day_off, name='delete_day_off'),
 
     # add, update, delete working hours with staff_user_id
-    path(f'{prefix}update-working-hours/<int:working_hours_id>/<int:staff_user_id>/', update_working_hours,
+    path(f'{prefix_admin}update-working-hours/<int:working_hours_id>/<int:staff_user_id>/', update_working_hours,
          name='update_working_hours_id'),
-    path(f'{prefix}add-working-hours/<int:staff_user_id>/', add_working_hours, name='add_working_hours_id'),
-    path(f'{prefix}delete-working-hours/<int:working_hours_id>/<int:staff_user_id>/', delete_working_hours,
+    path(f'{prefix_admin}add-working-hours/<int:staff_user_id>/', add_working_hours, name='add_working_hours_id'),
+    path(f'{prefix_admin}delete-working-hours/<int:working_hours_id>/<int:staff_user_id>/', delete_working_hours,
          name='delete_working_hours_id'),
 
     # add, update, delete working hours without staff_user_id
-    path(f'{prefix}update-working-hours/<int:working_hours_id>/', update_working_hours, name='update_working_hours'),
-    path(f'{prefix}add-working-hours/', add_working_hours, name='add_working_hours'),
-    path(f'{prefix}delete-working-hours/<int:working_hours_id>/', delete_working_hours, name='delete_working_hours'),
+    path(f'{prefix_admin}update-working-hours/<int:working_hours_id>/', update_working_hours, name='update_working_hours'),
+    path(f'{prefix_admin}add-working-hours/', add_working_hours, name='add_working_hours'),
+    path(f'{prefix_admin}delete-working-hours/<int:working_hours_id>/', delete_working_hours, name='delete_working_hours'),
 
     # delete appointment
-    path(f'{prefix}delete-appointment/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
+    path(f'{prefix_admin}delete-appointment/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
 ]
 
 ajax_urlpatterns = [
