@@ -16,6 +16,10 @@ from pathlib import Path
 
 print({key: os.environ[key] for key in os.environ if "NEXT" in key})
 
+USE_TZ = True
+TIME_ZONE = 'Europe/Warsaw'
+
+
 RECAPTCHA_CREDENTIALS = os.getenv("RECAPTCHA_CREDENTIALS")
 NEXT_RECAPTCHA_PUBLIC_KEY = os.getenv("NEXT_RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
