@@ -44,12 +44,7 @@
 
 {% extends "admin/base_site.html" %}
 {% load i18n static %}
-{% block content %}
-<div style="text-align: right; margin-bottom: 10px;">
-    <strong>Server Time:</strong> {{ current_time }}
-</div>
-{{ block.super }}
-{% endblock %}
+
 {% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static "admin/css/dashboard.css" %}">{% endblock %}
 
 {% block coltype %}colMS{% endblock %}

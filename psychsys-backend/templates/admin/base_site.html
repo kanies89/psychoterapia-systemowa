@@ -1,5 +1,10 @@
 {% extends "admin/base.html" %}
-
+{% block content %}
+<div style="text-align: right; margin-bottom: 10px;">
+  <strong>Server Time:</strong> {{ current_time }}
+</div>
+{{ block.super }}
+{% endblock %}
 {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 
