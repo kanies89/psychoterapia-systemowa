@@ -3,15 +3,7 @@
 
 {% block extrahead %}
 {{ block.super }}
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const display = document.getElementById('server-time-display');
-    setInterval(() => {
-      const now = new Date().toLocaleTimeString();
-      display.textContent = `Server Time: ${now}`;
-    }, 1000);
-  });
-</script>
+<script src="{% static 'js/server_time.js' %}"></script>
 {% endblock %}
 
 
