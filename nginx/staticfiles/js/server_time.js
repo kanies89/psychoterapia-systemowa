@@ -1,6 +1,6 @@
 // static/js/server_time.js
 function updateServerTime() {
-    fetch('api/server-time/')
+    fetch('/api/server-time/')
         .then(response => response.json())
         .then(data => {
             const timeElement = document.getElementById('server-time-display');
