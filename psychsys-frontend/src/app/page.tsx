@@ -24,10 +24,10 @@ const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () 
             className="dropdown-content menu bg-bg_2 text-gray-700 rounded-md shadow fixed top-24 right-1 z-50 p-2 space-y-2"
         >
             <li>
-                <a className="block p-2 rounded hover:bg-c1 hover:text-white">Item 1</a>
+                <a href="#Kwalifikacje" className="block p-2 rounded hover:bg-c1 hover:text-white">Kwalifikacje</a>
             </li>
             <li>
-                <a className="block p-2 rounded hover:bg-c1 hover:text-white">Item 2</a>
+                <a href="#Jak dbać o siebie?" className="block p-2 rounded hover:bg-c1 hover:text-white">Jak dbać o siebie?</a>
             </li>
         </ul>
     ) : null
@@ -92,7 +92,7 @@ const Page: React.FC = () => {
                 </div>
             </section>
 
-            <SectionDivider/>
+            <SectionDivider id="Kwalifikacje" />
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
@@ -151,7 +151,7 @@ const Page: React.FC = () => {
                 </div>
             </div>
 
-            <SectionDivider/>
+            <SectionDivider id="Jak dbać o siebie?"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
                 <figure className="pt-[10vh] w-full">
@@ -174,7 +174,7 @@ const Page: React.FC = () => {
                 <InstagramCarousel/>
             </div>
 
-            <SectionDivider/>
+            <SectionDivider id="Jak wyglądają sesjeterapii systemowej?"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
                 <div className="pt-[5vh] auto-flex content-center items-center">
@@ -220,7 +220,7 @@ const Page: React.FC = () => {
                 </div>
             </div>
 
-            <SectionDivider/>
+            <SectionDivider id="Lokalizacja gabinetu"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
 
@@ -241,7 +241,7 @@ const Page: React.FC = () => {
 
             </div>
 
-            <SectionDivider/>
+            <SectionDivider id="Wolne terminy"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
                 <div className="pt-[5vh] auto-flex content-center items-center">
@@ -265,7 +265,7 @@ const Page: React.FC = () => {
                 </div>
             </div>
 
-            <SectionDivider/>
+            <SectionDivider id="Stopka"/>
 
             {/* Footer Section */}
             <div className="card py-8 bg-bg_2 shadow-xl text-white text-center mb-[5vh] ">
