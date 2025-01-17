@@ -7,14 +7,6 @@
 {% endblock %}
 
 
-{% block content %}
-{{ block.super }}
-<div id="server-time-display" style="font-weight: bold; margin-top: 10px;">
-  Server Time: Loading...
-</div>
-{% endblock %}
-
-
 {% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block branding %}
