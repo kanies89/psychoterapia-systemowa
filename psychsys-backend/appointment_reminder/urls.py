@@ -10,4 +10,5 @@ urlpatterns = [
     # /appointment/get_available_slots/?selected_date=2024-12-11&staff_member=2
     path('api/appointment_api/get_available_slots/', get_available_slots, name='get_available_slots'),
     path('api/appointment_api/get_staff_members/<int:service_id>/', get_staff_members, name='get_staff_members_by_service')
+    path('api/server-time/', views.server_time, name='server_time'),
 ]

@@ -3,7 +3,6 @@ import os
 import json
 import requests
 import logging
-from datetime import date, timezone
 from datetime import datetime, timedelta
 from collections import defaultdict
 
@@ -14,6 +13,7 @@ from django.conf import settings
 from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.shortcuts import render
+from django.utils.timezone import now
 
 from .utils import fetch_instagram_embed, sms_send
 from appointment.models import Service, StaffMember
@@ -238,3 +238,5 @@ def create_assessment(request):
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Invalid JSON request'}, status=400)
 
+def server_time(request):
+    return JsonResponse({"server_time": now().strftime("%Y-%m-%d %H:%M:%S")})

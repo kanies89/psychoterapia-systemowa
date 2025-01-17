@@ -1,12 +1,20 @@
 {% extends "admin/base.html" %}
-{% block content %}
-<div style="text-align: right; margin-bottom: 10px;">
-  <strong>Server Time:</strong> {{ current_time }}
-</div>
-{{ block.super }}
-{% endblock %}
-{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
+{% block extrahead %}
+{{ block.super }}
+<script src="{% static 'js/server_time.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+{{ block.super }}
+<div id="server-time-display" style="font-weight: bold; margin-top: 10px;">
+  Server Time: Loading...
+</div>
+{% endblock %}
+
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block branding %}
 <div id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></div>
