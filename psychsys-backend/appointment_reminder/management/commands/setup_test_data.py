@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Create a test user
-        user, created = User.objects.get_or_create(
+        user, created = User.objects.create(
             username="test_user",
             defaults={"email": "test_user@example.com", "password": "password123"},
         )
@@ -20,7 +20,7 @@ class Command(BaseCommand):
             self.stdout.write("Test user already exists.")
 
         # Create a test service
-        service, created = Service.objects.get_or_create(
+        service, created = Service.objects.create(
             name="Test Service",
             defaults={"description": "This is a test service."},
             duration=timedelta(minutes=50),  # Example duration of 1 hour
@@ -34,9 +34,8 @@ class Command(BaseCommand):
             self.stdout.write("Test service already exists.")
 
         # Create a test staff member
-        staff_member, created = StaffMember.objects.get_or_create(
-            name="Test Staff Member",
-            defaults={"user": user},
+        staff_member, created = StaffMember.objects.create(
+            user=user
         )
         if created:
             self.stdout.write("Test staff member created.")
@@ -50,7 +49,7 @@ class Command(BaseCommand):
         ]
 
         for hours in test_hours:
-            WorkingHours.objects.get_or_create(
+            WorkingHours.objects.create(
                 staff_member=staff_member,
                 day_of_week=hours["day_of_week"],
                 defaults={
