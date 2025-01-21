@@ -445,6 +445,7 @@ def send_verification_code(request):
                     print(response)
                     logger.info(response)
 
+
                 except Exception:
                     print('ERROR: ', sys.exc_info()[1])
 
