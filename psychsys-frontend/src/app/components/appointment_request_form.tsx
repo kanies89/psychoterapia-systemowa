@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ButtonH from "@/app/components/hour_button";
 import ButtonD from "@/app/components/date_button";
+import {useAppointment} from "@/app/components/appointment_context";
 
 interface Slot {
     date: string;
@@ -25,17 +26,13 @@ const AppointmentRequestForm: React.FC = () => {
     const [availableSlots, setAvailableSlots] = useState<Slot[]>([]);
     const [activeButton, setActiveButton] = useState<string | null>(null); // State to store active button ID
     const [activeHour, setActiveHour] = useState<string | null>(null);
-
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [selectedHour, setSelectedHour] = useState<string | null>(null);
-
     const today = new Date();
     const [selectedSlotDate] = useState<string | null>(today.toISOString().split('T')[0]);  // Default to current date
-
     const [showAppointmentsDateHours, setAppointmentDateHours] = useState<string | null>(null);
-    const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
-
     const url_backend = process.env.NEXT_PUBLIC_API_URL;
+    const { setAppointmentData } = useAppointment();
 
     // Fetch Services
     useEffect(() => {
@@ -95,6 +92,23 @@ const AppointmentRequestForm: React.FC = () => {
     // Handlers
     const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
     const handleStaffChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStaff(e.target.value);
+    const handleCSetAppointmentRequestData = async () => {
+        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+            alert("Please select a service, staff member, date, and time.");
+            return;
+        }
+        try {
+            setAppointmentData({
+                service: selectedService,
+                staff: selectedStaff,
+                date: selectedDate,
+                hour: selectedHour,
+            });
+
+        } catch (error) {
+            console.error('Error creating appointment request:', error);
+        }
+    };
 
     // Group Slots by Date
     const groupedSlots = availableSlots.reduce<Record<string, string[]>>((acc, slot) => {
@@ -114,33 +128,15 @@ const AppointmentRequestForm: React.FC = () => {
     const handleHourClick = (hour: string) => {
         setActiveHour(selectedDate + hour);
         setSelectedHour(hour);
-        // Additional logic can go here, e.g., calling a parent callback
-    };
-
-    const handleConfirmAppointment = async () => {
-        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
-            alert("Please select a service, staff member, date, and time.");
-            return;
-        }
-
-        try {
-            const response = await fetch(`${url_backend}/appointment_api/send_verification_code/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    service_id: selectedService,
-                    staff_id: selectedStaff,
-                    date: selectedDate,
-                    time: selectedHour,
-                }),
+        // Properly handle the async function
+        handleCSetAppointmentRequestData()
+            .then(() => {
+                console.log("Appointment data set successfully.");
+            })
+            .catch((error) => {
+                console.error("Error in handleCSetAppointmentRequestData:", error);
             });
-
-            if (!response.ok) throw new Error(`Error creating appointment request: ${response.statusText}`);
-            const data = await response.json();
-            setAppointmentRequestId(data.appointment_request_id);
-        } catch (error) {
-            console.error('Error creating appointment request:', error);
-        }
+        // Additional logic can go here, e.g., calling a parent callback
     };
 
     const selectedStaffName = staffMembers.find(staff => staff.id.toString() === selectedStaff)?.name;

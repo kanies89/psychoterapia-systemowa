@@ -2,6 +2,7 @@ import React, { useState, useRef, FormEvent } from "react";
 import SMSCODE from "@/app/components/smscode"
 import Input from "@/app/components/normal_input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import {useAppointment} from "@/app/components/appointment_context";
 
 type InputProps = {
     value: string;
@@ -14,6 +15,10 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
     const { executeRecaptcha } = useGoogleReCaptcha();
+    const { appointmentData } = useAppointment();
+    const { selectedService, selectedStaff, selectedDate, selectedHour } = appointmentData;
+    const url_backend = process.env.NEXT_PUBLIC_API_URL;
+    const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
 
     // States to track external input values
     const [formData, setFormData] = useState({
@@ -40,6 +45,37 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleConfirmAppointment = async () => {
+        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+            alert("Please select a service, staff member, date, and time.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${url_backend}/appointment_api/send_verification_code/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    service_id: selectedService,
+                    staff_id: selectedStaff,
+                    date: selectedDate,
+                    time: selectedHour,
+                    phone: formData.phone,
+                    first_name: formData.name,
+                    last_name: formData.surname,
+                    email: formData.email
+                }),
+            });
+
+            if (!response.ok) throw new Error(`Error creating appointment request: ${response.statusText}`);
+            const data = await response.json();
+
+            setAppointmentRequestId(data.appointment_request_id);
+        } catch (error) {
+            console.error('Error creating appointment request:', error);
+        }
     };
 
     const handleSubmit = async (e: FormEvent) => {
@@ -80,6 +116,13 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 setIsChecked(true);
                 setIsSMSCODEVisible(true);
                 setSubmit("Recaptcha Verified and Form Submitted");
+                handleConfirmAppointment()
+                    .then(() => {
+                        console.log("Confirmation data sent.");
+                    })
+                    .catch((error) => {
+                        console.error("Error in handleConfirmAppointment:", error);
+                    });
             } else {
                 console.warn(`Failure with message: ${data.message}`);
                 setSubmit(data.message || "Failed to verify reCAPTCHA! You must be a robot!");
