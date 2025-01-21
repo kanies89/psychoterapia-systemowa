@@ -49,7 +49,7 @@ class Command(BaseCommand):
             slot_duration = timedelta(minutes=60),  # Example duration of 1 hour
             lead_time = datetime.strptime("07:00:00", "%H:%M:%S").time(),
             finish_time = datetime.strptime("20:00:00", "%H:%M:%S").time(),
-            appointment_buffer_time = timedelta(minutes=60),  # Example duration of 1 hour
+            appointment_buffer_time = 60,  # Example duration of 1 hour
             website_name = 'Psychoterapia-systemowa'
         )
 
