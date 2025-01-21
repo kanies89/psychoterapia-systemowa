@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from django.core.management.base import BaseCommand
 from appointment.models import Service, StaffMember, WorkingHours
 from django.contrib.auth.models import User
+
 
 class Command(BaseCommand):
     help = "Create test data for the appointment app"
@@ -20,6 +23,7 @@ class Command(BaseCommand):
         service, created = Service.objects.get_or_create(
             name="Test Service",
             defaults={"description": "This is a test service."},
+            duration=timedelta(minutes=50),  # Example duration of 1 hour
         )
         if created:
             self.stdout.write("Test service created.")
