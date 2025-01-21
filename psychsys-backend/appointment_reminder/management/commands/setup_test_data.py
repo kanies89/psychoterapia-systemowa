@@ -1,7 +1,7 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.core.management.base import BaseCommand
-from appointment.models import Service, StaffMember, WorkingHours
+from appointment.models import Service, StaffMember, WorkingHours, Config
 from django.contrib.auth.models import User
 
 
@@ -35,12 +35,28 @@ class Command(BaseCommand):
 
         # Create a test staff member
         staff_member, created = StaffMember.objects.get_or_create(
-            user=user
+            user=user,
+            slot_duration=60
         )
         if created:
             self.stdout.write("Test staff member created.")
         else:
             self.stdout.write("Test staff member already exists.")
+
+
+        # Create a test config
+        config, created = Config.objects.get_or_create(
+            slot_duration = timedelta(minutes=60),  # Example duration of 1 hour
+            lead_time = datetime.strptime("07:00:00", "%H:%M:%S").time(),
+            finish_time = datetime.strptime("20:00:00", "%H:%M:%S").time(),
+            appointment_buffer_time = timedelta(minutes=60),  # Example duration of 1 hour
+            website_name = 'Psychoterapia-systemowa'
+        )
+
+        if created:
+            self.stdout.write("Test config created.")
+        else:
+            self.stdout.write("Test config already exists.")
 
         # Create test working hours for the test staff member
         test_hours = [
