@@ -23,7 +23,7 @@ from django.utils.timezone import get_current_timezone_name
 from django.utils.translation import gettext as _
 
 from serwersms import SerwerSMS
-from ..backend.settings import SMSSERVER_TOKEN
+from backend.settings import SMSSERVER_TOKEN
 
 from appointment.forms import AppointmentForm, AppointmentRequestForm, SlotForm, ClientDataForm
 from appointment.logger_config import get_logger
