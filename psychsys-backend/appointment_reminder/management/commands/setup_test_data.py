@@ -24,6 +24,9 @@ class Command(BaseCommand):
             name="Test Service",
             defaults={"description": "This is a test service."},
             duration=timedelta(minutes=50),  # Example duration of 1 hour
+            price=300,
+            down_payment=0,
+            currency = 'PLN'
         )
         if created:
             self.stdout.write("Test service created.")
