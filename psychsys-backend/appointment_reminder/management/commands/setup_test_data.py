@@ -36,7 +36,10 @@ class Command(BaseCommand):
         # Create a test staff member
         staff_member, created = StaffMember.objects.get_or_create(
             user=user,
-            slot_duration=60
+            slot_duration = 60,
+            lead_time = datetime.strptime("07:00:00", "%H:%M:%S").time(),
+            finish_time = datetime.strptime("20:00:00", "%H:%M:%S").time(),
+            appointment_buffer_time = 60
         )
         if created:
             self.stdout.write("Test staff member created.")
