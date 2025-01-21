@@ -269,7 +269,7 @@ def parse_name(name: str):
 def create_user_with_email(client_data: dict):
     CLIENT_MODEL = get_user_model()
     # Valid fields
-    valid_fields = ['email', 'first_name', 'last_name']
+    valid_fields = ['email', 'phone', 'first_name', 'last_name']
 
     # Filter client_data to include only valid fields
     user_data = {field: client_data.get(field, '') for field in valid_fields}
@@ -286,6 +286,7 @@ def create_user_with_username(client_data: dict):
         username = client_data['username']
     user_data = {
         'username': username,
+        'phone': client_data['phone'],
         'email': client_data['email'],
         'first_name': client_data.get('first_name', ''),
         'last_name': client_data.get('last_name', '')
@@ -643,6 +644,16 @@ def get_user_by_email(email: str):
     """
     CLIENT_MODEL = get_user_model()
     return CLIENT_MODEL.objects.filter(email=email).first()
+
+
+def get_user_by_phone(phone: str):
+    """Get a user by their phone number.
+
+    :param phone: The phone address of the user.
+    :return: The user with the specified phone number, if found; otherwise, None.
+    """
+    CLIENT_MODEL = get_user_model()
+    return CLIENT_MODEL.objects.filter(phone=phone).first()
 
 
 def get_website_name() -> str:

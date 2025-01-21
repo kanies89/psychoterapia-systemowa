@@ -11,7 +11,8 @@ from django.urls import include, path
 from appointment.views import (
     appointment_client_information, appointment_request, appointment_request_submit, confirm_reschedule,
     default_thank_you, enter_verification_code, get_available_slots_ajax, get_next_available_date_ajax,
-    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd
+    get_non_working_days_ajax, prepare_reschedule_appointment, reschedule_appointment_submit, set_passwd,
+    send_verification_code
 )
 from appointment.views_admin import (
     add_day_off, add_or_update_service, add_or_update_staff_info, add_staff_member_info, add_working_hours,
@@ -115,4 +116,5 @@ urlpatterns = [
     path(f'{prefix}verify/<uidb64>/<str:token>/', set_passwd, name='set_passwd'),
     path(f'{prefix}ajax/', include(ajax_urlpatterns)),
     path(f'{prefix}app-admin/', include(admin_urlpatterns)),
+    path(f'{prefix}appointment/send_verification_code/', send_verification_code, name='send_verification_code'),
 ]

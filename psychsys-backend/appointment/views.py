@@ -5,7 +5,7 @@
 Author: Adams Pierre David
 Since: 1.0.0
 """
-
+import json, sys
 from datetime import date, timedelta
 
 from appointment.settings import check_q_cluster
@@ -13,7 +13,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.forms import SetPasswordForm
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -21,6 +21,9 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from django.utils.timezone import get_current_timezone_name
 from django.utils.translation import gettext as _
+
+from serwersms import SerwerSMS
+from ..backend.settings import SMSSERVER_TOKEN
 
 from appointment.forms import AppointmentForm, AppointmentRequestForm, SlotForm, ClientDataForm
 from appointment.logger_config import get_logger
@@ -33,13 +36,15 @@ from appointment.utils.db_helpers import (
     can_appointment_be_rescheduled, check_day_off_for_staff, create_and_save_appointment, create_new_user,
     create_payment_info_and_get_url, get_non_working_days_for_staff, get_user_by_email, get_user_model,
     get_website_name, get_weekday_num_from_date, is_working_day, staff_change_allowed_on_reschedule,
-    username_in_user_model
+    username_in_user_model, get_user_by_phone
 )
 from appointment.utils.email_ops import notify_admin_about_appointment, notify_admin_about_reschedule, \
     send_reschedule_confirmation_email, \
     send_thank_you_email
 from appointment.utils.session import get_appointment_data_from_session, handle_existing_email
 from appointment.utils.view_helpers import get_locale
+from django.views.decorators.csrf import csrf_exempt
+
 from .decorators import require_ajax
 from .email_sender.email_sender import has_required_email_settings
 from .messages_ import passwd_error, passwd_set_successfully
@@ -368,6 +373,158 @@ def verify_user_and_login(request, user, code):
     else:
         messages.error(request, _("Invalid verification code."))
         return False
+
+
+def verify_appointment_code(request, user, code):
+    """This function verifies the user's email and logs the user in.
+
+    :param request: The request instance.
+    :param user: The User instance.
+    :param code: The verification code.
+    """
+    if user and EmailVerificationCode.objects.filter(user=user, code=code).exists():
+        logger.info(f"Phone number verified successfully for user {user}. Appointment scheduled.")
+        login(request, user)
+        messages.success(request, _("Phone number verified successfully."))
+        return True
+    else:
+        messages.error(request, _("Invalid verification code."))
+        return False
+
+# FINISH THIS
+@csrf_exempt
+def send_verification_code(request):
+    """
+    Endpoint to send verification code.
+    """
+    if request.method == 'POST':
+        form = AppointmentRequestForm(request.POST)
+        if form.is_valid():
+            try:
+                staff_member = form.cleaned_data['staff_member']
+
+                if not StaffMember.objects.filter(id=staff_member.id).exists():
+                    return JsonResponse(
+                        {"error": _("Selected staff member does not exist.")},
+                        status=400
+                    )
+
+                # Log appointment data
+                logger.info(
+                    f"date: {form.cleaned_data['date']}, start_time: {form.cleaned_data['start_time']}, "
+                    f"end_time: {form.cleaned_data['end_time']}, service: {form.cleaned_data['service']}, "
+                    f"staff: {staff_member}"
+                )
+
+                # Save appointment
+                appointment = form.save()
+                request.session[f'appointment_completed_{appointment.id_request}'] = False
+
+                # Extract client data
+                client_data = {
+                    'phone': form.cleaned_data.get('phone'),
+                    'email': form.cleaned_data.get('email'),
+                    'first_name': form.cleaned_data.get('first_name'),
+                    'last_name': form.cleaned_data.get('last_name')
+                }
+
+                # Create a new user and generate verification code
+                user = create_new_user(client_data=client_data)
+                code = EmailVerificationCode.generate_code(user=user)
+
+                # Logic to send the code (implement your sending logic here)
+                # send_verification_code_to_user(user, code)
+                api = SerwerSMS(SMSSERVER_TOKEN)
+
+                try:
+                    params = {
+                        'test': 'true',
+                        'details': 'true'
+                    }
+                    response = api.message.send_sms(client_data['phone'], code, 'INFORMACJA', params)
+                    print(response)
+                    logger.info(response)
+
+                except Exception:
+                    print('ERROR: ', sys.exc_info()[1])
+
+                # Return success response
+                return JsonResponse(
+                    {
+                        "message": _("Verification code sent successfully."),
+                        "appointment_request_id": appointment.id,
+                        "id_request": appointment.id_request
+                    },
+                    status=200
+                )
+
+            except Exception as e:
+                logger.error(f"Error processing request: {e}")
+                return JsonResponse(
+                    {"error": _("An error occurred while processing your request.")},
+                    status=500
+                )
+        else:
+            # Handle invalid form
+            return JsonResponse(
+                {"error": _("Invalid form submission."), "details": form.errors},
+                status=400
+            )
+    else:
+        return JsonResponse(
+            {"error": _("Invalid request method.")},
+            status=405
+        )
+
+
+# FINISH THIS
+@csrf_exempt
+def confirm_verification_code(request, appointment_request_id):
+    """
+    Endpoint to verify the phone verification code sent from the frontend.
+    Expects a POST request with JSON data containing the 'code' field.
+    """
+    if request.method == 'POST':
+        try:
+            # Parse JSON from request body
+            data = json.loads(request.body)
+            code = data.get('code')  # Extract the verification code
+            phone = request.session.get('phone')  # Get phone from session
+            email = request.session.get('email')
+
+            if not code or not phone:
+                return JsonResponse({'error': 'Phone or code is missing'}, status=400)
+
+            # Fetch the user based on the phone
+            user = get_user_by_phone(phone)  # Adjust this function as per your user lookup
+
+            if not user:
+                return JsonResponse({'error': 'User not found'}, status=404)
+
+            # Verify the code
+            if verify_appointment_code(request, user, code):
+                appointment_request_object = AppointmentRequest.objects.get(pk=appointment_request_id)
+                appointment_data = get_appointment_data_from_session(request)
+                response = create_appointment(request=request, appointment_request_obj=appointment_request_object,
+                                              client_data={'email': email}, appointment_data=appointment_data)
+                appointment = Appointment.objects.get(appointment_request=appointment_request_object)
+                appointment_details = {
+                    'Service': appointment.get_service_name(),
+                    'Appointment Date': appointment.get_appointment_date(),
+                    'Appointment Time': appointment.appointment_request.start_time,
+                    'Duration': appointment.get_service_duration()
+                }
+                send_thank_you_email(ar=appointment_request_object, user=user, email=email,
+                                     appointment_details=appointment_details, request=request)
+
+                return JsonResponse({'message': 'Verification successful'}, status=200)
+            else:
+                return JsonResponse({'error': 'Invalid verification code'}, status=400)
+
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
+
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 def enter_verification_code(request, appointment_request_id, id_request):

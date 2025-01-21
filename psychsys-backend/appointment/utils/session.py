@@ -87,10 +87,12 @@ def get_appointment_data_from_session(request):
     want_reminder = request.session.get('want_reminder') == 'on'
     address = request.session.get('address')
     additional_info = request.session.get('additional_info')
+    email = request.session.get('email')
 
     return {
         'phone': phone_obj,
         'want_reminder': want_reminder,
         'address': address,
         'additional_info': additional_info,
+        'email': email,
     }

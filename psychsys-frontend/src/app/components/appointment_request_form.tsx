@@ -31,7 +31,10 @@ const AppointmentRequestForm: React.FC = () => {
 
     const today = new Date();
     const [selectedSlotDate] = useState<string | null>(today.toISOString().split('T')[0]);  // Default to current date
+
     const [showAppointmentsDateHours, setAppointmentDateHours] = useState<string | null>(null);
+    const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
+
     const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
     // Fetch Services
@@ -112,6 +115,32 @@ const AppointmentRequestForm: React.FC = () => {
         setActiveHour(selectedDate + hour);
         setSelectedHour(hour);
         // Additional logic can go here, e.g., calling a parent callback
+    };
+
+    const handleConfirmAppointment = async () => {
+        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+            alert("Please select a service, staff member, date, and time.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${url_backend}/appointment_api/send_verification_code/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    service_id: selectedService,
+                    staff_id: selectedStaff,
+                    date: selectedDate,
+                    time: selectedHour,
+                }),
+            });
+
+            if (!response.ok) throw new Error(`Error creating appointment request: ${response.statusText}`);
+            const data = await response.json();
+            setAppointmentRequestId(data.appointment_request_id);
+        } catch (error) {
+            console.error('Error creating appointment request:', error);
+        }
     };
 
     const selectedStaffName = staffMembers.find(staff => staff.id.toString() === selectedStaff)?.name;
