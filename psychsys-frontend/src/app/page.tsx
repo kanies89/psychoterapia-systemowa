@@ -276,7 +276,7 @@ const Page: React.FC = () => {
     );
 };
 
-const WrappedPage = () => {
+const WrappedPage: React.FC = () => {
     return (
         <AppointmentProvider>
             <Page/>
@@ -284,4 +284,4 @@ const WrappedPage = () => {
     );
 };
 
-export default WrappedPage();
+export default WrappedPage;
