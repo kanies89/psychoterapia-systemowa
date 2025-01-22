@@ -92,9 +92,14 @@ const AppointmentRequestForm: React.FC = () => {
     // Handlers
     const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
     const handleStaffChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStaff(e.target.value);
+
     const handleCSetAppointmentRequestData = async () => {
         if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
-            alert("Please select a service, staff member, date, and time.");
+            alert(`Please select a service, staff member, date, and time. 
+            selectedService: ${selectedService},
+            selectedStaff: ${selectedStaff},
+            selectedDate: ${selectedDate},
+            selectedHour: ${selectedHour}`);
             return;
         }
         try {
