@@ -16,6 +16,7 @@ import Section_title from "@/app/components/section_title";
 import SectionDivider from "@/app/components/section_divider";
 import HamburgerMenu from "@/app/components/ham_menu";
 import REGCheckbox from "@/app/components/accept_reg";
+import {AppointmentProvider} from "@/app/components/appointment_context";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -275,4 +276,12 @@ const Page: React.FC = () => {
     );
 };
 
-export default Page;
+const WrappedPage: () => React.JSX.Element= () => {
+    return (
+        <AppointmentProvider>
+            <Page/>
+        </AppointmentProvider>
+    );
+};
+
+export default WrappedPage();
