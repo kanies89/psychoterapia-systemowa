@@ -93,13 +93,13 @@ const AppointmentRequestForm: React.FC = () => {
     const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
     const handleStaffChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStaff(e.target.value);
 
-    const handleCSetAppointmentRequestData = async () => {
-        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+    const handleCSetAppointmentRequestData = async (hour: string) => {
+        if (!selectedService || !selectedStaff || !selectedDate || !hour) {
             alert(`Please select a service, staff member, date, and time. 
             selectedService: ${selectedService},
             selectedStaff: ${selectedStaff},
             selectedDate: ${selectedDate},
-            selectedHour: ${selectedHour}`);
+            selectedHour: ${hour}`);
             return;
         }
         try {
@@ -107,7 +107,7 @@ const AppointmentRequestForm: React.FC = () => {
                 service: selectedService,
                 staff: selectedStaff,
                 date: selectedDate,
-                hour: selectedHour,
+                hour: hour,
             });
 
         } catch (error) {
@@ -134,7 +134,7 @@ const AppointmentRequestForm: React.FC = () => {
         setActiveHour(selectedDate + hour);
         setSelectedHour(hour);
         // Properly handle the async function
-        handleCSetAppointmentRequestData()
+        handleCSetAppointmentRequestData(hour)
             .then(() => {
                 console.log("Appointment data set successfully.");
             })
