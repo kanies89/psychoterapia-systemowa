@@ -2,7 +2,7 @@ import React, { useState, useRef, FormEvent } from "react";
 import SMSCODE from "@/app/components/smscode"
 import Input from "@/app/components/normal_input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import {useAppointment} from "@/app/components/appointment_context";
+import { useAppointment } from "@/app/components/appointment_context";
 
 type InputProps = {
     value: string;
