@@ -276,7 +276,7 @@ const Page: React.FC = () => {
     );
 };
 
-const WrappedPage: () => React.JSX.Element= () => {
+const WrappedPage = () => {
     return (
         <AppointmentProvider>
             <Page/>
