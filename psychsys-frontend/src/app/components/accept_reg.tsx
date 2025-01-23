@@ -2,22 +2,24 @@ import React, { useState, useRef, FormEvent } from "react";
 import SMSCODE from "@/app/components/smscode"
 import Input from "@/app/components/normal_input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useAppointment } from "@/app/components/appointment_context";
+import {useAppointment} from "@/app/components/appointment_context";
 
 type InputProps = {
     value: string;
 };
 
 const REGCheckbox: React.FC<InputProps> = ({ value }) => {
-    const [isChecked, setIsChecked] = useState(false);
     const modalRef = useRef<HTMLDialogElement | null>(null);
+
+    const [isChecked, setIsChecked] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
-    const { executeRecaptcha } = useGoogleReCaptcha();
-    const { appointmentData, setAppointmentData } = useAppointment();
-    const url_backend = process.env.NEXT_PUBLIC_API_URL;
     const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
+
+    const { executeRecaptcha } = useGoogleReCaptcha();
+
+    const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
     // States to track external input values
     const [formData, setFormData] = useState({
@@ -47,15 +49,15 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     };
 
     const handleConfirmAppointment = async () => {
-        const { selectedService, selectedStaff, selectedDate, selectedHour } = appointmentData;
+        const { service, staff, date, hour } = useAppointment();
 
-        if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
-            if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+        if (!service || !staff || !date || !hour) {
+            if (!service || !staff || !date || !hour) {
                 alert(`Please select a service, staff member, date, and time. 
-                selectedService: ${selectedService},
-                selectedStaff: ${selectedStaff},
-                selectedDate: ${selectedDate},
-                selectedHour: ${selectedHour}`);
+                selectedService: ${service},
+                selectedStaff: ${staff},
+                selectedDate: ${date},
+                selectedHour: ${hour}`);
                 return;
             }
         }
@@ -65,10 +67,10 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    service_id: selectedService,
-                    staff_id: selectedStaff,
-                    date: selectedDate,
-                    time: selectedHour,
+                    service_id: service,
+                    staff_id: staff,
+                    date: date,
+                    time: hour,
                     phone: formData.phone,
                     first_name: formData.name,
                     last_name: formData.surname,

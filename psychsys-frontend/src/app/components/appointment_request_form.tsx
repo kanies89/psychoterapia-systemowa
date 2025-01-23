@@ -21,14 +21,17 @@ interface StaffMember {
 const AppointmentRequestForm: React.FC = () => {
     const [services, setServices] = useState<Service[]>([]);
     const [staffMembers, setStaffMembers] = useState<StaffMember[]>([]);
+
     const [selectedService, setSelectedService] = useState<string>('');
     const [selectedStaff, setSelectedStaff] = useState<string>('');
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [selectedHour, setSelectedHour] = useState<string | null>(null);
     const [availableSlots, setAvailableSlots] = useState<Slot[]>([]);
     const [activeButton, setActiveButton] = useState<string | null>(null); // State to store active button ID
     const [activeHour, setActiveHour] = useState<string | null>(null);
-    const [selectedDate, setSelectedDate] = useState<string | null>(null);
-    const [selectedHour, setSelectedHour] = useState<string | null>(null);
+
     const today = new Date();
+
     const [selectedSlotDate] = useState<string | null>(today.toISOString().split('T')[0]);  // Default to current date
     const [showAppointmentsDateHours, setAppointmentDateHours] = useState<string | null>(null);
     const url_backend = process.env.NEXT_PUBLIC_API_URL;
