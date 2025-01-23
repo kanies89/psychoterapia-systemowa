@@ -6,6 +6,7 @@ Author: Adams Pierre David
 Since: 1.0.0
 """
 import json, sys
+import traceback
 from datetime import date, timedelta
 
 from appointment.settings import check_q_cluster
@@ -391,91 +392,102 @@ def verify_appointment_code(request, user, code):
         messages.error(request, _("Invalid verification code."))
         return False
 
-# FINISH THIS
+
 @csrf_exempt
 def send_verification_code(request):
     """
     Endpoint to send verification code.
     """
-    if request.method == 'POST':
-        logger.info(f"BACKEND RECEIVED REQUEST: {request}")
-        form = AppointmentRequestForm(request.POST)
-        if form.is_valid():
-            try:
-                staff_member = form.cleaned_data['staff_id']
+    logger.info(f"Received request at send_verification_code endpoint. Method: {request.method}")
 
-                if not StaffMember.objects.filter(id=staff_member.id).exists():
-                    return JsonResponse(
-                        {"error": _("Selected staff member does not exist.")},
-                        status=400
-                    )
+    if request.method != 'POST':
+        logger.warning("Invalid request method received.")
+        return JsonResponse({"error": _("Invalid request method.")}, status=405)
 
-                # Log appointment data
-                logger.info(
-                    f"date: {form.cleaned_data['date']}, start_time: {form.cleaned_data['start_time']}, "
-                    f"end_time: {form.cleaned_data['end_time']}, service: {form.cleaned_data['service_id']}, "
-                    f"staff: {staff_member}"
-                )
+    try:
+        # Log raw request data
+        raw_data = request.body.decode('utf-8') if request.body else None
+        logger.debug(f"Raw request body: {raw_data}")
 
-                # Save appointment
-                appointment = form.save()
-                request.session[f'appointment_completed_{appointment.id_request}'] = False
-
-                # Extract client data
-                client_data = {
-                    'phone': form.cleaned_data.get('phone'),
-                    'email': form.cleaned_data.get('email'),
-                    'first_name': form.cleaned_data.get('first_name'),
-                    'last_name': form.cleaned_data.get('last_name')
-                }
-
-                # Create a new user and generate verification code
-                user = create_new_user(client_data=client_data)
-                code = EmailVerificationCode.generate_code(user=user)
-
-                # Logic to send the code (implement your sending logic here)
-                # send_verification_code_to_user(user, code)
-                api = SerwerSMS(SMSSERVER_TOKEN)
-
-                try:
-                    params = {
-                        'test': 'true',
-                        'details': 'true'
-                    }
-                    response = api.message.send_sms(client_data['phone'], code, 'INFORMACJA', params)
-                    print(response)
-                    logger.info(response)
-
-                except Exception:
-                    print('ERROR: ', sys.exc_info()[1])
-
-                # Return success response
-                return JsonResponse(
-                    {
-                        "message": _("Verification code sent successfully."),
-                        "appointment_request_id": appointment.id,
-                        "id_request": appointment.id_request
-                    },
-                    status=200
-                )
-
-            except Exception as e:
-                logger.error(f"Error processing request: {e}")
-                return JsonResponse(
-                    {"error": _("An error occurred while processing your request.")},
-                    status=500
-                )
+        # Parse request data (POST or JSON)
+        if request.content_type == 'application/json':
+            request_data = json.loads(raw_data) if raw_data else {}
         else:
-            # Handle invalid form
+            request_data = request.POST.dict()
+
+        logger.debug(f"Parsed request data: {request_data}")
+
+        # Validate form
+        form = AppointmentRequestForm(request_data)
+        if not form.is_valid():
+            logger.warning(f"Invalid form data: {form.errors}")
             return JsonResponse(
                 {"error": _("Invalid form submission."), "details": form.errors},
                 status=400
             )
-    else:
+
+        logger.info("Form validated successfully.")
+        staff_member = form.cleaned_data['staff_id']
+
+        # Validate staff member
+        if not StaffMember.objects.filter(id=staff_member.id).exists():
+            logger.warning(f"Staff member with ID {staff_member.id} does not exist.")
+            return JsonResponse({"error": _("Selected staff member does not exist.")}, status=400)
+
+        # Log appointment data
+        logger.info(f"Appointment data: {form.cleaned_data}")
+
+        # Save appointment
+        appointment = form.save()
+        request.session[f'appointment_completed_{appointment.id_request}'] = False
+
+        # Extract client data
+        client_data = {
+            'phone': form.cleaned_data.get('phone'),
+            'email': form.cleaned_data.get('email'),
+            'first_name': form.cleaned_data.get('first_name'),
+            'last_name': form.cleaned_data.get('last_name')
+        }
+        logger.debug(f"Client data: {client_data}")
+
+        # Create user and generate verification code
+        user = create_new_user(client_data=client_data)
+        code = EmailVerificationCode.generate_code(user=user)
+
+        # Send verification code
+        api = SerwerSMS(SMSSERVER_TOKEN)
+        params = {'test': 'true', 'details': 'true'}
+
+        try:
+            response = api.message.send_sms(client_data['phone'], code, 'INFORMACJA', params)
+            logger.info(f"SMS sent successfully. Response: {response}")
+        except Exception as e:
+            logger.error(f"Error sending SMS: {e}")
+            logger.debug(traceback.format_exc())
+            return JsonResponse({"error": _("Failed to send verification code.")}, status=500)
+
+        # Return success response
+        logger.info("Verification code sent successfully.")
         return JsonResponse(
-            {"error": _("Invalid request method.")},
-            status=405
+            {
+                "message": _("Verification code sent successfully."),
+                "appointment_request_id": appointment.id,
+                "id_request": appointment.id_request
+            },
+            status=200
         )
+
+    except json.JSONDecodeError:
+        logger.error("Failed to decode JSON body.")
+        return JsonResponse({"error": _("Invalid JSON format.")}, status=400)
+    except Exception as e:
+        logger.error(f"Unexpected error: {e}")
+        logger.debug(traceback.format_exc())
+        return JsonResponse(
+            {"error": _("An error occurred while processing your request.")},
+            status=500
+        )
+
 
 
 # FINISH THIS
