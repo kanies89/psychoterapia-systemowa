@@ -443,10 +443,10 @@ def send_verification_code(request):
 
         # Extract client data
         client_data = {
-            'phone': form.cleaned_data.get('phone'),
-            'email': form.cleaned_data.get('email'),
-            'first_name': form.cleaned_data.get('first_name'),
-            'last_name': form.cleaned_data.get('last_name')
+            'phone': form.cleaned_data['phone'],
+            'email': form.cleaned_data['email'],
+            'first_name': form.cleaned_data['first_name'],
+            'last_name': form.cleaned_data['last_name']
         }
         logger.debug(f"Client data: {client_data}")
 
