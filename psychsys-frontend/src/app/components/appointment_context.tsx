@@ -1,24 +1,26 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useContext } from "react";
 
-interface AppointmentData {
-    service?: string;
-    staff?: string;
-    date?: string;
-    hour?: string;
-    [key: string]: any; // Allows flexibility for additional properties
-}
+type AppointmentContextType = {
+    service: string | null;
+    staff: string | null;
+    date: string | null;
+    hour: string | null;
+    setService: (value: string) => void;
+    setStaff: (value: string) => void;
+    setDate: (value: string) => void;
+    setHour: (value: string) => void;
+};
 
-interface AppointmentContextType {
-    appointmentData: AppointmentData;
-    setAppointmentData: React.Dispatch<React.SetStateAction<AppointmentData>>;
-}
-
-const AppointmentContext = createContext<AppointmentContextType | null>(null);
+const AppointmentContext = createContext<AppointmentContextType | undefined>(undefined);
 
 export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [appointmentData, setAppointmentData] = useState<AppointmentData>({});
+    const [service, setService] = useState<string | null>(null);
+    const [staff, setStaff] = useState<string | null>(null);
+    const [date, setDate] = useState<string | null>(null);
+    const [hour, setHour] = useState<string | null>(null);
+
     return (
-        <AppointmentContext.Provider value={{ appointmentData, setAppointmentData }}>
+        <AppointmentContext.Provider value={{ service, staff, date, hour, setService, setStaff, setDate, setHour }}>
             {children}
         </AppointmentContext.Provider>
     );
@@ -26,8 +28,6 @@ export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({ c
 
 export const useAppointment = () => {
     const context = useContext(AppointmentContext);
-    if (!context) {
-        throw new Error('useAppointment must be used within an AppointmentProvider');
-    }
+    if (!context) throw new Error("useAppointment must be used within an AppointmentProvider");
     return context;
 };

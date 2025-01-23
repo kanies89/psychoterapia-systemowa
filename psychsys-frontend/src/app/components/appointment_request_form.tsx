@@ -33,9 +33,13 @@ const AppointmentRequestForm: React.FC = () => {
     const [showAppointmentsDateHours, setAppointmentDateHours] = useState<string | null>(null);
     const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
-    const { appointmentData, setAppointmentData } = useAppointment();
-    const { service, staff, date, hour } = appointmentData;
-
+    const { setService, setStaff, setDate, setHour } = useAppointment();
+    const handleSetVariables = (v1: string, v2: string, v3: string, v4: string) => {
+        setService(v1);
+        setStaff(v2);
+        setDate(v3);
+        setHour(v4);
+    };
 
     // Fetch Services
     useEffect(() => {
@@ -106,14 +110,8 @@ const AppointmentRequestForm: React.FC = () => {
             return;
         }
         try {
-            setAppointmentData((prev) => ({
-                ...prev,
-                service: selectedService,
-                staff: selectedStaff,
-                date: selectedDate,
-                hour: hour,
-            }));
 
+            handleSetVariables(selectedService, selectedStaff, selectedDate, hour)
 
         } catch (error) {
             console.error('Error creating appointment request:', error);
