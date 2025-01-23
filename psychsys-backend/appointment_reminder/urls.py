@@ -12,5 +12,5 @@ urlpatterns = [
     path('api/appointment_api/get_available_slots/', get_available_slots, name='get_available_slots'),
     path('api/appointment_api/get_staff_members/<int:service_id>/', get_staff_members, name='get_staff_members_by_service'),
     path('api/admin/api/server-time/', server_time, name='server_time'),
-    path('api/appointment_api/get_service_duration/', get_service_duration, 'get_service_duration'),
+    path('api/appointment_api/get_service_duration/', get_service_duration, name='get_service_duration'),
 ]
