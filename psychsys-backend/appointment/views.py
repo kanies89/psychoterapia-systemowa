@@ -443,7 +443,7 @@ def send_verification_code(request):
 
         # Extract client data
         client_data = {
-            'phone': request_data.get('phone'),
+            #'phone': request_data.get('phone'),
             'email': request_data.get('email'),
             'first_name': request_data.get('first_name'),
             'last_name': request_data.get('last_name')
@@ -459,7 +459,7 @@ def send_verification_code(request):
         params = {'test': 'true', 'details': 'true'}
 
         try:
-            response = api.message.send_sms(client_data['phone'], code, 'INFORMACJA', params)
+            response = api.message.send_sms(request_data.get('phone'), code, 'INFORMACJA', params)
             logger.info(f"SMS sent successfully. Response: {response}")
         except Exception as e:
             logger.error(f"Error sending SMS: {e}")
