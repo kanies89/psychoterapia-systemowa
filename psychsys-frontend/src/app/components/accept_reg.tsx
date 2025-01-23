@@ -81,8 +81,8 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    service_id: service,
-                    staff_id: staff,
+                    service: service,
+                    staff_member: staff,
                     date: date,
                     start_time: hour,
                     end_time: end_time,
