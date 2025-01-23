@@ -427,7 +427,7 @@ def send_verification_code(request):
             )
 
         logger.info("Form validated successfully.")
-        staff_member = form.cleaned_data['staff_id']
+        staff_member = form.cleaned_data['staff_member']
 
         # Validate staff member
         if not StaffMember.objects.filter(id=staff_member.id).exists():
