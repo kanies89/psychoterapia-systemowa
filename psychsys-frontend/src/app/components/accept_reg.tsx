@@ -16,6 +16,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
     const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
+    const { service, staff, date, hour } = useAppointment();
 
     const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -49,8 +50,6 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     };
 
     const handleConfirmAppointment = async () => {
-        const { service, staff, date, hour } = useAppointment();
-
         if (!service || !staff || !date || !hour) {
             if (!service || !staff || !date || !hour) {
                 alert(`Please select a service, staff member, date, and time. 
