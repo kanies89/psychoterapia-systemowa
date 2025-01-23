@@ -3,6 +3,7 @@ import SMSCODE from "@/app/components/smscode"
 import Input from "@/app/components/normal_input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {useAppointment} from "@/app/components/appointment_context";
+import moment from "moment";
 
 type InputProps = {
     value: string;
@@ -17,6 +18,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const [submit, setSubmit] = useState<string | undefined>("");
     const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
     const { service, staff, date, hour } = useAppointment();
+    const time = moment(hour, "HH:mm:ss");
 
     const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -62,6 +64,19 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
         }
 
         try {
+            // Fetch the service duration
+            const durationResponse = await fetch(`${url_backend}/appointment_api/get_service_duration/?service_id=${service}`);
+
+            if (!durationResponse.ok) throw new Error(`Error fetching service duration: ${durationResponse.statusText}`);
+
+            const durationData = await durationResponse.json();
+            const serviceDuration = durationData.duration; // Extract the duration
+
+            console.log("Service Duration:", serviceDuration);
+
+            const end_time = time.add(serviceDuration, "minutes").format("HH:mm:ss");
+
+            // Now send the verification code and create the appointment
             const response = await fetch(`${url_backend}/appointment_api/send_verification_code/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -69,21 +84,25 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                     service_id: service,
                     staff_id: staff,
                     date: date,
-                    time: hour,
+                    start_time: hour,
+                    end_time: end_time,
                     phone: formData.phone,
                     first_name: formData.name,
                     last_name: formData.surname,
-                    email: formData.email
+                    email: formData.email,
                 }),
             });
 
             if (!response.ok) throw new Error(`Error creating appointment request: ${response.statusText}`);
-            const data = await response.json();
 
+            const data = await response.json();
             setAppointmentRequestId(data.appointment_request_id);
+
+            console.log('Appointment Request Created Successfully:', data);
         } catch (error) {
-            console.error('Error creating appointment request:', error);
+            console.error('Error:', error);
         }
+
     };
 
     const handleSubmit = async (e: FormEvent) => {

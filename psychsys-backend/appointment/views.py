@@ -398,10 +398,11 @@ def send_verification_code(request):
     Endpoint to send verification code.
     """
     if request.method == 'POST':
+        logger.info(f"BACKEND RECEIVED REQUEST: {request}")
         form = AppointmentRequestForm(request.POST)
         if form.is_valid():
             try:
-                staff_member = form.cleaned_data['staff_member']
+                staff_member = form.cleaned_data['staff_id']
 
                 if not StaffMember.objects.filter(id=staff_member.id).exists():
                     return JsonResponse(
@@ -412,7 +413,7 @@ def send_verification_code(request):
                 # Log appointment data
                 logger.info(
                     f"date: {form.cleaned_data['date']}, start_time: {form.cleaned_data['start_time']}, "
-                    f"end_time: {form.cleaned_data['end_time']}, service: {form.cleaned_data['service']}, "
+                    f"end_time: {form.cleaned_data['end_time']}, service: {form.cleaned_data['service_id']}, "
                     f"staff: {staff_member}"
                 )
 

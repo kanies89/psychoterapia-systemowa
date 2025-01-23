@@ -12,7 +12,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.utils.translation import gettext as _
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import now
 
 from .utils import fetch_instagram_embed, sms_send
@@ -240,3 +240,17 @@ def create_assessment(request):
 
 def server_time(request):
     return JsonResponse({"server_time": now().strftime("%Y-%m-%d %H:%M:%S")})
+
+def get_service_duration(request):
+    # Get the service_id from the request
+    service_id = request.GET.get('service_id')
+
+    if not service_id:
+        return JsonResponse({'error': 'service_id parameter is required.'}, status=400)
+
+    # Fetch the service from the database
+    service = get_object_or_404(Service, id=service_id)
+
+    # Return the duration as a JSON response
+    return JsonResponse({'service_id': service.id, 'duration': str(service.duration)})
+
