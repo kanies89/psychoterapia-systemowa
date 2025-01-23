@@ -255,18 +255,20 @@ const Page: React.FC = () => {
                         className="justify-center scale-125 flex"
                     />
                 </div>
-                <div className="card-bodytext-center my-10">
-                    <p className="font-kodchasan font-normal text-xl">
-                        <AppointmentRequestForm></AppointmentRequestForm>
-                    </p>
-                </div>
-                <div className="auto-flex grid grid-rows-1">
-                    <div className="flex items-center justify-center w-full">
-                        <AppointmentProvider>
-                              <REGCheckbox value={"smscode_modal"}></REGCheckbox>
-                        </AppointmentProvider>
+                <AppointmentProvider>
+                    <div className="card-bodytext-center my-10">
+                        <p className="font-kodchasan font-normal text-xl">
+                            <AppointmentRequestForm></AppointmentRequestForm>
+                        </p>
                     </div>
-                </div>
+                    <div className="auto-flex grid grid-rows-1">
+                        <div className="flex items-center justify-center w-full">
+
+                                  <REGCheckbox value={"smscode_modal"}></REGCheckbox>
+
+                        </div>
+                    </div>
+                </AppointmentProvider>
             </div>
 
             <SectionDivider id="Stopka"/>
