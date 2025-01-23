@@ -17,11 +17,9 @@ const RootLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <html lang={process.env.REACT_APP_LANGUAGE || 'en'}>
         <body className="bg-white flex justify-center items-start min-h-screen">
         <main>
-
             <GoogleRecaptchaWrapper>
                 {children}
             </GoogleRecaptchaWrapper>
-
         </main>
         </body>
         </html>

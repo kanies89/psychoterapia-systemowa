@@ -15,8 +15,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
     const { executeRecaptcha } = useGoogleReCaptcha();
-    const { appointmentData } = useAppointment();
-    const { selectedService, selectedStaff, selectedDate, selectedHour } = appointmentData;
+    const { appointmentData, setAppointmentData } = useAppointment();
     const url_backend = process.env.NEXT_PUBLIC_API_URL;
     const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
 
@@ -48,9 +47,17 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     };
 
     const handleConfirmAppointment = async () => {
+        const { selectedService, selectedStaff, selectedDate, selectedHour } = appointmentData;
+
         if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
-            alert("Please select a service, staff member, date, and time.");
-            return;
+            if (!selectedService || !selectedStaff || !selectedDate || !selectedHour) {
+                alert(`Please select a service, staff member, date, and time. 
+                selectedService: ${selectedService},
+                selectedStaff: ${selectedStaff},
+                selectedDate: ${selectedDate},
+                selectedHour: ${selectedHour}`);
+                return;
+            }
         }
 
         try {

@@ -1,14 +1,22 @@
 import React, { createContext, useContext, useState } from 'react';
 
+interface AppointmentData {
+    service?: string;
+    staff?: string;
+    date?: string;
+    hour?: string;
+    [key: string]: any; // Allows flexibility for additional properties
+}
+
 interface AppointmentContextType {
-    appointmentData: Record<string, any>;
-    setAppointmentData: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+    appointmentData: AppointmentData;
+    setAppointmentData: React.Dispatch<React.SetStateAction<AppointmentData>>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | null>(null);
 
 export const AppointmentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [appointmentData, setAppointmentData] = useState<Record<string, any>>({});
+    const [appointmentData, setAppointmentData] = useState<AppointmentData>({});
     return (
         <AppointmentContext.Provider value={{ appointmentData, setAppointmentData }}>
             {children}

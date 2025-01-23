@@ -18,6 +18,7 @@ import HamburgerMenu from "@/app/components/ham_menu";
 import REGCheckbox from "@/app/components/accept_reg";
 import {AppointmentProvider} from "@/app/components/appointment_context";
 
+
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
         <ul
@@ -261,7 +262,9 @@ const Page: React.FC = () => {
                 </div>
                 <div className="auto-flex grid grid-rows-1">
                     <div className="flex items-center justify-center w-full">
-                        <REGCheckbox value={"smscode_modal"}></REGCheckbox>
+                        <AppointmentProvider>
+                              <REGCheckbox value={"smscode_modal"}></REGCheckbox>
+                        </AppointmentProvider>
                     </div>
                 </div>
             </div>
@@ -276,12 +279,4 @@ const Page: React.FC = () => {
     );
 };
 
-const WrappedPage: React.FC = () => {
-    return (
-        <AppointmentProvider>
-            <Page/>
-        </AppointmentProvider>
-    );
-};
-
-export default WrappedPage;
+export default Page;
