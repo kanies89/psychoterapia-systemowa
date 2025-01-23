@@ -116,5 +116,5 @@ urlpatterns = [
     path(f'{prefix}verify/<uidb64>/<str:token>/', set_passwd, name='set_passwd'),
     path(f'{prefix}ajax/', include(ajax_urlpatterns)),
     path(f'{prefix}app-admin/', include(admin_urlpatterns)),
-    path(f'{prefix}appointment/send_verification_code/', send_verification_code, name='send_verification_code'),
+    path(f'{prefix}appointment_api/send_verification_code/', send_verification_code, name='send_verification_code'),
 ]
