@@ -461,7 +461,7 @@ def send_verification_code(request):
         params = {'test': 'false', 'details': 'true'}
 
         try:
-            response = api.message.send_sms(request_data.get('phone'), code, 'INFORMACJA', params)
+            response = api.message.send_sms(request_data.get('phone'), code, 'PSYCHOTERAPIA-SYSTEMOWA', params)
             logger.info(f"SMS sent successfully. Response: {response}")
         except Exception as e:
             logger.error(f"Error sending SMS: {e}")
