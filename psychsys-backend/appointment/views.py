@@ -461,7 +461,11 @@ def send_verification_code(request):
         params = {'test': 'false', 'details': 'true'}
 
         try:
-            response = api.message.send_sms(request_data.get('phone'), code, 'psychoterapia-systemowa.pl', params)
+            response = api.message.send_sms(
+                request_data.get('phone'),
+                f"SMS od psychoterapia-systemowa.pl - Potwierdź rezerwację wizyty na dzień {request_data.get('date')}, godzina: {request_data.get('start_time')}. KOD: {code}",
+                'KodSMS',
+                params)
             logger.info(f"SMS sent successfully. Response: {response}")
         except Exception as e:
             logger.error(f"Error sending SMS: {e}")
