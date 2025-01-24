@@ -458,7 +458,7 @@ def send_verification_code(request):
 
         # Send verification code
         api = SerwerSMS(SMSSERVER_TOKEN)
-        params = {'test': 'true', 'details': 'true'}
+        params = {'test': 'false', 'details': 'true'}
 
         try:
             response = api.message.send_sms(request_data.get('phone'), code, 'INFORMACJA', params)
