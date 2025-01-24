@@ -7,6 +7,8 @@ Since: 1.0.0
 """
 import json, sys
 import traceback
+import os
+
 from datetime import date, timedelta
 
 from appointment.settings import check_q_cluster
@@ -24,7 +26,6 @@ from django.utils.timezone import get_current_timezone_name
 from django.utils.translation import gettext as _
 
 from serwersms import SerwerSMS
-from backend.settings import SMSSERVER_TOKEN
 
 from appointment.forms import AppointmentForm, AppointmentRequestForm, SlotForm, ClientDataForm
 from appointment.logger_config import get_logger
@@ -454,6 +455,8 @@ def send_verification_code(request):
         user = create_new_user(client_data=client_data)
         code = EmailVerificationCode.generate_code(user=user)
 
+        SMSSERVER_TOKEN = os.environ.get('SMSSERVER_TOKEN')
+        logger.info(f'SMSSERVER_TOKEN - {SMSSERVER_TOKEN}')
         # Send verification code
         api = SerwerSMS(SMSSERVER_TOKEN)
         params = {'test': 'true', 'details': 'true'}
