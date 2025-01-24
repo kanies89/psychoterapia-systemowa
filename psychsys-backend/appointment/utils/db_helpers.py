@@ -286,7 +286,6 @@ def create_user_with_username(client_data: dict):
         username = client_data['username']
     user_data = {
         'username': username,
-        'phone': client_data['phone'],
         'email': client_data['email'],
         'first_name': client_data.get('first_name', ''),
         'last_name': client_data.get('last_name', '')
