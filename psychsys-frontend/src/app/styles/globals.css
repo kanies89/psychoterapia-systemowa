@@ -85,6 +85,46 @@
     font-weight: 600;
     font-style: italic;
 }
+
 html {
     scroll-behavior: smooth;
+}
+/* Default styles (e.g., for large screens) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+}
+
+/* Small phones (up to 480px wide) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* Big phones (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        font-size: 16px;
+        padding: 15px;
+    }
+}
+
+/* Tablets (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        font-size: 18px;
+        padding: 20px;
+    }
+}
+
+/* PCs/Laptops (1025px and up) */
+@media (min-width: 1025px) {
+    body {
+        font-size: 20px;
+        padding: 25px;
+    }
 }
