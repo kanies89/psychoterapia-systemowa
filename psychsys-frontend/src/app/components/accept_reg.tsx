@@ -16,8 +16,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
-    const [appointmentRequestId, setAppointmentRequestId] = useState<string | null>(null); // State for storing the appointment_request_id
-    const { service, staff, date, hour } = useAppointment();
+    const { service, staff, date, hour, setId_request } = useAppointment();
     const time = moment(hour, "HH:mm:ss");
 
     const { executeRecaptcha } = useGoogleReCaptcha();
@@ -96,7 +95,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
             if (!response.ok) throw new Error(`Error creating appointment request: ${response.statusText}`);
 
             const data = await response.json();
-            setAppointmentRequestId(data.appointment_request_id);
+            setId_request(data.id_request); //id_request or appointment_request_id
 
             console.log('Appointment Request Created Successfully:', data);
         } catch (error) {
