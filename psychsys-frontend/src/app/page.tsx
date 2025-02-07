@@ -1,9 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, {useRef, useState} from 'react';
 
 import Logo from "../../public/svg/logo.svg";
 import HeroBackground from "../../public/svg/hero_background.svg";
-import HandB from  "../../public/svg/h&b_4.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
 import Box1 from "../../public/svg/box1.svg";
 import Box2 from "../../public/svg/box2.svg";
@@ -18,6 +17,7 @@ import HamburgerMenu from "@/app/components/ham_menu";
 import REGCheckbox from "@/app/components/accept_reg";
 import {AppointmentProvider} from "@/app/components/appointment_context";
 
+import AnimateOnScroll from "@/app/components/parallax_logo";
 
 const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
     isMenuOpen ? (
@@ -54,6 +54,8 @@ const Page: React.FC = () => {
         setIsMenuOpen(!isMenuOpen); // Toggle menu state
     };
 
+    const containerRef = useRef<HTMLDivElement>(null); // Typing the ref as HTMLDivElement
+
     return (
         <main className="bg-white max-w-screen-lg min-h-screen flex flex-col">
 
@@ -76,16 +78,16 @@ const Page: React.FC = () => {
             <DropdownMenu isMenuOpen={isMenuOpen} toggleDropdown={toggleDropdown}/>
 
             {/* Logo Section */}
-            <section className="h-screen flex justify-center items-center bg-bg_1 text-white relative
-            rounded-bl-2xl rounded-br-2xl">
+            <section
+                className="h-screen flex justify-center items-center bg-bg_1 text-white relative rounded-bl-2xl rounded-br-2xl">
                 {/* Logo */}
                 <div className="h-[10vh] top-8 left-20 absolute z-50">
                     <Logo/>
                 </div>
 
                 {/* HandB (foreground, on top of HeroB) */}
-                <div className="absolute h-[80vh] w-[80vw] z-40 flex justify-center items-center">
-                    <HandB className="h-full w-full"/>
+                <div className="absolute h-[80vh] w-[80vw] z-40 flex justify-center items-center wrapper">
+                    <AnimateOnScroll/>
                 </div>
 
                 {/* HeroB (background, behind HandB) */}
@@ -94,7 +96,8 @@ const Page: React.FC = () => {
                 </div>
             </section>
 
-            <SectionDivider id="Kwalifikacje" />
+
+            <SectionDivider id="Kwalifikacje"/>
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
@@ -159,7 +162,7 @@ const Page: React.FC = () => {
                 <figure className="pt-[10vh] w-full">
                     <div className="indicator w-[70%]">
                         {/* Section Title */}
-                            <span className="indicator-item indicator-center indicator-top w-full">
+                        <span className="indicator-item indicator-center indicator-top w-full">
                                 <Section_title
                                     svgPath="svg/section_title.svg"
                                     replaceTextIds={{
@@ -235,7 +238,8 @@ const Page: React.FC = () => {
                         Sed egestas dapibus lorem, quis sollicitudin ligula elementum ac.
                         Maecenas sit amet est nunc. Vivamus sit amet enim gravida, hendrerit sapien in, molestie augue.
 
-                        Nam dolor ipsum, imperdiet id ipsum ac, ornare pulvinar ex. Maecenas porta quam non odio lacinia, non dapibus tellus aliquam.
+                        Nam dolor ipsum, imperdiet id ipsum ac, ornare pulvinar ex. Maecenas porta quam non odio
+                        lacinia, non dapibus tellus aliquam.
                     </p>
                 </div>
 
@@ -264,7 +268,7 @@ const Page: React.FC = () => {
                     <div className="auto-flex grid grid-rows-1">
                         <div className="flex items-center justify-center w-full">
 
-                                  <REGCheckbox value={"smscode_modal"}></REGCheckbox>
+                            <REGCheckbox value={"smscode_modal"}></REGCheckbox>
 
                         </div>
                     </div>

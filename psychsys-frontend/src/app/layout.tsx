@@ -2,6 +2,8 @@ import React, { ReactNode } from 'react';
 import './styles/globals.css';
 import './styles/fonts.css';
 import './styles/ham_menu.css';
+import './styles/animation.css'
+
 import GoogleRecaptchaWrapper from "@/app/components/GoogleReCaptchaWrapper";
 import { Metadata } from "next";
 
