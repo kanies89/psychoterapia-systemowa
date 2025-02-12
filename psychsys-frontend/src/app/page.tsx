@@ -21,7 +21,7 @@ import MotionHamMenu from "@/app/components/motion_hammenu";
 
 
 const Page: React.FC = () => {
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [windowHeight] = useState(window.innerHeight);
     const sectionRef = useRef<HTMLElement | null>(null);
 
     return (
