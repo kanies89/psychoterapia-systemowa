@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 
 const Trapezoids = () => {
     const [parentWidth, setParentWidth] = useState(1000);
-    const [parentHeight, setParentHeight] = useState(window.innerHeight);
+    const [parentHeight, setParentHeight] = useState(0); // Initialize with 0
+
     const sectionRef = useRef<HTMLDivElement | null>(null);
     const [scrollY, setScrollY] = useState(0);
 
@@ -43,18 +44,20 @@ const Trapezoids = () => {
     };
 
     useEffect(() => {
-        const updateHeight = () => {
-            if (sectionRef.current) {
-                setParentHeight(sectionRef.current.clientHeight);
-            } else {
-                setParentHeight(window.innerHeight);
-            }
-        };
+        if (typeof window !== "undefined") {
+            const updateHeight = () => {
+                if (sectionRef.current) {
+                    setParentHeight(sectionRef.current.clientHeight);
+                } else {
+                    setParentHeight(window.innerHeight);
+                }
+            };
 
-        updateHeight(); // Initial height set
+            updateHeight(); // Initial height set
 
-        window.addEventListener("resize", updateHeight);
-        return () => window.removeEventListener("resize", updateHeight);
+            window.addEventListener("resize", updateHeight);
+            return () => window.removeEventListener("resize", updateHeight);
+        }
     }, []);
 
 
