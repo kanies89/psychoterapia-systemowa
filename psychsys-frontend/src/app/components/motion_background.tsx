@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const Trapezoids = ({ sectionRef }: { sectionRef: React.RefObject<HTMLElement> }) => {
     const [parentWidth, setParentWidth] = useState(1000);
     const [parentHeight, setParentHeight] = useState(window.innerHeight);
+
     const [scrollY, setScrollY] = useState(0);
 
     const numPoints = 6;
@@ -40,6 +41,22 @@ const Trapezoids = ({ sectionRef }: { sectionRef: React.RefObject<HTMLElement> }
             }
         }));
     };
+
+    useEffect(() => {
+        const updateHeight = () => {
+            if (sectionRef.current) {
+                setParentHeight(sectionRef.current.clientHeight);
+            } else {
+                setParentHeight(window.innerHeight);
+            }
+        };
+
+        updateHeight(); // Initial height set
+
+        window.addEventListener("resize", updateHeight);
+        return () => window.removeEventListener("resize", updateHeight);
+    }, []);
+
 
     useEffect(() => {
         const handleResize = () => {

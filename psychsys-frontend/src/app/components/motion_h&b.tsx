@@ -7,7 +7,6 @@ import Angel4 from "../../../public/svg/h&b_4.svg";
 
 const angelSVGs = [Angel1, Angel2, Angel3, Angel4];
 
-
 const AnimateOnScroll = () => {
     const [scrollY, setScrollY] = useState(0);
     const [angelIndex, setAngelIndex] = useState(0);
