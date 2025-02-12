@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-const Trapezoids = ({ sectionRef }: { sectionRef: React.RefObject<HTMLElement> }) => {
+const Trapezoids = () => {
     const [parentWidth, setParentWidth] = useState(1000);
     const [parentHeight, setParentHeight] = useState(window.innerHeight);
-
+    const sectionRef = useRef<HTMLDivElement | null>(null);
     const [scrollY, setScrollY] = useState(0);
 
     const numPoints = 6;
