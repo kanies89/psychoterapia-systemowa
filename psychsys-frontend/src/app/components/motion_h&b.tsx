@@ -41,15 +41,18 @@ const AnimateOnScroll = () => {
             <motion.div
                 className="svg-item active"
                 animate={{
-                    y: -scrollY * 6050,  // Controls vertical movement
+                    y: -scrollY * 8050,  // Controls vertical movement
                     scale: 1.5 + scrollY * 5,  // Scales as it moves
 
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
+
             >
                 {React.createElement(angelSVGs[angelIndex])}
             </motion.div>
         </motion.div>
+
+
     );
 };
 

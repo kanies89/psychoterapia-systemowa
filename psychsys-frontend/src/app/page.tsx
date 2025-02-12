@@ -2,7 +2,6 @@
 import React, {useRef, useState} from 'react';
 
 import Logo from "../../public/svg/logo.svg";
-import HeroBackground from "../../public/svg/hero_background.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
 import Box1 from "../../public/svg/box1.svg";
 import Box2 from "../../public/svg/box2.svg";
@@ -13,91 +12,44 @@ import InstagramCarousel from "@/app/components/insta";
 import AppointmentRequestForm from "@/app/components/appointment_request_form";
 import Section_title from "@/app/components/section_title";
 import SectionDivider from "@/app/components/section_divider";
-import HamburgerMenu from "@/app/components/ham_menu";
 import REGCheckbox from "@/app/components/accept_reg";
 import {AppointmentProvider} from "@/app/components/appointment_context";
 
-import AnimateOnScroll from "@/app/components/parallax_logo";
+import AnimateOnScroll from "@/app/components/motion_h&b";
+import Trapezoids from "@/app/components/motion_background";
+import MotionHamMenu from "@/app/components/motion_hammenu";
 
-const DropdownMenu = ({ isMenuOpen }: { isMenuOpen: boolean; toggleDropdown: () => void }) => (
-    isMenuOpen ? (
-        <ul
-            tabIndex={0}
-            className="dropdown-content menu bg-bg_2 text-gray-700 rounded-md shadow fixed top-24 right-1 z-50 p-2 space-y-2"
-        >
-            <li>
-                <a href="#Kwalifikacje" className="block p-2 rounded hover:bg-c1 hover:text-white">Kwalifikacje</a>
-            </li>
-            <li>
-                <a href="#Jak dbać o siebie?" className="block p-2 rounded hover:bg-c1 hover:text-white">Jak dbać o siebie?</a>
-            </li>
-        </ul>
-    ) : null
-);
-
-const HeroB = () => {
-    return (
-        <div className="h-full w-full relative">
-            {/* HeroBackground positioned at the bottom of the section */}
-            <HeroBackground className="w-full h-auto object-cover absolute bottom-0 left-0 right-0
-            rounded-bl-2xl
-            rounded-br-2xl z-1" />
-            {/* Your content or other elements can go here */}
-        </div>
-    );
-};
 
 const Page: React.FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setIsMenuOpen(!isMenuOpen); // Toggle menu state
-    };
-
-    const containerRef = useRef<HTMLDivElement>(null); // Typing the ref as HTMLDivElement
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const sectionRef = useRef<HTMLElement | null>(null);
 
     return (
         <main className="bg-white max-w-screen-lg min-h-screen flex flex-col">
-
             {/* Hamburger Menu Button */}
-            <div
-                tabIndex={0}
-                role="button"
-                className="fixed top-4 right-0 z-50"
-                onClick={toggleDropdown}
-                onKeyDown={(e) => e.key === 'Enter' && toggleDropdown()} // Add keyboard accessibility
-            >
-                {/* Render HamburgerMenu component here */}
-                <HamburgerMenu
-                    svgPath="svg/ham_menu.svg"
-                    className="w-15% h-12"
-                />
+            <div className="fixed right-0 top-0 z-50">
+                <MotionHamMenu />
             </div>
-
-            {/* Dropdown Menu */}
-            <DropdownMenu isMenuOpen={isMenuOpen} toggleDropdown={toggleDropdown}/>
 
             {/* Logo Section */}
             <section
-                className="h-screen flex justify-center items-center bg-bg_1 text-white relative rounded-bl-2xl rounded-br-2xl">
+                className="h-screen flex justify-center items-center bg-bg_1 margin-top-0 pt-0 text-white relative rounded-bl-2xl rounded-br-2xl"
+                ref={sectionRef} style={{ position: "relative", height: windowHeight, overflow: "hidden" }}>
+
+                <div className="justify-items-end h-[100vh] w-[100vw]">
+                    <Trapezoids sectionRef={sectionRef} />
+               </div>
                 {/* Logo */}
                 <div className="h-[10vh] top-8 left-20 absolute z-50">
                     <Logo/>
                 </div>
-
                 {/* HandB (foreground, on top of HeroB) */}
                 <div className="absolute h-[80vh] w-[80vw] z-40 flex justify-center items-center wrapper">
                     <AnimateOnScroll/>
                 </div>
-
-                {/* HeroB (background, behind HandB) */}
-                <div className="h-full w-full absolute top-0 left-0 z-10">
-                    <HeroB/>
-                </div>
             </section>
 
-
-            <SectionDivider id="Kwalifikacje"/>
+            <SectionDivider id="section1"/>
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
@@ -133,7 +85,7 @@ const Page: React.FC = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title font-kodchasan font-bold">Kwalifikacje</h2>
-                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
                         Maecenas sit amet malesuada dolor. Pellentesque eget facilisis odio, ut tempor sapien. Duis non
                         varius tortor. Fusce et rutrum risus, ac tristique lacus. Morbi malesuada quis ligula eget
                         cursus. In commodo, tortor sit amet congue efficitur, velit felis condimentum turpis, eget
@@ -156,7 +108,7 @@ const Page: React.FC = () => {
                 </div>
             </div>
 
-            <SectionDivider id="Jak dbać o siebie?"/>
+            <SectionDivider id="section2"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
                 <figure className="pt-[10vh] w-full">
@@ -194,7 +146,7 @@ const Page: React.FC = () => {
 
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus arcu eu
                         lacinia hendrerit. Aliquam sed nisi non eros dignissim auctor quis ac lorem. Curabitur
                         euismod,
@@ -208,7 +160,7 @@ const Page: React.FC = () => {
                 <Box2 className="size-[70%] mx-auto relative"/>
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
                         Suspendisse eget lorem vitae turpis facilisis aliquam vitae ut lacus. Curabitur nunc
                         felis,
                         aliquam a turpis vel, laoreet porta nulla.
@@ -234,7 +186,7 @@ const Page: React.FC = () => {
                 </div>
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20">
+                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
                         Sed egestas dapibus lorem, quis sollicitudin ligula elementum ac.
                         Maecenas sit amet est nunc. Vivamus sit amet enim gravida, hendrerit sapien in, molestie augue.
 
@@ -243,7 +195,9 @@ const Page: React.FC = () => {
                     </p>
                 </div>
 
-                <Box3 className="size-[70%] mx-auto relative mb-[5vh]"/>
+                <a href="https://www.google.pl/maps/dir/Natolin,+Belgradzka,+02-793+Warszawa/Na+Uboczu+26,+02-791+Warszawa/@52.1401111,21.0501311,17.17z/data=!4m19!4m18!1m10!1m1!1s0x47192d82abded8f9:0xbd25f25d5bb49ffd!2m2!1d21.0575824!2d52.1403392!3m4!1m2!1d21.0485162!2d52.1407609!3s0x47192d81ec1ce537:0xf0dd640d76b13c46!1m5!1m1!1s0x47192d81ce50d9e1:0xf1f58f0a051d2e85!2m2!1d21.0470319!2d52.1412447!3e2?entry=ttu&g_ep=EgoyMDI1MDIwOS4wIKXMDSoASAFQAw%3D%3D">
+                    <Box3 className="size-[70%] mx-auto relative mb-[5vh]"/>
+                </a>
 
             </div>
 
