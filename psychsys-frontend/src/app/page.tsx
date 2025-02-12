@@ -1,5 +1,5 @@
 'use client';
-import React, {useRef, useState} from 'react';
+import React, { useRef } from 'react';
 
 import Logo from "../../public/svg/logo.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
@@ -21,7 +21,6 @@ import MotionHamMenu from "@/app/components/motion_hammenu";
 
 
 const Page: React.FC = () => {
-    const [windowHeight] = useState(window.innerHeight);
     const sectionRef = useRef<HTMLElement | null>(null);
 
     return (
@@ -34,7 +33,7 @@ const Page: React.FC = () => {
             {/* Logo Section */}
             <section
                 className="h-screen flex justify-center items-center bg-bg_1 margin-top-0 pt-0 text-white relative rounded-bl-2xl rounded-br-2xl"
-                ref={sectionRef} style={{ position: "relative", height: windowHeight, overflow: "hidden" }}>
+                ref={sectionRef} style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
 
                 <div className="justify-items-end h-[100vh] w-[100vw]">
                     <Trapezoids sectionRef={sectionRef} />
