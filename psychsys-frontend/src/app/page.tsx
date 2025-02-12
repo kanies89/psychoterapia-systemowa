@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 
 import Logo from "../../public/svg/logo.svg";
 import UniHat from  "../../public/svg/uni_hat.svg";
@@ -21,6 +21,8 @@ import MotionHamMenu from "@/app/components/motion_hammenu";
 
 
 const Page: React.FC = () => {
+    const sectionRef = useRef<HTMLDivElement>(null); // Create ref
+
     return (
         <main className="bg-white max-w-screen-lg min-h-screen flex flex-col">
             {/* Hamburger Menu Button */}
@@ -30,14 +32,15 @@ const Page: React.FC = () => {
 
             {/* Logo Section */}
             <section
+                ref={sectionRef} // Attach ref to the section
                 className="h-screen flex justify-center items-center bg-bg_1 margin-top-0 pt-0 text-white relative rounded-bl-2xl rounded-br-2xl"
                 style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
 
-                <div className="justify-items-end h-[100vh] w-[100vw]">
-                    <Trapezoids />
+                <div className="justify-items-end w-full h-full">
+                    <Trapezoids sectionRef={sectionRef}/>
                </div>
                 {/* Logo */}
-                <div className="h-[10vh] top-8 left-20 absolute z-50">
+                <div className="h-[10vh] top-8 left-20 absolute z-25">
                     <Logo/>
                 </div>
                 {/* HandB (foreground, on top of HeroB) */}
@@ -82,7 +85,7 @@ const Page: React.FC = () => {
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title font-kodchasan font-bold">Kwalifikacje</h2>
-                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
+                    <p className="font-kodchasan font-normal ml-[5vw] mr-[5vw] text-justify">
                         Maecenas sit amet malesuada dolor. Pellentesque eget facilisis odio, ut tempor sapien. Duis non
                         varius tortor. Fusce et rutrum risus, ac tristique lacus. Morbi malesuada quis ligula eget
                         cursus. In commodo, tortor sit amet congue efficitur, velit felis condimentum turpis, eget
@@ -143,7 +146,7 @@ const Page: React.FC = () => {
 
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
+                    <p className="font-kodchasan font-normal ml-[5vw] mr-[5vw] text-justify">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus arcu eu
                         lacinia hendrerit. Aliquam sed nisi non eros dignissim auctor quis ac lorem. Curabitur
                         euismod,
@@ -157,7 +160,7 @@ const Page: React.FC = () => {
                 <Box2 className="size-[70%] mx-auto relative"/>
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
+                    <p className="font-kodchasan font-normal ml-[5vw] mr-[5vw] text-justify">
                         Suspendisse eget lorem vitae turpis facilisis aliquam vitae ut lacus. Curabitur nunc
                         felis,
                         aliquam a turpis vel, laoreet porta nulla.
@@ -179,11 +182,11 @@ const Page: React.FC = () => {
             <div className="card bg-gray-50 w-full shadow-xl">
 
                 <div className="justify-center content-center flex mt-[5%]">
-                    <LokGab className="size-[40%] flex"/>
+                    <LokGab className="size-[70%] flex"/>
                 </div>
 
                 <div className="card-body items-center text-center">
-                    <p className="font-kodchasan font-normal ml-20 mr-20 text-justify">
+                    <p className="font-kodchasan font-normal ml-[5vw] mr-[5vw] text-justify">
                         Sed egestas dapibus lorem, quis sollicitudin ligula elementum ac.
                         Maecenas sit amet est nunc. Vivamus sit amet enim gravida, hendrerit sapien in, molestie augue.
 

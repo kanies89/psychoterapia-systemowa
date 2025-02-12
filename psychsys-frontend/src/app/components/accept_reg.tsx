@@ -166,7 +166,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 <label>
                     <Input
                         type="text"
-                        text="Imię"
+                        text="1"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
@@ -176,7 +176,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 <label>
                     <Input
                         type="text"
-                        text="Nazwisko"
+                        text="2"
                         name="surname"
                         value={formData.surname}
                         onChange={handleInputChange}
@@ -186,7 +186,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 <label>
                     <Input
                         type="email"
-                        text="Email:"
+                        text="3"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
@@ -196,7 +196,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                 <label>
                     <Input
                         type="tel"
-                        text="Telefon:"
+                        text="4"
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}

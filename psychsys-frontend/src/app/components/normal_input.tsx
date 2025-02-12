@@ -11,28 +11,32 @@ type InputProps = {
 
 const Input: React.FC<InputProps> = ({ type, name, text, value, placeholder, onChange }) => {
     return (
-        <div className="flex items-center justify-center w-full mb-5">
-            <div className="indicator flex items-center space-x-2 p-4 bg-[#58315a] shadow rounded-lg relative w-[52vh]">
-                <div className="">
+        <div className="flex w-full mb-5">
+            <div className="flex grid-cols-2 space-x-2 p-4 bg-[#58315a] shadow rounded-lg w-[65.6vw] max-w-[870px]">
                     <label
                         htmlFor={type}
-                        className="text-m font-kodchasan text-[#96d1ba] mt-2 mb-0 ml-2"
+                        className="text-m font-kodchasan text-[#96d1ba]  text-3xl w-10"
                     >
                         {text}
                     </label>
-                    <div className="indicator-item indicator-top mr-[35.5vh]">
-                        <input
-                            type={type}
-                            id={type}
-                            name={name}
-                            value={value}
-                            placeholder={placeholder}
-                            onChange={onChange} // Pass onChange to the input
-                            className="input absolute placeholder-gray-200 input-bordered font-kodchasan w-[35vh] text-[#FFFFFF] bg-[#96d1ba] border-[#58315a] focus:outline-none ring-2 ring-[#58315a] focus:ring-4 focus:ring-[#58315a] focus:border-transparent"
-                        />
-                    </div>
+                    <input
+                        type={type}
+                        id={type}
+                        name={name}
+                        value={value}
+                        placeholder={placeholder}
+                        onChange={onChange} // Pass onChange to the input
+                        className="
+                        input input-bordered
+                        relative
+                        placeholder-gray-200
+                        text-xl text-[#FFFFFF] font-kodchasan
+                        max-w-[800px] w-full
+                        bg-[#96d1ba] border-[#58315a]
+                        ring-2 ring-[bg2]
+                        focus:outline-none focus:ring-4 focus:ring-[bg2] focus:border-transparent"
+                    />
                 </div>
-            </div>
         </div>
     );
 };

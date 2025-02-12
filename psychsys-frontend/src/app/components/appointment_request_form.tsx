@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ButtonH from "@/app/components/hour_button";
 import ButtonD from "@/app/components/date_button";
 import {useAppointment} from "@/app/components/appointment_context";
+import ServiceStaffSelector from "@/app/components/ServiceStaffSelectors";
 
 interface Slot {
     date: string;
@@ -100,8 +101,6 @@ const AppointmentRequestForm: React.FC = () => {
     }, [selectedStaff, selectedSlotDate, url_backend]);
 
     // Handlers
-    const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedService(e.target.value);
-    const handleStaffChange = (e: React.ChangeEvent<HTMLSelectElement>) => setSelectedStaff(e.target.value);
 
     const handleCSetAppointmentRequestData = async (hour: string) => {
         if (!selectedService || !selectedStaff || !selectedDate || !hour) {
@@ -199,36 +198,25 @@ const AppointmentRequestForm: React.FC = () => {
     };
 
     return (
+
         <div className="w-full">
             <h2 className="align-middle mx-10 font-extrabold">Wypełnij formularz i umów spotkanie</h2>
             <form className="grid grid-cols-1 gap-4">
-                <div className="grid grid-cols-2 gap-4">
-                    <label className="my-5 mx-10">
-                        <div className="mb-2">Usługa:</div>
-                        <select value={selectedService} onChange={handleServiceChange} required className="select text-white select-success text-xl w-full bg-bg_2">
-                            {services.map(service => (
-                                <option key={service.id} value={service.id}>
-                                    {service.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
 
-                    <label className="my-5 mx-10">
-                        <div className="mb-2">Psychoterapeutka\a:</div>
-                        <select value={selectedStaff} onChange={handleStaffChange} required className="select text-white select-success text-xl w-full bg-bg_2">
-                            {staffMembers.map(staff => (
-                                <option key={staff.id} value={staff.id}>
-                                    {staff.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                </div>
                 <div className="bg-bg_2 px-10 py-5 text-bg_1 font-extrabold">
+
                     <div className="btn-group">
                         {Object.keys(groupedSlots).length > 0 ? renderDates(groupedSlots) : <p>Brak wolnych terminów na najbliższe 14 dni.</p>}
                     </div>
+
+                    <ServiceStaffSelector
+                        services={services}
+                        staffMembers={staffMembers}
+                        selectedService={selectedService}
+                        selectedStaff={selectedStaff}
+                        onServiceChange={(e) => setSelectedService(e.target.value)}
+                        onStaffChange={(e) => setSelectedStaff(e.target.value)}
+                    />
 
                     <p>Wybrana data spotkania: {showAppointmentsDateHours}{selectedHour === "" ? "" : ", godzina - " + selectedHour}</p>
                     {showAppointmentsDateHours && renderHours(groupedSlots[showAppointmentsDateHours])}

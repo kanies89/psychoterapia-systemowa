@@ -1,9 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-const Trapezoids = () => {
-    const [parentWidth, setParentWidth] = useState(1000);
-    const [parentHeight, setParentHeight] = useState(window.innerHeight);
-    const sectionRef = useRef<HTMLDivElement | null>(null);
+const Trapezoids = ({ sectionRef }: { sectionRef: React.RefObject<HTMLDivElement> }) => {
+
+    const [parentWidth, setParentWidth] = useState(0);
+    const [parentHeight, setParentHeight] = useState(0); // Initialize with 0
+
     const [scrollY, setScrollY] = useState(0);
 
     const numPoints = 6;
@@ -11,9 +12,9 @@ const Trapezoids = () => {
 
     const calculateTrapezoids = () => {
         const width = parentWidth;
-        const topWidth = width * 0.25;
+        const topWidth = width * 0.15;
         const bottomWidth = width;
-        const height = Math.max(parentHeight * 0.3 - scrollY, 0);
+        const height = Math.max(parentHeight * 0.2 - scrollY, 0);
 
         const bottomX: number[] = [];
         const topX: number[] = [];
@@ -43,40 +44,28 @@ const Trapezoids = () => {
     };
 
     useEffect(() => {
-        const updateHeight = () => {
-            if (sectionRef.current) {
+        if (typeof window !== "undefined") {
+
+            const updateHeight = (sectionRef: any) => {
                 setParentHeight(sectionRef.current.clientHeight);
-            } else {
-                setParentHeight(window.innerHeight);
-            }
-        };
+                setParentWidth(sectionRef.current.clientWidth);
+            };
 
-        updateHeight(); // Initial height set
+            updateHeight(sectionRef); // Initial height set
 
-        window.addEventListener("resize", updateHeight);
-        return () => window.removeEventListener("resize", updateHeight);
+            window.addEventListener("resize", updateHeight);
+            return () => window.removeEventListener("resize", updateHeight);
+        }
     }, []);
 
 
     useEffect(() => {
-        const handleResize = () => {
-            if (sectionRef.current) {
-                const { width, height } = sectionRef.current.getBoundingClientRect();
-                setParentWidth(width);
-                setParentHeight(height);
-            }
-        };
-
         const handleScroll = () => {
             setScrollY(window.scrollY);
         };
-
-        window.addEventListener("resize", handleResize);
         window.addEventListener("scroll", handleScroll);
-        handleResize();
 
         return () => {
-            window.removeEventListener("resize", handleResize);
             window.removeEventListener("scroll", handleScroll);
         };
     }, [sectionRef]);
@@ -84,7 +73,7 @@ const Trapezoids = () => {
     const trapezoids = calculateTrapezoids();
 
     return (
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${parentWidth} ${parentHeight}`} style={{ position: "absolute", bottom: 0 }}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${parentWidth} ${parentHeight}`} style={{ position: "absolute", bottom: 0 }}>
             {trapezoids.map((trapezoid, index) => {
                 const pointsString = trapezoid.points.map(point => `${point.x},${point.y}`).join(" ");
                 return (
