@@ -205,10 +205,6 @@ const AppointmentRequestForm: React.FC = () => {
 
                 <div className="bg-bg_2 px-10 py-5 text-bg_1 font-extrabold">
 
-                    <div className="btn-group">
-                        {Object.keys(groupedSlots).length > 0 ? renderDates(groupedSlots) : <p>Brak wolnych terminów na najbliższe 14 dni.</p>}
-                    </div>
-
                     <ServiceStaffSelector
                         services={services}
                         staffMembers={staffMembers}
@@ -217,6 +213,10 @@ const AppointmentRequestForm: React.FC = () => {
                         onServiceChange={(e) => setSelectedService(e.target.value)}
                         onStaffChange={(e) => setSelectedStaff(e.target.value)}
                     />
+
+                    <div className="btn-group">
+                        {Object.keys(groupedSlots).length > 0 ? renderDates(groupedSlots) : <p>Brak wolnych terminów na najbliższe 14 dni.</p>}
+                    </div>
 
                     <p>Wybrana data spotkania: {showAppointmentsDateHours}{selectedHour === "" ? "" : ", godzina - " + selectedHour}</p>
                     {showAppointmentsDateHours && renderHours(groupedSlots[showAppointmentsDateHours])}
