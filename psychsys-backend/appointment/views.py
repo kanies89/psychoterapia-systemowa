@@ -495,55 +495,56 @@ def send_verification_code(request):
         )
 
 
-
 @csrf_exempt
 def confirm_verification_code(request):
     """
     Endpoint to verify the phone verification code sent from the frontend.
     Expects a POST request with JSON data containing the 'code' field.
     """
-    if request.method == 'POST':
-        try:
-            # Parse JSON from request body
-            data = json.loads(request.body)
-            appointment_request_id = data.get('id_request')
-            code = data.get('code')  # Extract the verification code
-            phone = data.get('phone')  # Get phone from session
-            email = data.get('email')
+    if request.method != 'POST':
+        logger.warning("Invalid request method received.")
+        return JsonResponse({"error": _("Invalid request method.")}, status=405)
 
-            if not code or not phone:
-                return JsonResponse({'error': 'Phone or code is missing'}, status=400)
+    try:
+        # Parse JSON from request body
+        data = json.loads(request.body)
+        appointment_request_id = data.get('id_request')
+        code = data.get('code')  # Extract the verification code
+        phone = data.get('phone')  # Get phone from session
+        email = data.get('email')
 
-            # Fetch the user based on the phone
-            user = get_user_by_phone(phone)  # Adjust this function as per your user lookup
+        if not code or not phone:
+            return JsonResponse({'error': 'Phone or code is missing'}, status=400)
 
-            if not user:
-                return JsonResponse({'error': 'User not found'}, status=404)
+        # Fetch the user based on the phone
+        user = get_user_by_phone(phone)  # Adjust this function as per your user lookup
 
-            # Verify the code
-            if verify_appointment_code(request, user, code):
-                appointment_request_object = AppointmentRequest.objects.get(pk=appointment_request_id)
-                appointment_data = get_appointment_data_from_session(request)
-                response = create_appointment(request=request, appointment_request_obj=appointment_request_object,
-                                              client_data={'email': email}, appointment_data=appointment_data)
-                appointment = Appointment.objects.get(appointment_request=appointment_request_object)
-                appointment_details = {
-                    'Service': appointment.get_service_name(),
-                    'Appointment Date': appointment.get_appointment_date(),
-                    'Appointment Time': appointment.appointment_request.start_time,
-                    'Duration': appointment.get_service_duration()
-                }
-                send_thank_you_email(ar=appointment_request_object, user=user, email=email,
-                                     appointment_details=appointment_details, request=request)
+        if not user:
+            return JsonResponse({'error': 'User not found'}, status=404)
 
-                return JsonResponse({'message': 'Verification successful'}, status=200)
-            else:
-                return JsonResponse({'error': 'Invalid verification code'}, status=400)
+        # Verify the code
+        if verify_appointment_code(request, user, code):
+            appointment_request_object = AppointmentRequest.objects.get(pk=appointment_request_id)
+            appointment_data = get_appointment_data_from_session(request)
+            response = create_appointment(request=request, appointment_request_obj=appointment_request_object,
+                                          client_data={'email': email}, appointment_data=appointment_data)
+            appointment = Appointment.objects.get(appointment_request=appointment_request_object)
+            appointment_details = {
+                'Service': appointment.get_service_name(),
+                'Appointment Date': appointment.get_appointment_date(),
+                'Appointment Time': appointment.appointment_request.start_time,
+                'Duration': appointment.get_service_duration()
+            }
+            send_thank_you_email(ar=appointment_request_object, user=user, email=email,
+                                 appointment_details=appointment_details, request=request)
 
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
+            return JsonResponse({'message': 'Verification successful'}, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid verification code'}, status=400)
 
-    return JsonResponse({'error': 'Method not allowed'}, status=405)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON payload'}, status=400)
+
 
 
 def enter_verification_code(request, appointment_request_id, id_request):
