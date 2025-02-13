@@ -496,9 +496,8 @@ def send_verification_code(request):
 
 
 
-# FINISH THIS
 @csrf_exempt
-def confirm_verification_code(request, appointment_request_id):
+def confirm_verification_code(request):
     """
     Endpoint to verify the phone verification code sent from the frontend.
     Expects a POST request with JSON data containing the 'code' field.
@@ -507,9 +506,10 @@ def confirm_verification_code(request, appointment_request_id):
         try:
             # Parse JSON from request body
             data = json.loads(request.body)
+            appointment_request_id = data.get('id_request')
             code = data.get('code')  # Extract the verification code
-            phone = request.session.get('phone')  # Get phone from session
-            email = request.session.get('email')
+            phone = data.get('phone')  # Get phone from session
+            email = data.get('email')
 
             if not code or not phone:
                 return JsonResponse({'error': 'Phone or code is missing'}, status=400)

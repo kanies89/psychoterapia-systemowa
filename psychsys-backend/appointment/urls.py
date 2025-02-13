@@ -117,5 +117,5 @@ urlpatterns = [
     path(f'{prefix}ajax/', include(ajax_urlpatterns)),
     path(f'{prefix}app-admin/', include(admin_urlpatterns)),
     path(f'{prefix}appointment_api/send_verification_code/', send_verification_code, name='send_verification_code'),
-    path(f'{prefix}appointment_api/confirm_verification_code/<str:appointment_request_id>/', confirm_verification_code, name='confirm_verification_code'),
+    path(f'{prefix}appointment_api/confirm_verification_code/', confirm_verification_code, name='confirm_verification_code'),
 ]

@@ -15,21 +15,14 @@ function SMSCODE() {
         }
 
         try {
-            const response = await fetch(`${url_backend}/appointment_api/confirm_verification_code/${id_request}/`, {
+            const response = await fetch(`${url_backend}/appointment_api/confirm_verification_code/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    service: service,
-                    staff_member: staff,
-                    date: date,
-                    start_time: hour,
-
-                    end_time: end_time,
-                    phone: phone,
-                    first_name: first_name,
-                    last_name: last_name,
-                    email: email,
+                    id_request: id_request,
                     code: code,
+                    phone: phone,
+                    email: email,
                 }),
             });
 
