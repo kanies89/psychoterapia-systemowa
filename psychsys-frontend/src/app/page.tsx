@@ -177,6 +177,7 @@ const Page: React.FC = () => {
                 </div>
             </div>
 
+
             <SectionDivider id="Lokalizacja gabinetu"/>
 
             <div className="card bg-gray-50 w-full shadow-xl">
