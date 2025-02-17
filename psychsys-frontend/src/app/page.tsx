@@ -2,7 +2,6 @@
 import React, {useRef} from 'react';
 
 import Logo from "../../public/svg/logo.svg";
-import UniHat from  "../../public/svg/uni_hat.svg";
 import Box1 from "../../public/svg/box1.svg";
 import Box2 from "../../public/svg/box2.svg";
 import Box3 from "../../public/svg/box3.svg";
@@ -18,7 +17,7 @@ import {AppointmentProvider} from "@/app/components/appointment_context";
 import AnimateOnScroll from "@/app/components/motion_h&b";
 import Trapezoids from "@/app/components/motion_background";
 import MotionHamMenu from "@/app/components/motion_hammenu";
-
+import SvgFigure from "@/app/components/unihat";
 
 const Page: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement>(null); // Create ref
@@ -73,33 +72,7 @@ const Page: React.FC = () => {
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
-                <figure className="pt-[5vh]">
-                    <section className="relative w-[70vh] flex justify-center items-center">
-                        <svg className="h-full" viewBox="-20 0 400 200" preserveAspectRatio="xMidYMid meet">
-                            <defs>
-                                {/* Define a circular clipping path with percentage-based coordinates */}
-                                <clipPath id="circleClip">
-                                    <circle cx="25.76%" cy="48.27%" r="18.5%"/>
-                                    {/* Relative to SVG's size */}
-                                </clipPath>
-                            </defs>
-
-                            {/* UniHat SVG, now respecting the simulated padding */}
-                            <g> {/* Translate UniHat to start after the "padding" */}
-                                <UniHat/>
-                            </g>
-
-                            {/* Apply the clipping path to the image */}
-                            <g clipPath="url(#circleClip)">
-                                <image
-                                    href="/path/to/image.jpg" // Replace with the actual image path
-                                    x="0" y="0" width="100%" height="100%"
-                                    preserveAspectRatio="xMidYMid slice"
-                                />
-                            </g>
-                        </svg>
-                    </section>
-                </figure>
+                <SvgFigure scale={1.5}/>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title font-kodchasan font-bold">Kwalifikacje</h2>
                     <p className="font-kodchasan font-normal text-justify">
@@ -152,7 +125,7 @@ const Page: React.FC = () => {
                         Interdum et malesuada fames ac ante ipsum primis in faucibus.
                     </p>
                 </div>
-                <Box1 className="size-[70%] mx-auto relative"/>
+                <Box1 className="size-[90%] mx-auto relative"/>
                 <InstagramCarousel/>
 
             </div>
@@ -185,7 +158,7 @@ const Page: React.FC = () => {
                     </p>
                 </div>
 
-                <Box2 className="size-[70%] mx-auto relative"/>
+                <Box2 className="size-[90%] mx-auto relative"/>
 
                 <div className="card-body items-center text-center">
                     <p className="font-kodchasan font-normal text-justify">
@@ -224,7 +197,7 @@ const Page: React.FC = () => {
                     </p>
                 </div>
                 <a href="https://www.google.pl/maps/dir/Natolin,+Belgradzka,+02-793+Warszawa/Na+Uboczu+26,+02-791+Warszawa/@52.1401111,21.0501311,17.17z/data=!4m19!4m18!1m10!1m1!1s0x47192d82abded8f9:0xbd25f25d5bb49ffd!2m2!1d21.0575824!2d52.1403392!3m4!1m2!1d21.0485162!2d52.1407609!3s0x47192d81ec1ce537:0xf0dd640d76b13c46!1m5!1m1!1s0x47192d81ce50d9e1:0xf1f58f0a051d2e85!2m2!1d21.0470319!2d52.1412447!3e2?entry=ttu&g_ep=EgoyMDI1MDIwOS4wIKXMDSoASAFQAw%3D%3D">
-                    <Box3 className="size-[70%] mx-auto relative mb-[5vh]"/>
+                    <Box3 className="size-[90%] mx-auto relative mb-[5vh]"/>
                 </a>
             </div>
 

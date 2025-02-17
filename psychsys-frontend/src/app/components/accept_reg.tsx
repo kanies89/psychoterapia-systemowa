@@ -206,7 +206,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
 
             <div className="flex jus mx-10 mb-10">
 
-                <CheckboxDisabled size={80} className="flex-none my-5"/>
+                <CheckboxDisabled size={80} className="flex-none"/>
 
                 <button
                     onClick={handleButtonClick}

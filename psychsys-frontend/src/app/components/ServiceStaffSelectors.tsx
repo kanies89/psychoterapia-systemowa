@@ -40,13 +40,15 @@ const ServiceStaffSelector: React.FC<Props> = ({
             animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
         >
-            <motion.label className="my-5 mx-10" variants={fadeInUp}>
+            <motion.label className="my-5" variants={fadeInUp}>
                 <div className="mb-2 text-lg font-semibold">Usługa:</div>
                 <motion.select
                     value={selectedService}
                     onChange={onServiceChange}
                     required
-                    className="select text-white select-success text-xl w-full bg-bg_2 p-2 rounded-lg shadow-lg focus:ring focus:ring-[#58315A] focus:border-bg_2 transition-all"
+                    className="select text-white select-success text-xl w-full
+                    bg-bg_2 p-2 rounded-lg shadow-lg focus:ring focus:ring-[#58315A]
+                    focus:border-bg_2 transition-all"
                     whileFocus={{ scale: 1.05 }}
                 >
                     {services.map(service => (
@@ -57,13 +59,15 @@ const ServiceStaffSelector: React.FC<Props> = ({
                 </motion.select>
             </motion.label>
 
-            <motion.label className="my-5 mx-10" variants={fadeInUp}>
+            <motion.label className="my-5" variants={fadeInUp}>
                 <div className="mb-2 text-lg font-semibold">Psychoterapeutka/a:</div>
                 <motion.select
                     value={selectedStaff}
                     onChange={onStaffChange}
                     required
-                    className="select text-white select-success text-xl w-full bg-bg_2 p-2 rounded-lg shadow-lg focus:ring focus:ring-[#58315A] focus:border-bg_2 transition-all"
+                    className="select text-white select-success text-xl w-full
+                    bg-bg_2 p-2 rounded-lg shadow-lg focus:ring focus:ring-[#58315A]
+                    focus:border-bg_2 transition-all"
                     whileFocus={{ scale: 1.05 }}
                 >
                     {staffMembers.map(staff => (

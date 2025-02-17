@@ -12,10 +12,10 @@ type InputProps = {
 const Input: React.FC<InputProps> = ({ type, name, text, value, placeholder, onChange }) => {
     return (
 
-            <div className="flex bg-[#58315a] mb-5 mx-10 p-1 shadow rounded-lg">
+            <div className="flex bg-[#58315a] mb-5 mx-2 p-1 shadow rounded-lg">
                     <label
                         htmlFor={type}
-                        className="flex-none mx-5 text-m w-10 font-kodchasan text-[#96d1ba] text-3xl"
+                        className="flex-none py-4 mx-5 text-m w-10 font-kodchasan text-[#96d1ba] text-4xl"
                     >
                         {text}
                     </label>
@@ -29,6 +29,8 @@ const Input: React.FC<InputProps> = ({ type, name, text, value, placeholder, onC
                         className="
                         input input-bordered
                         placeholder-gray-200
+                        px-4
+                        h-20
                         flex-1
                         min-w-5
                         text-xl text-[#FFFFFF] font-kodchasan
