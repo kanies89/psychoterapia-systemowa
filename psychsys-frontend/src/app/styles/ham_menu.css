@@ -1,7 +1,8 @@
 .hamburger-container {
-    margin: 5px;
-    width: 40px;
-    height: 25px;
+    margin: 15px;
+    width: 8vw;
+    max-width: 70px;
+    height: 5vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -13,8 +14,9 @@
 }
 
 .hamburger-bar {
-    width: 40px;
-    height: 5px;
+    width: 10vw;
+    max-width: 70px;
+    height: 1vh;
     background-color: #58315A;
     border-radius: 5px;
 }
@@ -27,7 +29,7 @@
     background-color: #95d0b9ff;
     border-radius: 6px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+    margin-top: 12vh;
     margin-right: 10px;
     position: relative;
     z-index: 49; /* Keep the menu behind the hamburger */

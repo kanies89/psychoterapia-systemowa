@@ -4,6 +4,9 @@ import Input from "@/app/components/normal_input";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {useAppointment} from "@/app/components/appointment_context";
 import moment from "moment";
+import Checkbox from "@/app/components/motion_checkbox";
+import CheckboxDisabled from "@/app/components/motion_checkbox_disabled";
+import {toggleCheckbox} from "@/app/components/motion_checkbox_disabled";
 
 type InputProps = {
     value: string;
@@ -11,8 +14,6 @@ type InputProps = {
 
 const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     const modalRef = useRef<HTMLDialogElement | null>(null);
-
-    const [isChecked, setIsChecked] = useState(false);
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isSMSCODEVisible, setIsSMSCODEVisible] = useState(false);
     const [submit, setSubmit] = useState<string | undefined>("");
@@ -139,9 +140,10 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
 
             if (data.success) {
                 console.log(`Success with message: ${data.message}`);
-                setIsChecked(true);
                 setIsSMSCODEVisible(true);
                 setSubmit("Recaptcha Verified and Form Submitted");
+                // Toggle the checkbox
+                toggleCheckbox()
                 handleConfirmAppointment()
                     .then(() => {
                         console.log("Confirmation data sent.");
@@ -160,10 +162,8 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
     };
 
     return (
-        <div className="grid grid-rows-1">
-            {/* Inputs rendered outside the form */}
-            <div className="mb-4">
-                <label>
+        <div className="grid grid-cols-1 mb-10">
+                <label className="w-full">
                     <Input
                         type="text"
                         text="1"
@@ -173,7 +173,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                         placeholder="Podaj swoje imię"
                     />
                 </label>
-                <label>
+                <label className="w-full">
                     <Input
                         type="text"
                         text="2"
@@ -183,7 +183,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                         placeholder="Nazwisko"
                     />
                 </label>
-                <label>
+                <label className="w-full">
                     <Input
                         type="email"
                         text="3"
@@ -193,7 +193,7 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                         placeholder="adres email"
                     />
                 </label>
-                <label>
+                <label className="w-full">
                     <Input
                         type="tel"
                         text="4"
@@ -203,70 +203,60 @@ const REGCheckbox: React.FC<InputProps> = ({ value }) => {
                         placeholder="Telefon w celu potwierdzenia wizyty"
                     />
                 </label>
-            </div>
 
-            <div className="flex items-center justify-center w-full mb-5">
+            <div className="flex jus mx-10 mb-10">
+
+                <CheckboxDisabled size={80} className="flex-none my-5"/>
+
                 <button
                     onClick={handleButtonClick}
-                    className="text-m font-kodchasan text-[#96d1ba] ring-[#58315a] ring-2 hover:ring-bg_1 rounded-lg text-2xl mt-2 mb-0 ml-2 mx-5 p-5 w-[30vh]"
+                    className="flex-1 button font-kodchasan text-[#96d1ba]
+                    bg-[#58315a] hover:bg-bg_1 hover:text-black rounded-lg p-5 text-2xl z-50"
                 >
                     Akceptuję warunki regulaminu i RODO
                 </button>
-
-                <div className="indicator flex items-center p-4 bg-[#58315a] shadow rounded-lg relative h-[5.5vh] w-[5.5vh]">
-                    <div className="indicator-item flex indicator-top mr-[3.25vh] mt-4">
-                        <input
-                            type="checkbox"
-                            checked={isChecked}
-                            className="checkbox pointer-events-none checked:bg-bg_1 focus:bg-bg_1 focus:ring-[#58315a] focus:ring-2 focus:border-0 bg-bg_2 ring-2 ring-[#58315a] h-[5.5vh] w-[5.5vh]"
-                            id="AT&C"
-                            aria-label="Accept Terms and Conditions"
-                        />
-                    </div>
-                </div>
-
-                <dialog ref={modalRef} id={value} className="modal">
-                    <div className="modal-box">
-                        <form method="dialog">
-                            <button
-                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                                onClick={handleModalClose}
-                            >
-                                ✕
-                            </button>
-                        </form>
-
-                        <h3 className="font-bold text-lg">Regulamin i RODO</h3>
-                        <p className="py-4">Zaakceptuj regulamin</p>
-
-                        <div className="form-control">
-                            <label className="cursor-pointer label">
-                                <span className="label-text">
-                                    Akceptuję regulamin i warunki RODO
-                                </span>
-                                <input
-                                    type="checkbox"
-                                    onChange={handleCheckboxChange}
-                                    className="checkbox checkbox-success"
-                                />
-                            </label>
-                        </div>
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="submit"
-                                value="Wyślij kod SMS"
-                                className="btn font-kodchasan w-full hover:bg-bg_1 hover:text-black bg-bg_2 text-xs text-white"
-                                disabled={!isCheckboxChecked}
-                            />
-                        </form>
-                        {submit && <p className="text-lg text-center">{submit}</p>}
-                    </div>
-                </dialog>
             </div>
+
+            <dialog ref={modalRef} id={value} className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        <button
+                            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                            onClick={handleModalClose}
+                        >
+                            ✕
+                        </button>
+                    </form>
+
+                    <h3 className="font-bold text-lg">Regulamin i RODO</h3>
+                    <p className="py-4">Zaakceptuj regulamin</p>
+
+                    <div className="form-control">
+                        <label className="cursor-pointer label">
+                            <span className="label-text text-2xl">
+                                Akceptuję regulamin i warunki RODO
+                            </span>
+                            <div className="m-10">
+                                <Checkbox onChange={handleCheckboxChange} size={50}/>
+                            </div>
+                        </label>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="submit"
+                            value="Wyślij kod SMS"
+                            className="btn font-kodchasan w-full hover:bg-bg_1 hover:text-black bg-bg_2 text-xs text-white"
+                            disabled={!isCheckboxChecked}
+                        />
+                    </form>
+                    {submit && <p className="text-lg text-center">{submit}</p>}
+                </div>
+            </dialog>
+
 
             {isSMSCODEVisible && (
                 <div className="flex flex-col items-center justify-center w-full mb-5 space-y-4 mt-5">
-                    <SMSCODE />
+                    <SMSCODE/>
                 </div>
             )}
         </div>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const RootLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <html lang={process.env.REACT_APP_LANGUAGE || 'en'}>
-        <body className="bg-white flex flex-col justify-center items-center min-h-screen px-4 sm:px-6 md:px-0 lg:px-10">
+        <body className="bg-white flex flex-col justify-center items-center">
         <main className="w-full max-w-screen-lg">
             <GoogleRecaptchaWrapper>
                 {children}
