@@ -6,10 +6,11 @@ const AuthContext = createContext({ isLoggedIn: false, setIsLoggedIn: (value: bo
 // Create a provider component to wrap your app and provide `isLoggedIn` state
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const url_backend = process.env.NEXT_PUBLIC_API_URL;
 
     useEffect(() => {
         // Fetch login status from backend
-        fetch("http://localhost:8000/api/check-login-status/") // Django backend URL
+        fetch(`${url_backend}/check-login-status/`) // Django backend URL
             .then((response) => response.json())
             .then((data) => setIsLoggedIn(data.is_logged_in))
             .catch((error) => console.error("Error fetching login status:", error));
