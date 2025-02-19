@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import UniHat from "../../../public/svg/uni_hat.svg";
 import MotionHamMenu from "@/app/components/motion_hammenu";
-import {useAuth} from "@/app/components/logged_in";
+import { useAuth } from "@/app/components/logged_in";
 
 interface SectionDividerProps {
     scale?: number;
@@ -22,9 +22,7 @@ const SvgFigure: React.FC<SectionDividerProps> = ({ scale = 1, image }) => {
 
     // Toggle dropdown menu visibility
     const toggleMenu = (e: React.MouseEvent) => {
-        if (isLoggedIn) {
-            setIsMenuVisible(true);
-        }
+        setIsMenuVisible(true);
         e.stopPropagation(); // Prevent event from bubbling to parent
     };
 
@@ -106,108 +104,111 @@ const SvgFigure: React.FC<SectionDividerProps> = ({ scale = 1, image }) => {
     }, [isDraggingImage]);
 
     return (
-        <div>
-        <MotionHamMenu variantMini={true}>
-                <div
-                    className="bg-white border-4 border-c1 shadow-lg text-xs rounded-md z-50">
-                    <div className="p-1">
-                        <label className="text-[#EB7443] text-xl m-3 font-bold">
-                            Edit Profile Picture
-                        </label>
-                    </div>
+            <div>
+                { isLoggedIn && (
+                <MotionHamMenu variantMini={true}>
+                    <div
+                        className="bg-white border-4 border-c1 shadow-lg text-xs rounded-md z-50">
+                        <div className="p-1">
+                            <label className="text-[#EB7443] text-xl m-3 font-bold">
+                                Edit Profile Picture
+                            </label>
+                        </div>
 
-                    <div>
-                        <div className="bg-c1 p-2 mx-4 w-full text-white rounded-lg">
-                            <label>Upload</label>
-                        </div>
-                        {/* You can pass the div with your menu as children here */}
-                        <div className="px-10 py-5">
-                            <input type="file" onChange={handleImageUpload}/>
-                        </div>
-                        <div className="bg-c1 p-2 mx-4 w-full text-white rounded-lg">
-                            <label>Edit</label>
-                        </div>
-                        <div className="px-5 py-5">
-                            <h3>Select an Image</h3>
-                            <ul>
-                                {uploadedImages.map((img) => (
-                                    <li key={img.id}>
-                                        <button onClick={() => selectImageFromUploaded(img.src)}>
-                                            <img src={img.src} alt="uploaded" width="50"/>
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <div className="p-2 flex">
-                                <label className="mx-5">Resize Image:</label>
-                                <input type="range" min="0.5" max="2" step="0.1" onChange={handleResize}
-                                       className="accent-bg_2"/>
+                        <div>
+                            <div className="bg-c1 p-2 mx-4 w-full text-white rounded-lg">
+                                <label>Upload</label>
                             </div>
+                            {/* You can pass the div with your menu as children here */}
+                            <div className="px-10 py-5">
+                                <input type="file" onChange={handleImageUpload}/>
+                            </div>
+                            <div className="bg-c1 p-2 mx-4 w-full text-white rounded-lg">
+                                <label>Edit</label>
+                            </div>
+                            <div className="px-5 py-5">
+                                <h3>Select an Image</h3>
+                                <ul>
+                                    {uploadedImages.map((img) => (
+                                        <li key={img.id}>
+                                            <button onClick={() => selectImageFromUploaded(img.src)}>
+                                                <img src={img.src} alt="uploaded" width="50"/>
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
 
-                            <div className="grid grid-cols-1 p-2">
-                                <div className="my-2">
-                                    <label className="mx-5">Move X:</label>
-                                    <input
-                                        type="number"
-                                        value={imageTransform.translateX}
-                                        className="w-10 mx-5 p-1 bg-[#3B3B3B] rounded-md"
-                                        onChange={(e) => handleMove("X", parseInt(e.target.value))}
-                                    />
+                                <div className="p-2 flex">
+                                    <label className="mx-5">Resize Image:</label>
+                                    <input type="range" min="0.5" max="2" step="0.1" onChange={handleResize}
+                                           className="accent-bg_2"/>
                                 </div>
-                                <div className="my-2">
-                                    <label className="mx-5 my-2">Move Y:</label>
-                                    <input
-                                        type="number"
-                                        value={imageTransform.translateY}
-                                        className="w-10 mx-5 p-1 bg-[#3B3B3B] rounded-md"
-                                        onChange={(e) => handleMove("Y", parseInt(e.target.value))}
-                                    />
+
+                                <div className="grid grid-cols-1 p-2">
+                                    <div className="my-2">
+                                        <label className="mx-5">Move X:</label>
+                                        <input
+                                            type="number"
+                                            value={imageTransform.translateX}
+                                            className="w-10 mx-5 p-1 bg-[#3B3B3B] rounded-md"
+                                            onChange={(e) => handleMove("X", parseInt(e.target.value))}
+                                        />
+                                    </div>
+                                    <div className="my-2">
+                                        <label className="mx-5 my-2">Move Y:</label>
+                                        <input
+                                            type="number"
+                                            value={imageTransform.translateY}
+                                            className="w-10 mx-5 p-1 bg-[#3B3B3B] rounded-md"
+                                            onChange={(e) => handleMove("Y", parseInt(e.target.value))}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-        </MotionHamMenu>
+                </MotionHamMenu>
+                )
+                }
 
-            <figure
-                className="pt-[3vh] pl-[7vw] z-40"
-                style={{
-                    transform: `scale(${scale})`,
-                transformOrigin: "center",
-            }}
-        >
-            <section className="relative w-[70vh] flex justify-center items-center" onClick={toggleMenu}>
-                <svg className="h-full" viewBox="-20 0 400 200" preserveAspectRatio="xMidYMid meet">
-                    <defs>
-                        <clipPath id="circleClip">
-                            <circle cx="25.76%" cy="48.27%" r="18.5%" />
-                        </clipPath>
-                    </defs>
+                <figure
+                    className="pt-[3vh] pl-[7vw] z-40"
+                    style={{
+                        transform: `scale(${scale})`,
+                        transformOrigin: "center",
+                    }}
+                >
+                    <section className="relative w-[70vh] flex justify-center items-center" onClick={toggleMenu}>
+                        <svg className="h-full" viewBox="-20 0 400 200" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <clipPath id="circleClip">
+                                    <circle cx="25.76%" cy="48.27%" r="18.5%"/>
+                                </clipPath>
+                            </defs>
 
-                    <g>
-                        <UniHat />
-                    </g>
+                            <g>
+                                <UniHat/>
+                            </g>
 
-                    <g clipPath="url(#circleClip)">
-                        <image
-                            href={selectedImage}
-                            x="0"
-                            y="0"
-                            width="100%"
-                            height="100%"
-                            preserveAspectRatio="xMidYMid slice"
-                            style={{
-                                transform: `translate(${imageTransform.translateX}px, ${imageTransform.translateY}px) scale(${imageTransform.scale})`,
-                                cursor: "grab",
-                            }}
-                            onMouseDown={handleImageMouseDown}
-                        />
-                    </g>
-                </svg>
-            </section>
-        </figure>
-        </div>
+                            <g clipPath="url(#circleClip)">
+                                <image
+                                    href={selectedImage}
+                                    x="0"
+                                    y="0"
+                                    width="100%"
+                                    height="100%"
+                                    preserveAspectRatio="xMidYMid slice"
+                                    style={{
+                                        transform: `translate(${imageTransform.translateX}px, ${imageTransform.translateY}px) scale(${imageTransform.scale})`,
+                                        cursor: "grab",
+                                    }}
+                                    onMouseDown={handleImageMouseDown}
+                                />
+                            </g>
+                        </svg>
+                    </section>
+                </figure>
+            </div>
     );
 };
 
