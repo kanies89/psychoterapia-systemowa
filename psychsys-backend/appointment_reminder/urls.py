@@ -1,11 +1,8 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from .views import (instagram_embed_api, get_available_services, get_available_slots, get_staff_members,
                     server_time, get_service_duration, upload_image, list_images, faq_list, add_faq, check_login_status)
 
 urlpatterns = [
-
     path('api/instagram_api/instagram-embed/', instagram_embed_api, name='instagram_embed_api'),
     # Include the URLs of the 'appointment' library
     path('api/appointment_api/get_available_services/', get_available_services, name='get_available_services'),
@@ -20,4 +17,4 @@ urlpatterns = [
     path("api/faqs/", faq_list, name="faq_list"),
     path("api/faqs/add/", add_faq, name="add_faq"),
     path("api/check-login-status/", check_login_status, name="check_login_status"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
