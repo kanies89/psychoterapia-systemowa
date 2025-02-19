@@ -12,12 +12,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Fetch login status from backend
         fetch(`${url_backend}/check-login-status/`) // Django backend URL
             .then((response) => response.json())
-            .then((data) => setIsLoggedIn(data.is_logged_in))
-            .then((response) => console.log(response))
+            .then((data) => {
+                setIsLoggedIn(data.is_logged_in);
+                console.log(data); // Log the data object here
+            })
             .catch((error) => console.error("Error fetching login status:", error));
-
     }, []);
-
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
