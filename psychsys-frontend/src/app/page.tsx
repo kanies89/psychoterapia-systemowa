@@ -18,6 +18,9 @@ import AnimateOnScroll from "@/app/components/motion_h&b";
 import Trapezoids from "@/app/components/motion_background";
 import MotionHamMenu from "@/app/components/motion_hammenu";
 import SvgFigure from "@/app/components/unihat";
+import Accordion from "@/app/components/motion_accordion";
+import Faq from "@/app/components/faq";
+import {AuthProvider} from "@/app/components/logged_in";
 
 const Page: React.FC = () => {
     const sectionRef = useRef<HTMLDivElement>(null); // Create ref
@@ -27,6 +30,7 @@ const Page: React.FC = () => {
     const section3Ref = useRef<HTMLDivElement | null>(null);
     const section4Ref = useRef<HTMLDivElement | null>(null);
     const section5Ref = useRef<HTMLDivElement | null>(null);
+    const section6Ref = useRef<HTMLDivElement | null>(null);
     const sectionEnd = useRef<HTMLDivElement | null>(null);
 
     const handleScrollToSection = (section: string) => {
@@ -35,22 +39,54 @@ const Page: React.FC = () => {
         if (section === "section3") section3Ref.current?.scrollIntoView({ behavior: "smooth" });
         if (section === "section4") section4Ref.current?.scrollIntoView({ behavior: "smooth" });
         if (section === "section5") section5Ref.current?.scrollIntoView({ behavior: "smooth" });
+        if (section === "section6") section5Ref.current?.scrollIntoView({ behavior: "smooth" });
         if (section === "sectionEnd") sectionEnd.current?.scrollIntoView({ behavior: "smooth" });
     };
 
+    const DropdownMenu: React.FC<{ onNavigate?: (section: string) => void }> = ({ onNavigate }) => (
+        <ul className="dropdown-content">
+            <li onClick={() => onNavigate?.("section1")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Kwalifikacje
+            </li>
+            <li onClick={() => onNavigate?.("section2")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Jak dbać o siebie?
+            </li>
+            <li onClick={() => onNavigate?.("section3")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Jak wyglądają sesje terapii systemowej?
+            </li>
+            <li onClick={() => onNavigate?.("section4")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Lokalizacja gabinetu
+            </li>
+            <li onClick={() => onNavigate?.("section5")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Wolne terminy
+            </li>
+            <li onClick={() => onNavigate?.("sectionEnd")}
+                className="dropdown-item text-white text-2xl hover:text-gray-200">
+                Stopka
+            </li>
+        </ul>
+    );
+
 
     return (
-        <main className="bg-white max-w-screen-lg min-h-screen flex flex-col">
+        <main className="max-w-screen-lg min-h-screen flex flex-col">
             {/* Hamburger Menu Button */}
             <div className="fixed right-0 top-0 z-50">
-                <MotionHamMenu onNavigate={handleScrollToSection} />
+                <MotionHamMenu onNavigate={handleScrollToSection} variantMini={false}>
+                    <DropdownMenu/>
+                </MotionHamMenu>
             </div>
 
             {/* Logo Section */}
             <section
                 ref={sectionRef} // Attach ref to the section
                 className="h-screen flex justify-center items-center bg-bg_1 margin-top-0 pt-0 text-white relative rounded-bl-2xl rounded-br-2xl"
-                style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+                style={{position: "relative", height: "100vh", overflow: "hidden"}}>
 
                 <div className="justify-items-end w-full h-full">
                     <Trapezoids sectionRef={sectionRef}/>
@@ -231,6 +267,29 @@ const Page: React.FC = () => {
             </div>
 
             {/* SECTION DIVIDER */}
+            <div ref={section6Ref} id="section6">
+                <SectionDivider id="section6"/>
+            </div>
+
+            <div className="card bg-gray-50 w-full shadow-xl">
+                <div className="pt-[5vh] auto-flex content-center items-center">
+                    <Section_title
+                        svgPath="svg/section_title.svg"
+                        replaceTextIds={{
+                            tspan1: "FAQ",
+                        }}
+                        className="justify-center scale-125 flex"
+                    />
+                </div>
+                <div className="p-10">
+                    <AuthProvider>
+                        <Faq/>
+                    </AuthProvider>
+                </div>
+
+            </div>
+
+            {/* SECTION DIVIDER */}
             <div ref={sectionEnd} id="sectionEnd">
                 <SectionDivider id="sectionEnd"/>
             </div>
@@ -240,7 +299,7 @@ const Page: React.FC = () => {
                 <p>&copy; 2024 Psychologia-Systemowa. All Rights Reserved.</p>
             </div>
         </main>
-    );
+);
 };
 
 export default Page;

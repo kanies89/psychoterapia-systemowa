@@ -1,31 +1,38 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { useAnimate } from "framer-motion";
 
 interface SectionDividerProps {
     id: string;
 }
 
 const SectionDivider: React.FC<SectionDividerProps> = ({ id }) => {
-    const { ref, inView } = useInView({ triggerOnce: false, threshold: 0.2 });
+    const { ref, inView } = useInView({ triggerOnce: false, threshold: 1 });
+    const [scope, animate] = useAnimate();
+
+    useEffect(() => {
+        if (inView) {
+            animate(scope.current, { opacity: 1, x: 0 }, { duration: 2, ease: "easeOut" });
+            animate(".divider", { scaleX: 1.2, scaleY: 1.1, backgroundColor: ["#96d1ba", "#58315a"] }, { type: "spring", stiffness: 300, damping: 8 });
+
+        } else {
+            animate(scope.current, { opacity: 0, x: 0 });
+            animate(".divider", { scaleX: 0, backgroundColor: "#96d1ba" }, { type: "spring", stiffness: 300, damping: 8 });
+
+
+        }
+    }, [inView, animate, scope]);
 
     return (
-        <motion.div
-            id={id}
-            ref={ref}
-            className="w-full flex justify-center items-center mt-10 mb-10"
-            initial={{ opacity: 0, x: -50 }}
-            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-        >
-            <motion.div
-                initial={{ scaleX: 0 }}
-                animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-            >
-                <div className="badge badge-accent bg-c1 w-20 border-0 rounded-badge shadow-s1"></div>
-            </motion.div>
-        </motion.div>
+        <div id={id} ref={ref} className="w-full flex flex-col justify-center items-center mt-10 mb-10 relative">
+
+            <div ref={scope} className="opacity-0 -translate-x-12 flex items-center">
+
+                <div className="divider bg-c1 h-2 w-40 rounded-full mx-2 drop-shadow-md"></div>
+
+            </div>
+
+        </div>
     );
 };
 

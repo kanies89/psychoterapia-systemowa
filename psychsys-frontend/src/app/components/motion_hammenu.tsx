@@ -1,7 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ReactNode, cloneElement, ReactElement } from "react";
 import { motion } from "framer-motion";
+import * as React from "react";
 
-const MotionHamMenu = ({ onNavigate }: { onNavigate: (section: string) => void }) => {
+interface HamMenuProps {
+    children: ReactNode; // Injected content as children
+    onNavigate?: (section: string) => void; // Optional
+    variantMini?: boolean;
+}
+
+const MotionHamMenu: React.FC<HamMenuProps> = ({ children, onNavigate, variantMini=true }) => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
     const hamburgerRef = useRef<HTMLDivElement | null>(null);
@@ -38,20 +45,28 @@ const MotionHamMenu = ({ onNavigate }: { onNavigate: (section: string) => void }
         };
     }, []);
 
+    // Pass onNavigate only if it's provided
+    const childrenWithProps = React.Children.map(children, (child) =>
+        React.isValidElement(child) ? cloneElement(child as ReactElement, { onNavigate }) : child
+    );
+
+    const barType = (variantMini: boolean) => variantMini ? "hamburger-bar-mini" : "hamburger-bar";
+    const contType = (variantMini: boolean) => variantMini ? "hamburger-container-mini" :"hamburger-container";
+
     return (
-        <div>
-            <div onClick={toggleMenu} className="hamburger-container" ref={hamburgerRef}>
+        <div className="relative">
+            <div onClick={toggleMenu} className={contType(variantMini)} ref={hamburgerRef}>
                 <motion.div
-                    className="hamburger-bar"
+                    className={barType(variantMini)}
                     animate={{
                         rotate: isOpen ? 45 : 0,
                         translateY: isOpen ? height / 2 * 0.8 : 0,
                     }}
                     transition={{ duration: 0.3 }}
                 />
-                <motion.div className="hamburger-bar" animate={{ opacity: isOpen ? 0 : 1 }} transition={{ duration: 0.2 }} />
+                <motion.div className={barType(variantMini)} animate={{ opacity: isOpen ? 0 : 1 }} transition={{ duration: 0.2 }} />
                 <motion.div
-                    className="hamburger-bar"
+                    className={barType(variantMini)}
                     animate={{
                         rotate: isOpen ? -45 : 0,
                         translateY: isOpen ? -height / 2 * 0.8 : 0,
@@ -61,38 +76,13 @@ const MotionHamMenu = ({ onNavigate }: { onNavigate: (section: string) => void }
             </div>
 
             <motion.div
-                className="dropdown-menu"
+                className="dropdown-menu absolute right-0 shadow-lg z-50"
                 ref={menuRef}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
             >
-                <ul className="dropdown-content">
-                    <li onClick={() => onNavigate("section1")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Kwalifikacje
-                    </li>
-                    <li onClick={() => onNavigate("section2")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Jak dbać o siebie?
-                    </li>
-                    <li onClick={() => onNavigate("section3")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Jak wyglądają sesje terapii systemowej?
-                    </li>
-                    <li onClick={() => onNavigate("section4")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Lokalizacja gabinetu
-                    </li>
-                    <li onClick={() => onNavigate("section5")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Wolne terminy
-                    </li>
-                    <li onClick={() => onNavigate("sectionEnd")}
-                        className="dropdown-item text-white text-2xl hover:text-gray-200">
-                        Stopka
-                    </li>
-                </ul>
+                {childrenWithProps}
             </motion.div>
         </div>
     );

@@ -1,33 +1,23 @@
 
-import os
 import json
 import requests
 import logging
 from datetime import datetime, timedelta
 from collections import defaultdict
 
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from django.http import JsonResponse
-from django.conf import settings
-from django.utils.translation import gettext as _
-from django.urls import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
+from django.core.files.storage import FileSystemStorage
 
-from .utils import fetch_instagram_embed, sms_send
+from .utils import fetch_instagram_embed
+from .models import FAQ, UploadedImage
+
 from appointment.models import Service, StaffMember
-from appointment.forms import SlotForm
-from appointment.utils.db_helpers import check_day_off_for_staff, get_weekday_num_from_date, is_working_day
+from appointment.utils.db_helpers import check_day_off_for_staff, is_working_day
 from appointment.services import get_available_slots_for_staff
-from backend.settings import (
-    RECAPTCHA_CREDENTIALS, NEXT_RECAPTCHA_PUBLIC_KEY,
-    RECAPTCHA_SECRET_KEY, RECAPTCHA_VERIFY_URL,
-    RECAPTCHA_PROJECT, RECAPTCHA_CREDENTIALS, SMSSERVER_TOKEN
-    )
-
-from google.cloud import recaptchaenterprise_v1
-from google.auth.exceptions import DefaultCredentialsError
 
 
 logger = logging.getLogger(__name__)
@@ -238,19 +228,58 @@ def create_assessment(request):
         except json.JSONDecodeError:
             return JsonResponse({'success': False, 'message': 'Invalid JSON request'}, status=400)
 
+
+@csrf_exempt  # Use CSRF exemption for simplicity in this example (consider using proper CSRF handling in production)
+@login_required
+def upload_image(request):
+    if request.method == "POST" and request.FILES.get('image'):
+        image = request.FILES['image']
+        fs = FileSystemStorage()
+        filename = fs.save(image.name, image)
+        uploaded_image = UploadedImage.objects.create(image=filename)
+        return JsonResponse({'message': 'Image uploaded successfully', 'image_url': uploaded_image.image.url})
+
+    return JsonResponse({'message': 'No image provided or invalid request method'}, status=400)
+
+def faq_list(request):
+    faqs = FAQ.objects.all().order_by("-created_at")
+    data = [{"id": faq.id, "title": faq.title, "content": faq.content} for faq in faqs]
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt  # Disable CSRF for simplicity, only use in safe environments
+@login_required
+def add_faq(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        if title and content:
+            FAQ.objects.create(title=title, content=content)
+            return JsonResponse({"status": "success"})
+        return JsonResponse({"status": "error", "message": "Missing fields"})
+    return JsonResponse({"status": "invalid request"})
+
+def check_login_status(request):
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        return JsonResponse({"is_logged_in": True})
+    else:
+        return JsonResponse({"is_logged_in": False})
+
+def list_images(request):
+    images = UploadedImage.objects.all()
+    image_urls = [image.image.url for image in images]
+    return JsonResponse({'images': image_urls})
+
 def server_time(request):
     return JsonResponse({"server_time": now().strftime("%Y-%m-%d %H:%M:%S")})
 
 def get_service_duration(request):
     # Get the service_id from the request
     service_id = request.GET.get('service_id')
-
     if not service_id:
         return JsonResponse({'error': 'service_id parameter is required.'}, status=400)
-
     # Fetch the service from the database
     service = get_object_or_404(Service, id=service_id)
-
     # Return the duration as a JSON response
     return JsonResponse({'service_id': service.id, 'duration': str(service.duration)})
 

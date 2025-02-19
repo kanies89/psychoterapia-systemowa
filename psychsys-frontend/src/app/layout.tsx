@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 const RootLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <html lang={process.env.NEXT_PUBLIC_LANGUAGE || 'en'}>
-        <body className="bg-white flex flex-col justify-center items-center">
+        <body className="flex flex-col justify-center items-center bg-[#D2EDEB]">
         <main className="w-full max-w-screen-lg">
             <GoogleRecaptchaWrapper>
                 {children}

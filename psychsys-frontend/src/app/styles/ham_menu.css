@@ -13,12 +13,36 @@
     z-index: 50;
 }
 
+.hamburger-container-mini {
+    margin-right: 35px;
+    margin-top: 5px;
+    width: 5vw;
+    max-width: 35px;
+    height: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 45;
+}
+
 .hamburger-bar {
     width: 10vw;
     max-width: 70px;
     height: 1vh;
     background-color: #58315A;
     border-radius: 5px;
+}
+
+.hamburger-bar-mini {
+    width: 5vw;
+    max-width: 35px;
+    height: 0.5vh;
+    background-color: #58315A;
+    border-radius: 3px;
 }
 
 /* Dropdown Menu Styles */
