@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Accordion from "@/app/components/motion_accordion";
+import {useAuth} from "@/app/components/logged_in";
 
 interface FAQItem {
     id: number;
@@ -8,11 +9,9 @@ interface FAQItem {
     content: string;
 }
 
-interface FaqProps {
-    isLoggedIn?: boolean; // Optional prop to override context value
-}
 
-const Faq: React.FC<FaqProps> = ({ isLoggedIn }) => {
+const Faq: React.FC = () => {
+    const { isLoggedIn, setIsLoggedIn } = useAuth(); // Access the context values
     const [faqList, setFaqList] = useState<FAQItem[]>([]);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
