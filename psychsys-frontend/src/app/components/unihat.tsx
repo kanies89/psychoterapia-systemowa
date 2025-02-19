@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import UniHat from "../../../public/svg/uni_hat.svg";
 import MotionHamMenu from "@/app/components/motion_hammenu";
+import {useAuth} from "@/app/components/logged_in";
 
 interface SectionDividerProps {
     scale?: number;
     image?: string;
-    isLoggedIn?: boolean; // Track if user is logged in
 }
 
-const SvgFigure: React.FC<SectionDividerProps> = ({ scale = 1, image, isLoggedIn=true }) => {
+const SvgFigure: React.FC<SectionDividerProps> = ({ scale = 1, image }) => {
+    const { isLoggedIn, setIsLoggedIn } = useAuth(); // Access the context values
     const [isMenuVisible, setIsMenuVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState(image);
     const [uploadedImages, setUploadedImages] = useState<any[]>([]);

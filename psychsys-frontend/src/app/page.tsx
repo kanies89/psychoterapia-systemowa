@@ -108,7 +108,9 @@ const Page: React.FC = () => {
 
             {/* About Section */}
             <div className="card bg-gray-50 w-full shadow-xl">
-                <SvgFigure scale={1.5}/>
+                <AuthProvider>
+                    <SvgFigure scale={1.5}/>
+                </AuthProvider>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title font-kodchasan font-bold">Kwalifikacje</h2>
                     <p className="font-kodchasan font-normal text-justify">
