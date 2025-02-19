@@ -3,9 +3,9 @@ import UniHat from "../../../public/svg/uni_hat.svg";
 import MotionHamMenu from "@/app/components/motion_hammenu";
 
 interface SectionDividerProps {
-    scale: number;
-    image: string;
-    isLoggedIn: boolean; // Track if user is logged in
+    scale?: number;
+    image?: string;
+    isLoggedIn?: boolean; // Track if user is logged in
 }
 
 const SvgFigure: React.FC<SectionDividerProps> = ({ scale = 1, image, isLoggedIn=true }) => {
